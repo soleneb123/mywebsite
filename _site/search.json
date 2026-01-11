@@ -65,16 +65,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Home",
+    "title": "Welcome",
     "section": "",
-    "text": "I am a Bachelor’s student in Economics at the University of St. Gallen (HSG) with a strong interest in data science and machine learning. Through my studies and projects, I explore how data-driven methods can support better business and investment decisions.\nAlongside my economics degree, I am completing the Data Science Fundamentals (DSF) certificate, where I work with applied data analysis, machine learning models, and real-world datasets. I particularly enjoy turning data into clear insights through modeling, careful analysis, and visualization.\nThis website showcases selected academic and personal projects that reflect my learning journey at the intersection of economics, data, and decision-making.\n\n\n\nGeneva Public Transport Passenger Forecasting – Network-wide demand forecasting using machine learning\nStrava Map Project – Visualizing running patterns using GPS data and Strava API"
-  },
-  {
-    "objectID": "index.html#hi-im-solène",
-    "href": "index.html#hi-im-solène",
-    "title": "Home",
-    "section": "",
-    "text": "I am a Bachelor’s student in Economics at the University of St. Gallen (HSG) with a strong interest in data science and machine learning. Through my studies and projects, I explore how data-driven methods can support better business and investment decisions.\nAlongside my economics degree, I am completing the Data Science Fundamentals (DSF) certificate, where I work with applied data analysis, machine learning models, and real-world datasets. I particularly enjoy turning data into clear insights through modeling, careful analysis, and visualization.\nThis website showcases selected academic and personal projects that reflect my learning journey at the intersection of economics, data, and decision-making.\n\n\n\nGeneva Public Transport Passenger Forecasting – Network-wide demand forecasting using machine learning\nStrava Map Project – Visualizing running patterns using GPS data and Strava API"
+    "text": "As an Economics student at the University of St. Gallen (HSG), I am interested in how data can support smarter business decisions. I enjoy learning new data science tools and exploring their connections to business and entrepreneurship, and I am eager to continue learning in this direction through my studies, projects, and internships.\nThis website showcases selected academic and personal projects that reflect my learning journey.\n\nVisit my recent projects\n\nGeneva Public Transport Passenger Forecasting – Network-wide demand forecasting using machine learning\nStrava Map Project – Visualizing running patterns using GPS data and Strava API"
   },
   {
     "objectID": "DSF_quarto_publish.html",
