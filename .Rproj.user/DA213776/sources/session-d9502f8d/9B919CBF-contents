@@ -61,8 +61,7 @@ We experimented several preprocessing methods (applied to our numerical features
 -   Non-linear transformations (Yeo-Johnson, Quantile) generally worsened performance
 -   Random Forests is robust to feature scaling and does not require preprocessing
 
-
-```python
+``` python
 
 # Initial chronological train-test split (70-30%)
 split_idx = int(0.7 * len(df))
@@ -144,7 +143,7 @@ y_pred_train = y_pred_train* sigma + mu
 
 ## Visualizations
 
--   correlation matrix, and?
+-   Add correlation matrix !
 
 ## Feature Engineering
 
@@ -247,6 +246,8 @@ We first estimated a standard linear regression model using calendar, weather, a
 Incorporating lagged passenger counts substantially improves performance by allowing the model to exploit temporal dependencies, both very short term fluctuations and weekly patterns in passenger demand.
 
 ### Cross Validation
+
+-   Add explanations and code!
 
 ### Regularized Linear Models (Lasso, Ridge, Elastic Net)
 

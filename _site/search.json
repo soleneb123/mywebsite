@@ -1,0 +1,163 @@
+[
+  {
+    "objectID": "Strava_quarto_publish.html",
+    "href": "Strava_quarto_publish.html",
+    "title": "Mapping My Strava Runs in St. Gallen",
+    "section": "",
+    "text": "I enjoy running, I love learning new coding skills, and especially using them to better understand my direct surroundings and daily habits.\nThis project visualizes my running activities from 2025 in St. Gallen, using data from the Strava API, street data from OpenStreetMap, and spatial visualization tools in R.\nThe result is a stylized map showing where I actually run within the city.\n\n\nI start by loading the libraries needed for accessing Strava data, handling spatial data, and creating the final visualization.\n\n\nShow setup code\nlibrary(rStrava) # Strava API wrapper\nlibrary(sf)\nlibrary(googleway)\nlibrary(osmdata)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(purrr)\nlibrary(lubridate)\nlibrary(readr)\nlibrary(showtext)\nlibrary(ggtext)\nlibrary(here)\n\n# Add fonts\nfont_add_google(\"Fira Sans\", \"Fira Sans\")  \nfont_add_google(\"Bebas Neue\", \"Bebas Neue\")\nshowtext_auto()\n\n\n\n\n\nQuerying the Strava API repeatedly is slow and unnecessary.To avoid this, I cache my activities locally as a CSV file and only download them once after having authentificated with the strava API the first time. Only activities in 2025 with GPS polylines are kept.\n\n\nShow Code\ncache_dir &lt;- here(\"cache\")\ndir.create(cache_dir, showWarnings = FALSE, recursive = TRUE)\nactivities_file &lt;- here(cache_dir, \"activities_all.csv\")\n\nif (!file.exists(activities_file)) {\n  \n  stoken &lt;- httr::config(\n    token = strava_oauth(\n      Sys.getenv(\"STRAVA_APP_NAME\"),\n      Sys.getenv(\"STRAVA_CLIENT_ID\"),\n      Sys.getenv(\"STRAVA_CLIENT_SECRET\"),\n      app_scope = \"activity:read_all\"\n    )\n  )\n  \n  activities &lt;- get_activity_list(stoken) |&gt; \n    compile_activities(units = \"metric\") |&gt; \n    select(id, start_date, type, name, map.summary_polyline) |&gt; \n    filter(!is.na(map.summary_polyline), map.summary_polyline != \"\") |&gt; \n    mutate(year = year(start_date))\n  \n  write_csv(activities, activities_file)\n  \n} else {\n  activities &lt;- read_csv(activities_file)\n}\n\nactivities_2025 &lt;- activities |&gt; filter(year == 2025)\n\n\n\n\n\nStrava stores GPS tracks as encoded polylines. These are decoded and converted into sf LINESTRING geometries so they can be plotted on a map.\n\n\nShow Code\ndecode_to_lines &lt;- function(activities_df) {\n  lines_list &lt;- map(seq_len(nrow(activities_df)), function(i) {\n    if (is.na(activities_df$map.summary_polyline[i]) || \n        activities_df$map.summary_polyline[i] == \"\") return(NULL)\n    \n    coords &lt;- tryCatch(\n      googleway::decode_pl(activities_df$map.summary_polyline[i]),\n      error = function(e) NULL\n    )\n    if (is.null(coords) || nrow(coords) &lt; 2) return(NULL)\n    coords &lt;- filter(coords, !is.na(lat), !is.na(lon))\n    if (nrow(coords) &lt; 2) return(NULL)\n    line &lt;- st_linestring(as.matrix(coords[, c(\"lon\", \"lat\")]))\n    st_sf(\n      id = activities_df$id[i],\n      type = activities_df$type[i],\n      year = activities_df$year[i],\n      geometry = st_sfc(line, crs = 4326)\n    )\n  })\n  do.call(rbind, compact(lines_list))\n}\n\nactivity_lines &lt;- decode_to_lines(activities_2025)\n\n\n\n\n\nTo focus only on runs within St. Gallen, I filter activities using a city-level bounding box and keep only runs intersecting this area.\n\n\nShow Code\nstgallen_bbox &lt;- c(xmin = 7.9, xmax = 9.50, ymin = 47.36, ymax = 47.47)\narea_sf &lt;- st_as_sfc(st_bbox(stgallen_bbox, crs = 4326))\nstgallen_activities &lt;- activity_lines[st_intersects(activity_lines, area_sf, sparse = FALSE)[, 1], ]\n\nactivity_bounds &lt;- st_bbox(stgallen_activities)\nstgallen_bbox &lt;- activity_bounds[c(\"xmin\",\"xmax\",\"ymin\",\"ymax\")]\n\n\n\n\n\nI retrieve street data from OpenStreetMap for the same area. These data are also cached locally to avoid repeated server requests (which can be very, very slow).\n\n\nShow Code\nroads_file &lt;- here(cache_dir, \"roads_stgallen.gpkg\")\n\nif (!file.exists(roads_file)) {\n  roads &lt;- opq(bbox = stgallen_bbox, timeout = 90) |&gt;\n    add_osm_feature(\n      key = \"highway\",\n      value = c(\"primary\", \"secondary\", \"tertiary\", \"residential\")\n    ) |&gt;\n    osmdata_sf()\n  \n  st_write(roads$osm_lines, roads_file, quiet = TRUE)\n  roads_data &lt;- roads$osm_lines\n} else {\n  roads_data &lt;- st_read(roads_file, quiet = TRUE)\n}\n\n\n\n\n\nFinally, I combine the street network and running tracks into a single map using ggplot2.\n\n\nShow Code Map Creation\npalette &lt;- list(\n  background = \"#095229\",\n  roads = \"#FF69B4\",\n  activities = \"#FFF8DC\"\n)\n\nactivity_map &lt;- ggplot() +\n  # Roads\n  geom_sf(data = roads_data, color = palette$roads, linewidth = 0.3, alpha = 0.9) +\n  # Activities\n  geom_sf(\n    data = stgallen_activities,\n    color = palette$activities,\n    linewidth = 0.7, alpha = 0.8\n  ) +\n  # Viewport\n  coord_sf(\n    xlim = c(stgallen_bbox[\"xmin\"], stgallen_bbox[\"xmax\"]),\n    ylim = c(stgallen_bbox[\"ymin\"], stgallen_bbox[\"ymax\"]),\n    expand = TRUE, datum = NA\n  ) +\n  # Labels\n  labs(\n    title = \"&lt;span style='font-size:36pt;'&gt;My Runs in St. Gallen&lt;/span&gt;\",\n    caption = \"Data: Strava • Map: OpenStreetMap • Author: Solène Berney\",\n    subtitle = paste0(\n      \"&lt;span style='font-size:18pt;'&gt;\",\n      \"2025&lt;/span&gt;\"\n    ),\n  ) +\n  # Theme\n  theme_void() +\n  theme(\n    plot.background = element_rect(fill = palette$background, color = NA),\n    plot.margin = margin(30, 30, 30, 30),\n    plot.title = element_markdown(family = \"Bebas Neue\", hjust = 0.5, color = \"#FFF8DC\", margin = margin(b = 10)),\n    plot.subtitle = element_markdown(family = \"Fira Sans\", hjust = 0.5, color = \"#FFF8DF\", margin = margin(b = 15)),\n    plot.caption = element_text(family = \"Fira Sans\", size = 8, color = \"#FFF8DC\", hjust = 0.95)\n  )\n\n\n\n\n\n\n\n\nMy Strava 2025 St Gallen Activity Map\n\n\n\n\nThis project was inspired by a Strava mapping example shared by Prof. Dr. Aurélien Sallin, which I adapted and extended for my own data."
+  },
+  {
+    "objectID": "Strava_quarto_publish.html#step-1-setup",
+    "href": "Strava_quarto_publish.html#step-1-setup",
+    "title": "Mapping My Strava Runs in St. Gallen",
+    "section": "",
+    "text": "I start by loading the libraries needed for accessing Strava data, handling spatial data, and creating the final visualization.\n\n\nShow setup code\nlibrary(rStrava) # Strava API wrapper\nlibrary(sf)\nlibrary(googleway)\nlibrary(osmdata)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(purrr)\nlibrary(lubridate)\nlibrary(readr)\nlibrary(showtext)\nlibrary(ggtext)\nlibrary(here)\n\n# Add fonts\nfont_add_google(\"Fira Sans\", \"Fira Sans\")  \nfont_add_google(\"Bebas Neue\", \"Bebas Neue\")\nshowtext_auto()"
+  },
+  {
+    "objectID": "Strava_quarto_publish.html#step-2-download-and-cache-strava-activities-with-rstrava-api-wrapper",
+    "href": "Strava_quarto_publish.html#step-2-download-and-cache-strava-activities-with-rstrava-api-wrapper",
+    "title": "Mapping My Strava Runs in St. Gallen",
+    "section": "",
+    "text": "Querying the Strava API repeatedly is slow and unnecessary.To avoid this, I cache my activities locally as a CSV file and only download them once after having authentificated with the strava API the first time. Only activities in 2025 with GPS polylines are kept.\n\n\nShow Code\ncache_dir &lt;- here(\"cache\")\ndir.create(cache_dir, showWarnings = FALSE, recursive = TRUE)\nactivities_file &lt;- here(cache_dir, \"activities_all.csv\")\n\nif (!file.exists(activities_file)) {\n  \n  stoken &lt;- httr::config(\n    token = strava_oauth(\n      Sys.getenv(\"STRAVA_APP_NAME\"),\n      Sys.getenv(\"STRAVA_CLIENT_ID\"),\n      Sys.getenv(\"STRAVA_CLIENT_SECRET\"),\n      app_scope = \"activity:read_all\"\n    )\n  )\n  \n  activities &lt;- get_activity_list(stoken) |&gt; \n    compile_activities(units = \"metric\") |&gt; \n    select(id, start_date, type, name, map.summary_polyline) |&gt; \n    filter(!is.na(map.summary_polyline), map.summary_polyline != \"\") |&gt; \n    mutate(year = year(start_date))\n  \n  write_csv(activities, activities_file)\n  \n} else {\n  activities &lt;- read_csv(activities_file)\n}\n\nactivities_2025 &lt;- activities |&gt; filter(year == 2025)"
+  },
+  {
+    "objectID": "Strava_quarto_publish.html#step-3-decode-gps-polylines-into-spatial-lines",
+    "href": "Strava_quarto_publish.html#step-3-decode-gps-polylines-into-spatial-lines",
+    "title": "Mapping My Strava Runs in St. Gallen",
+    "section": "",
+    "text": "Strava stores GPS tracks as encoded polylines. These are decoded and converted into sf LINESTRING geometries so they can be plotted on a map.\n\n\nShow Code\ndecode_to_lines &lt;- function(activities_df) {\n  lines_list &lt;- map(seq_len(nrow(activities_df)), function(i) {\n    if (is.na(activities_df$map.summary_polyline[i]) || \n        activities_df$map.summary_polyline[i] == \"\") return(NULL)\n    \n    coords &lt;- tryCatch(\n      googleway::decode_pl(activities_df$map.summary_polyline[i]),\n      error = function(e) NULL\n    )\n    if (is.null(coords) || nrow(coords) &lt; 2) return(NULL)\n    coords &lt;- filter(coords, !is.na(lat), !is.na(lon))\n    if (nrow(coords) &lt; 2) return(NULL)\n    line &lt;- st_linestring(as.matrix(coords[, c(\"lon\", \"lat\")]))\n    st_sf(\n      id = activities_df$id[i],\n      type = activities_df$type[i],\n      year = activities_df$year[i],\n      geometry = st_sfc(line, crs = 4326)\n    )\n  })\n  do.call(rbind, compact(lines_list))\n}\n\nactivity_lines &lt;- decode_to_lines(activities_2025)"
+  },
+  {
+    "objectID": "Strava_quarto_publish.html#step-4-filter-activities-to-st.-gallen-city",
+    "href": "Strava_quarto_publish.html#step-4-filter-activities-to-st.-gallen-city",
+    "title": "Mapping My Strava Runs in St. Gallen",
+    "section": "",
+    "text": "To focus only on runs within St. Gallen, I filter activities using a city-level bounding box and keep only runs intersecting this area.\n\n\nShow Code\nstgallen_bbox &lt;- c(xmin = 7.9, xmax = 9.50, ymin = 47.36, ymax = 47.47)\narea_sf &lt;- st_as_sfc(st_bbox(stgallen_bbox, crs = 4326))\nstgallen_activities &lt;- activity_lines[st_intersects(activity_lines, area_sf, sparse = FALSE)[, 1], ]\n\nactivity_bounds &lt;- st_bbox(stgallen_activities)\nstgallen_bbox &lt;- activity_bounds[c(\"xmin\",\"xmax\",\"ymin\",\"ymax\")]"
+  },
+  {
+    "objectID": "Strava_quarto_publish.html#step-5-get-openstreetmap-roads",
+    "href": "Strava_quarto_publish.html#step-5-get-openstreetmap-roads",
+    "title": "Mapping My Strava Runs in St. Gallen",
+    "section": "",
+    "text": "I retrieve street data from OpenStreetMap for the same area. These data are also cached locally to avoid repeated server requests (which can be very, very slow).\n\n\nShow Code\nroads_file &lt;- here(cache_dir, \"roads_stgallen.gpkg\")\n\nif (!file.exists(roads_file)) {\n  roads &lt;- opq(bbox = stgallen_bbox, timeout = 90) |&gt;\n    add_osm_feature(\n      key = \"highway\",\n      value = c(\"primary\", \"secondary\", \"tertiary\", \"residential\")\n    ) |&gt;\n    osmdata_sf()\n  \n  st_write(roads$osm_lines, roads_file, quiet = TRUE)\n  roads_data &lt;- roads$osm_lines\n} else {\n  roads_data &lt;- st_read(roads_file, quiet = TRUE)\n}"
+  },
+  {
+    "objectID": "Strava_quarto_publish.html#step-6-create-the-map",
+    "href": "Strava_quarto_publish.html#step-6-create-the-map",
+    "title": "Mapping My Strava Runs in St. Gallen",
+    "section": "",
+    "text": "Finally, I combine the street network and running tracks into a single map using ggplot2.\n\n\nShow Code Map Creation\npalette &lt;- list(\n  background = \"#095229\",\n  roads = \"#FF69B4\",\n  activities = \"#FFF8DC\"\n)\n\nactivity_map &lt;- ggplot() +\n  # Roads\n  geom_sf(data = roads_data, color = palette$roads, linewidth = 0.3, alpha = 0.9) +\n  # Activities\n  geom_sf(\n    data = stgallen_activities,\n    color = palette$activities,\n    linewidth = 0.7, alpha = 0.8\n  ) +\n  # Viewport\n  coord_sf(\n    xlim = c(stgallen_bbox[\"xmin\"], stgallen_bbox[\"xmax\"]),\n    ylim = c(stgallen_bbox[\"ymin\"], stgallen_bbox[\"ymax\"]),\n    expand = TRUE, datum = NA\n  ) +\n  # Labels\n  labs(\n    title = \"&lt;span style='font-size:36pt;'&gt;My Runs in St. Gallen&lt;/span&gt;\",\n    caption = \"Data: Strava • Map: OpenStreetMap • Author: Solène Berney\",\n    subtitle = paste0(\n      \"&lt;span style='font-size:18pt;'&gt;\",\n      \"2025&lt;/span&gt;\"\n    ),\n  ) +\n  # Theme\n  theme_void() +\n  theme(\n    plot.background = element_rect(fill = palette$background, color = NA),\n    plot.margin = margin(30, 30, 30, 30),\n    plot.title = element_markdown(family = \"Bebas Neue\", hjust = 0.5, color = \"#FFF8DC\", margin = margin(b = 10)),\n    plot.subtitle = element_markdown(family = \"Fira Sans\", hjust = 0.5, color = \"#FFF8DF\", margin = margin(b = 15)),\n    plot.caption = element_text(family = \"Fira Sans\", size = 8, color = \"#FFF8DC\", hjust = 0.95)\n  )"
+  },
+  {
+    "objectID": "Strava_quarto_publish.html#final-result",
+    "href": "Strava_quarto_publish.html#final-result",
+    "title": "Mapping My Strava Runs in St. Gallen",
+    "section": "",
+    "text": "My Strava 2025 St Gallen Activity Map\n\n\n\n\nThis project was inspired by a Strava mapping example shared by Prof. Dr. Aurélien Sallin, which I adapted and extended for my own data."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Solène Berney",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "I am a Bachelor’s student in Economics at the University of St. Gallen (HSG) with a strong interest in data science and machine learning. Through my studies and projects, I explore how data-driven methods can support better business and investment decisions.\nAlongside my economics degree, I am completing the Data Science Fundamentals (DSF) certificate, where I work with applied data analysis, machine learning models, and real-world datasets. I particularly enjoy turning data into clear insights through modeling, careful analysis, and visualization.\nThis website showcases selected academic and personal projects that reflect my learning journey at the intersection of economics, data, and decision-making.\n\n\n\nGeneva Public Transport Passenger Forecasting – Network-wide demand forecasting using machine learning\nStrava Map Project – Visualizing running patterns using GPS data and Strava API"
+  },
+  {
+    "objectID": "index.html#hi-im-solène",
+    "href": "index.html#hi-im-solène",
+    "title": "Home",
+    "section": "",
+    "text": "I am a Bachelor’s student in Economics at the University of St. Gallen (HSG) with a strong interest in data science and machine learning. Through my studies and projects, I explore how data-driven methods can support better business and investment decisions.\nAlongside my economics degree, I am completing the Data Science Fundamentals (DSF) certificate, where I work with applied data analysis, machine learning models, and real-world datasets. I particularly enjoy turning data into clear insights through modeling, careful analysis, and visualization.\nThis website showcases selected academic and personal projects that reflect my learning journey at the intersection of economics, data, and decision-making.\n\n\n\nGeneva Public Transport Passenger Forecasting – Network-wide demand forecasting using machine learning\nStrava Map Project – Visualizing running patterns using GPS data and Strava API"
+  },
+  {
+    "objectID": "DSF_quarto_publish.html",
+    "href": "DSF_quarto_publish.html",
+    "title": "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot",
+    "section": "",
+    "text": "Taking a bus, tram, or train is part of daily life, but the experience is always more enjoyable when one can find a seat and avoid overcrowding. Anticipating passenger demand is therefore a key challenge for both travelers and public transport operators.\nThis project develops a machine learning model to forecast the number of boarding passengers on Geneva’s public transport network (TPG) on an hourly basis. Such forecasts could help passengers choose less crowded travel times and support TPG in short-term capacity planning.\nWe focus on a network-wide prediction setting, capturing broad mobility patterns while respecting real-world forecasting constraints such as strong seasonality, non-linear demand, and structural breaks, such as COVID-19 period.\nThis work was completed as a group project in the Data Science Fundamentals (DSF) program at the University of St. Gallen."
+  },
+  {
+    "objectID": "DSF_quarto_publish.html#datasets-cleaning",
+    "href": "DSF_quarto_publish.html#datasets-cleaning",
+    "title": "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot",
+    "section": "Datasets cleaning",
+    "text": "Datasets cleaning\n\nCore Passenger Data\nWe used the TPG ridership dataset, covering 2019 onwards with hourly counts for the whole network (~58,000 observations).\nData cleaning steps:\n\nRemoved rows with missing or non-definitive values\nExcluded 2 and 3 am slots due to insufficient data\nOne-hot encoded categorical variables such as day-of-week and schedule type\n\nFinal dataset: 54,098 rows × 61 columns.\n\n\nWeather Data\nWeather influences passenger behavior. We included daily average temperature, rainfall, and wind speed from a station 5 km from Geneva city center. To avoid leakage (i.e. to ensure that only information available at prediction time is used), weather features were lagged by one day.\n\n\nDemographics and Abonnements\n\nCanton population data (yearly) to capture structural shifts,\nCounts of GA, Half-Fare, and Unireso subscriptions filtered to Geneva postal codes, aggregated yearly,\n2025 values extrapolated from 2024 growth rates\n\n\n\nEvents in Geneva\n\nServette FC football matches,\nConcerts at Arena de Genève These events were encoded as binary features.\n\nAll datasets were merged by date to create the final modeling dataframe."
+  },
+  {
+    "objectID": "DSF_quarto_publish.html#preprocessing",
+    "href": "DSF_quarto_publish.html#preprocessing",
+    "title": "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot",
+    "section": "Preprocessing",
+    "text": "Preprocessing\nWe experimented several preprocessing methods (applied to our numerical features) to optimize model stability and performance, implemented with a scikit-learn pipeline.\n\nStandardization gave the lowest MAE/MSE for most models\nMin-Max scaling performed similarly for linear models\nNon-linear transformations (Yeo-Johnson, Quantile) generally worsened performance\nRandom Forests is robust to feature scaling and does not require preprocessing\n\n\n# Initial chronological train-test split (70-30%)\nsplit_idx = int(0.7 * len(df))\nX_train, X_test = X.iloc[:split_idx], X.iloc[split_idx:]\ny_train, y_test = y.iloc[:split_idx], y.iloc[split_idx:]\n\n# Creating the pipeline for preprocessing and model fitting\nnum_feature = ['average_temp', \"rain (mm)\",\"snow (mm)\",\"avg_wind_speed (km/h)\",\n               \"Number of Stops_lag_1w\",\n               \"population\", \"#unireso\",\"#GA\",\"#half-fare\",\n               \"lag_24h\", \"lag_1w\", \"lag_3h\"]\n\npreprocess = ColumnTransformer(\n    [(\"minmax\", MinMaxScaler(feature_range=(0,1)), num_feature)],\n    remainder = \"passthrough\")\n\ny_train_s = y_train\n\npip = Pipeline([\n    (\"prep\", preprocess),\n    (\"model\", LinearRegression(fit_intercept=True))\n    ]).fit(X_train, y_train_s)\n\n# Prediction \ny_pred_train = pip.predict(X_train)\ny_pred_test = pip.predict(X_test)\n\n# Evaluate errors\nmse_train = mean_squared_error(y_train, y_pred_train)\nmse_test = mean_squared_error(y_test, y_pred_test)\nmae_train = mean_absolute_error(y_train, y_pred_train)\nmae_test = mean_absolute_error(y_test, y_pred_test)\nCode for Quantile Preprocessing - Neural Network\n\nsplit_idx = int(0.7 * len(df))\nX_train, X_test = X.iloc[:split_idx], X.iloc[split_idx:]\ny_train, y_test = y.iloc[:split_idx], y.iloc[split_idx:]\n\n# Creating the pipeline for preprocessing and model fitting\nnum_feature = ['average_temp', \"rain (mm)\",\"snow (mm)\",\"avg_wind_speed (km/h)\",\n               \"Number of Stops_lag_1w\",\n               \"population\", \"#unireso\",\"#GA\",\"#half-fare\",\n               \"lag_24h\", \"lag_1w\", \"lag_3h\"\n               ]\n\npreprocess = ColumnTransformer(\n    [(\"quantile\", QuantileTransformer(n_quantiles=1000, output_distribution = \"uniform\", random_state=42), num_feature)])\n\n# Standardize y\nmu, sigma = y_train.mean(), y_train.std() \ny_train_s = (y_train - mu) / sigma\n\npip = Pipeline([\n    (\"prep\", preprocess),\n    (\"model\", MLPRegressor(\n        hidden_layer_sizes=(128, 64, 32), \n        learning_rate_init=0.001, \n        activation=\"relu\", \n        solver=\"adam\",\n        alpha=0.01, \n        batch_size=64, \n        max_iter=500,\n        early_stopping=True,\n        validation_fraction=0.1,\n        random_state=42))\n    ]).fit(X_train, y_train_s)\n\n# Prediction \ny_pred_train = pip.predict(X_train)\ny_pred_test = pip.predict(X_test)\n\n# De-standardize y\ny_pred_test = y_pred_test* sigma + mu\ny_pred_train = y_pred_train* sigma + mu"
+  },
+  {
+    "objectID": "DSF_quarto_publish.html#visualizations",
+    "href": "DSF_quarto_publish.html#visualizations",
+    "title": "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot",
+    "section": "Visualizations",
+    "text": "Visualizations\n\nAdd correlation matrix !"
+  },
+  {
+    "objectID": "DSF_quarto_publish.html#feature-engineering",
+    "href": "DSF_quarto_publish.html#feature-engineering",
+    "title": "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot",
+    "section": "Feature Engineering",
+    "text": "Feature Engineering\nTo improve predictive performance, we engineered additional lagged features designed to capture temporal dependencies, trends, and recurring patterns.\n\nFor passenger counts: 24-hour lag, 1-week lag, 3-hour lag\nFor number of stops per time slot: 1-week lag (avoid data leakage, nb stops is not known before the hour was realized)\nCalendar variables: Year, month, day of month, Day-of-week, schedule type, time slot (all one-hot encoded)\n\nCode for Lagged features\n\n# Lagged Number of Stops\n# sort by date and then time slot   \ndf = df.sort_values(['Date', 'Time Slot']).reset_index(drop=True)\n\n# shift by 22 rows * 7 (1 day = 22 observations, since we dropped 2 and 3am)\n# shift works because we have equally many observations per time slot across the dataset (2,459)\ndf['Number of Stops_lag_1w'] = df['Number of Stops'].shift(22 * 7)\n\n# Lagged Boarding passengers\ndf[\"lag_24h\"] = df[\"Number of Boarding Passengers\"].shift(22)     # same time yesterday\ndf[\"lag_1w\"] = df[\"Number of Boarding Passengers\"].shift(22 * 7)  # same time 1 week before\ndf[\"lag_3h\"] = np.where(df[\"Time Slot\"]==4,                       # 3 hours before\n                        df[\"Number of Boarding Passengers\"].shift(1),\n                        df[\"Number of Boarding Passengers\"].shift(3))"
+  },
+  {
+    "objectID": "DSF_quarto_publish.html#naïve-predictions",
+    "href": "DSF_quarto_publish.html#naïve-predictions",
+    "title": "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot",
+    "section": "3.1 Naïve Predictions:",
+    "text": "3.1 Naïve Predictions:\nNaïve benchmarks provide a critical reference point for assessing whether complex models add real predictive value. We implemented three simple baselines: predicting the last observed value, the historical mean, and the historical median for each time slot.\nOur goal: build models outperforming MAE of 18,000 (obtained with simple these naïve methods).\n\nCode for Naïve Prediction \n\n# Import Data\ndf = pd.read_csv(\"00_datasets/merged_dataframes.csv\")\n\n# Define target + features\ny = df[\"Number of Boarding Passengers\"]\nX = df.drop(columns=[\"Number of Boarding Passengers\"])\n\n# Train-test split \nsplit_idx = int(0.7 * len(df)) # 70/30 train/test split\nX_train = X.iloc[:split_idx]\n\nX_test = X.iloc[split_idx:]\ny_train = y.iloc[:split_idx]\ny_test = y.iloc[split_idx:]\n\n# Naive baseline functions\ndef naive_last_value(train, test):\n    last_value = train.iloc[-1] # select the last row of the training series\n    return [last_value] * len(test)\n\ndef mean_forecast(train, test):\n    mean_value = train.mean() # calculate the mean of the training set\n    return [mean_value] * len(test)\n\ndef median_forecast(train, test): \n    median_value = train.median() # calculate the median of the training set\n    return [median_value] * len(test)\n  \n# Predictions\ny_pred_naive = naive_last_value(y_train, y_test)\ny_pred_mean = mean_forecast(y_train, y_test)\ny_pred_median = median_forecast(y_train, y_test)\n\n# Evaluation\ndef evaluate(y_true, y_pred):\n    return {\n        \"MAE\": mean_absolute_error(y_true, y_pred),\n        \"RMSE\": mean_squared_error(y_true, y_pred) ** 0.5\n    }"
+  },
+  {
+    "objectID": "DSF_quarto_publish.html#linear-models",
+    "href": "DSF_quarto_publish.html#linear-models",
+    "title": "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot",
+    "section": "3.2 Linear Models",
+    "text": "3.2 Linear Models\n\nBasic Linear Regression: Focus on Simplicity\nWe first estimated a standard linear regression model using calendar, weather, and demographic features. This model serves as a transparent and interpretable baseline, highlighting the limits of linear assumptions in the presence of strong non-linear demand patterns.\n\n\nLinear Model with Time Lags: Learning from the Past\nIncorporating lagged passenger counts substantially improves performance by allowing the model to exploit temporal dependencies, both very short term fluctuations and weekly patterns in passenger demand.\n\n\nCross Validation\n\nAdd explanations and code!\n\n\n\nRegularized Linear Models (Lasso, Ridge, Elastic Net)\nRegularization techniques were applied to mitigate overfitting and handle multicollinearity among features. Lasso performed best among linear models, particularly when COVID-19 observations were excluded from training."
+  },
+  {
+    "objectID": "DSF_quarto_publish.html#neural-network",
+    "href": "DSF_quarto_publish.html#neural-network",
+    "title": "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot",
+    "section": "3.3 Neural Network",
+    "text": "3.3 Neural Network\nWe implemented a multilayer perceptron (MLP) regressor with a funnel-shaped architecture (128–64–32 neurons) for feature compression. - Activation Function: ReLU (Rectified Linear Unit) to capture non-linear spikes (e.g. rush hours). - Preprocessing: Strict normalization wrapped in a Pipeline to prevent data leakage. - Regularization: L2 penalty and Early Stopping to prevent overfitting.\n\n\n\nNeural Network: Number of predicted passengers plotted against actual values."
+  },
+  {
+    "objectID": "DSF_quarto_publish.html#random-forest",
+    "href": "DSF_quarto_publish.html#random-forest",
+    "title": "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot",
+    "section": "3.4 Random Forest",
+    "text": "3.4 Random Forest\nThe Random Forest Regressor emerged as the most accurate model overall. Its ensemble structure allows it to capture complex non-linear interactions and overlapping seasonal patterns (daily, weekly, yearly) while remaining robust to noise.\nPerformance: - MAE ≈ 1,500 - Relative error ≈ 6.4% - Equivalent to 6 trams worth of passengers per hour\nThis represents a 50% improvement over the best linear model (Lasso without Covid)."
+  },
+  {
+    "objectID": "DSF_quarto_publish.html#overview-models-performances",
+    "href": "DSF_quarto_publish.html#overview-models-performances",
+    "title": "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot",
+    "section": "Overview Model’s Performances",
+    "text": "Overview Model’s Performances\nModel performance was compared using test-set MAE.\n\n\nNon-linearity is king\nAdvanced models like Random Forest and Neural Networks achieve 45-50% better accuracy than linear models by capturing complex non-linear demand patterns.\n\n\nCOVID-19 filtering is essential\nExcluding the pandemic period yields a 35% improvement, confirming that training should focus on “normal” transport behavior."
+  },
+  {
+    "objectID": "DSF_quarto_publish.html#data-source",
+    "href": "DSF_quarto_publish.html#data-source",
+    "title": "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot",
+    "section": "Data Source",
+    "text": "Data Source\n\nTPG Data\nWeather Data\nPopulation\nGA Abonnement Count\nHalf-fare and community network Abonnements\nServette FC Football Matches\nConcerts at Arena Genève"
+  },
+  {
+    "objectID": "DSF_quarto_publish.html#acknowledgements",
+    "href": "DSF_quarto_publish.html#acknowledgements",
+    "title": "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nThis project was completed as part of the Data Science Fundamentals (DSF) program at the University of St. Gallen. I thank the professors and teaching assistants for their guidance, as well as my group members for their collaboration throughout the project."
+  }
+]

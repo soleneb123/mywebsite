@@ -16,7 +16,7 @@ css: styles.css
 I enjoy running, I love learning new coding skills, and especially using them to better understand my direct surroundings and daily habits.
 
 This project visualizes my running activities from **2025** in **St. Gallen**, using data from the **Strava API**, street data from **OpenStreetMap**, and spatial visualization tools in **R**.\
-The result is a stylized map showing where I actually run within the city.
+See the final result at the end of the page!
 
 
 ## Step 1: Setup

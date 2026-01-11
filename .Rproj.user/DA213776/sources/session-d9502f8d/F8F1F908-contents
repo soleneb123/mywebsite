@@ -7,8 +7,6 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: about.qmd
-        text: About
       - href: DSF_quarto_publish.qmd
         text: Public Transport Passenger Forecast
       - href: Strava_quarto_publish.qmd
