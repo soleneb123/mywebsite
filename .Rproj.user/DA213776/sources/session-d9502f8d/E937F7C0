@@ -1,0 +1,31 @@
+{
+    "id": "E937F7C0",
+    "path": "~/Website_solene/Strava_quarto_publish.qmd",
+    "project_path": "Strava_quarto_publish.qmd",
+    "type": "quarto_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1768124527984.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "rmdVisualMode": "false",
+        "rmdVisualWrapConfigured": "true",
+        "source_window_id": "",
+        "Source": "Source",
+        "docOutlineVisible": "1",
+        "rmdVisualCollapsedChunks": "",
+        "rmdVisualModeLocation": "14:39",
+        "cursorPosition": "20,0",
+        "scrollLine": "9"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1768133278,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1768133278567,
+    "read_only": false,
+    "read_only_alternatives": []
+}

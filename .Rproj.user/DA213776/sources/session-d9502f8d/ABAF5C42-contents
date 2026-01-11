@@ -1,0 +1,104 @@
+/* ==============================
+   Global Styles
+============================== */
+
+/* Background and text */
+body {
+  background-color: #F0F0F0; /* light neutral background */
+  color: #2D2330;            /* dark gray text for readability */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* ==============================
+   Navbar
+============================== */
+.navbar {
+  background-color: #FF69B4; /* deep purple */
+  color: #FFD760;            /* light pink for text */
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.navbar a:hover {
+  color: #FFE4F8; /* accent on hover */
+}
+
+/* ==============================
+   Headings
+============================== */
+h1, h2, h3, h4, h5, h6 {
+  color: #FF69B4; /* primary color for all headings */
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.6em;
+}
+
+/* ==============================
+   Links
+============================== */
+a {
+  color: #6E0039; /* primary color for links */
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #C65B41; /* accent color on hover */
+}
+
+/* ==============================
+   Buttons
+============================== */
+button, .btn {
+  background-color: #6E0039; /* accent color */
+  color: #FFFFFF;             /* white text */
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+button:hover, .btn:hover {
+  background-color: #DDD7C6; /* lighter accent on hover */
+}
+
+/* ==============================
+   Images
+============================== */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1em auto; /* center images */
+}
+
+
+/* ==============================
+   Code / Preformatted
+============================== */
+pre, code {
+  background-color: #F0F0F0;
+  color: #222222;
+  padding: 0.3em 0.5em;
+  border-radius: 4px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.95em;
+}

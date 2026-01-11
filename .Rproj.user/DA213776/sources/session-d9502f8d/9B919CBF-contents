@@ -1,0 +1,324 @@
+---
+title: "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot"
+author: "Solène Berney"
+date: "January 10, 2025"
+format: html
+keywords: [Machine Learning, Data Science, Public Transport, Forecasting, Time Series]
+execute:
+  eval: false
+  freeze: true
+---
+
+# 1. Introduction and Motivation
+
+Taking a bus, tram, or train is part of daily life, but the experience is always more enjoyable when one can find a seat and avoid overcrowding. Anticipating passenger demand is therefore a key challenge for both travelers and public transport operators.
+
+This project develops a machine learning model to forecast the number of boarding passengers on Geneva’s public transport network (TPG) on an hourly basis. Such forecasts could help passengers choose less crowded travel times and support TPG in short-term capacity planning.
+
+We focus on a network-wide prediction setting, capturing broad mobility patterns while respecting real-world forecasting constraints such as strong seasonality, non-linear demand, and structural breaks, such as COVID-19 period.
+
+This work was completed as a group project in the Data Science Fundamentals (DSF) program at the University of St. Gallen.
+
+# 2. Methodology
+
+## Datasets cleaning
+
+### Core Passenger Data
+
+We used the TPG ridership dataset, covering 2019 onwards with hourly counts for the whole network (\~58,000 observations).
+
+Data cleaning steps:
+
+-   Removed rows with missing or non-definitive values
+-   Excluded 2 and 3 am slots due to insufficient data
+-   One-hot encoded categorical variables such as day-of-week and schedule type
+
+Final dataset: 54,098 rows × 61 columns.
+
+### Weather Data
+
+Weather influences passenger behavior. We included daily average temperature, rainfall, and wind speed from a station 5 km from Geneva city center. To avoid leakage (i.e. to ensure that only information available at prediction time is used), weather features were lagged by one day.
+
+### Demographics and Abonnements
+
+-   Canton population data (yearly) to capture structural shifts,
+-   Counts of GA, Half-Fare, and Unireso subscriptions filtered to Geneva postal codes, aggregated yearly,
+-   2025 values extrapolated from 2024 growth rates
+
+### Events in Geneva
+
+-   Servette FC football matches,
+-   Concerts at Arena de Genève These events were encoded as binary features.
+
+All datasets were merged by date to create the final modeling dataframe.
+
+## Preprocessing
+
+We experimented several preprocessing methods (applied to our numerical features) to optimize model stability and performance, implemented with a scikit-learn pipeline.
+
+-   Standardization gave the lowest MAE/MSE for most models
+-   Min-Max scaling performed similarly for linear models
+-   Non-linear transformations (Yeo-Johnson, Quantile) generally worsened performance
+-   Random Forests is robust to feature scaling and does not require preprocessing
+
+
+```python
+
+# Initial chronological train-test split (70-30%)
+split_idx = int(0.7 * len(df))
+X_train, X_test = X.iloc[:split_idx], X.iloc[split_idx:]
+y_train, y_test = y.iloc[:split_idx], y.iloc[split_idx:]
+
+# Creating the pipeline for preprocessing and model fitting
+num_feature = ['average_temp', "rain (mm)","snow (mm)","avg_wind_speed (km/h)",
+               "Number of Stops_lag_1w",
+               "population", "#unireso","#GA","#half-fare",
+               "lag_24h", "lag_1w", "lag_3h"]
+
+preprocess = ColumnTransformer(
+    [("minmax", MinMaxScaler(feature_range=(0,1)), num_feature)],
+    remainder = "passthrough")
+
+y_train_s = y_train
+
+pip = Pipeline([
+    ("prep", preprocess),
+    ("model", LinearRegression(fit_intercept=True))
+    ]).fit(X_train, y_train_s)
+
+# Prediction 
+y_pred_train = pip.predict(X_train)
+y_pred_test = pip.predict(X_test)
+
+# Evaluate errors
+mse_train = mean_squared_error(y_train, y_pred_train)
+mse_test = mean_squared_error(y_test, y_pred_test)
+mae_train = mean_absolute_error(y_train, y_pred_train)
+mae_test = mean_absolute_error(y_test, y_pred_test)
+```
+
+``` python
+Code for Quantile Preprocessing - Neural Network
+
+split_idx = int(0.7 * len(df))
+X_train, X_test = X.iloc[:split_idx], X.iloc[split_idx:]
+y_train, y_test = y.iloc[:split_idx], y.iloc[split_idx:]
+
+# Creating the pipeline for preprocessing and model fitting
+num_feature = ['average_temp', "rain (mm)","snow (mm)","avg_wind_speed (km/h)",
+               "Number of Stops_lag_1w",
+               "population", "#unireso","#GA","#half-fare",
+               "lag_24h", "lag_1w", "lag_3h"
+               ]
+
+preprocess = ColumnTransformer(
+    [("quantile", QuantileTransformer(n_quantiles=1000, output_distribution = "uniform", random_state=42), num_feature)])
+
+# Standardize y
+mu, sigma = y_train.mean(), y_train.std() 
+y_train_s = (y_train - mu) / sigma
+
+pip = Pipeline([
+    ("prep", preprocess),
+    ("model", MLPRegressor(
+        hidden_layer_sizes=(128, 64, 32), 
+        learning_rate_init=0.001, 
+        activation="relu", 
+        solver="adam",
+        alpha=0.01, 
+        batch_size=64, 
+        max_iter=500,
+        early_stopping=True,
+        validation_fraction=0.1,
+        random_state=42))
+    ]).fit(X_train, y_train_s)
+
+# Prediction 
+y_pred_train = pip.predict(X_train)
+y_pred_test = pip.predict(X_test)
+
+# De-standardize y
+y_pred_test = y_pred_test* sigma + mu
+y_pred_train = y_pred_train* sigma + mu
+```
+
+## Visualizations
+
+-   correlation matrix, and?
+
+## Feature Engineering
+
+To improve predictive performance, we engineered additional lagged features designed to capture temporal dependencies, trends, and recurring patterns.
+
+-   For passenger counts: 24-hour lag, 1-week lag, 3-hour lag
+-   For number of stops per time slot: 1-week lag (avoid data leakage, nb stops is not known before the hour was realized)
+-   Calendar variables: Year, month, day of month, Day-of-week, schedule type, time slot (all one-hot encoded)
+
+``` python
+Code for Lagged features
+
+# Lagged Number of Stops
+# sort by date and then time slot   
+df = df.sort_values(['Date', 'Time Slot']).reset_index(drop=True)
+
+# shift by 22 rows * 7 (1 day = 22 observations, since we dropped 2 and 3am)
+# shift works because we have equally many observations per time slot across the dataset (2,459)
+df['Number of Stops_lag_1w'] = df['Number of Stops'].shift(22 * 7)
+
+# Lagged Boarding passengers
+df["lag_24h"] = df["Number of Boarding Passengers"].shift(22)     # same time yesterday
+df["lag_1w"] = df["Number of Boarding Passengers"].shift(22 * 7)  # same time 1 week before
+df["lag_3h"] = np.where(df["Time Slot"]==4,                       # 3 hours before
+                        df["Number of Boarding Passengers"].shift(1),
+                        df["Number of Boarding Passengers"].shift(3))
+```
+
+# 3. Modeling Strategy
+
+We evaluated 21 configurations across:
+
+-   **Model families**: Linear, Neural Network, Random Forest
+-   **Time-series Cross-validation** (TimeSeriesSplit)
+-   **Preprocessing techniques**: Standardization, Min-Max, Yeo-Johnson
+-   **COVID-19** inclusion/exclusion
+
+All models were trained and evaluated using a time-aware validation strategy to respect the temporal ordering of observations.
+
+## 3.1 Naïve Predictions:
+
+Naïve benchmarks provide a critical reference point for assessing whether complex models add real predictive value. We implemented three simple baselines: predicting the last observed value, the historical mean, and the historical median for each time slot.
+
+Our goal: build models outperforming MAE of 18,000 (obtained with simple these naïve methods).
+
+![](images/naive.png)
+
+``` python
+Code for Naïve Prediction 
+
+# Import Data
+df = pd.read_csv("00_datasets/merged_dataframes.csv")
+
+# Define target + features
+y = df["Number of Boarding Passengers"]
+X = df.drop(columns=["Number of Boarding Passengers"])
+
+# Train-test split 
+split_idx = int(0.7 * len(df)) # 70/30 train/test split
+X_train = X.iloc[:split_idx]
+
+X_test = X.iloc[split_idx:]
+y_train = y.iloc[:split_idx]
+y_test = y.iloc[split_idx:]
+
+# Naive baseline functions
+def naive_last_value(train, test):
+    last_value = train.iloc[-1] # select the last row of the training series
+    return [last_value] * len(test)
+
+def mean_forecast(train, test):
+    mean_value = train.mean() # calculate the mean of the training set
+    return [mean_value] * len(test)
+
+def median_forecast(train, test): 
+    median_value = train.median() # calculate the median of the training set
+    return [median_value] * len(test)
+  
+# Predictions
+y_pred_naive = naive_last_value(y_train, y_test)
+y_pred_mean = mean_forecast(y_train, y_test)
+y_pred_median = median_forecast(y_train, y_test)
+
+# Evaluation
+def evaluate(y_true, y_pred):
+    return {
+        "MAE": mean_absolute_error(y_true, y_pred),
+        "RMSE": mean_squared_error(y_true, y_pred) ** 0.5
+    }
+```
+
+## 3.2 Linear Models
+
+### Basic Linear Regression: Focus on Simplicity
+
+We first estimated a standard linear regression model using calendar, weather, and demographic features. This model serves as a transparent and interpretable baseline, highlighting the limits of linear assumptions in the presence of strong non-linear demand patterns.
+
+### Linear Model with Time Lags: Learning from the Past
+
+Incorporating lagged passenger counts substantially improves performance by allowing the model to exploit temporal dependencies, both very short term fluctuations and weekly patterns in passenger demand.
+
+### Cross Validation
+
+### Regularized Linear Models (Lasso, Ridge, Elastic Net)
+
+Regularization techniques were applied to mitigate overfitting and handle multicollinearity among features. Lasso performed best among linear models, particularly when COVID-19 observations were excluded from training.
+
+## 3.3 Neural Network
+
+We implemented a multilayer perceptron (MLP) regressor with a funnel-shaped architecture (128–64–32 neurons) for feature compression. - Activation Function: ReLU (Rectified Linear Unit) to capture non-linear spikes (e.g. rush hours). - Preprocessing: Strict normalization wrapped in a Pipeline to prevent data leakage. - Regularization: L2 penalty and Early Stopping to prevent overfitting.
+
+![Neural Network: Number of predicted passengers plotted against actual values.](images/plot.png){fig-align="center" width="300"}
+
+## 3.4 Random Forest
+
+The Random Forest Regressor emerged as the most accurate model overall. Its ensemble structure allows it to capture complex non-linear interactions and overlapping seasonal patterns (daily, weekly, yearly) while remaining robust to noise.
+
+Performance: - MAE ≈ 1,500 - Relative error ≈ 6.4% - Equivalent to 6 trams worth of passengers per hour
+
+**This represents a 50% improvement over the best linear model (Lasso without Covid).**
+
+# 4. Results Interpretation
+
+## Overview Model's Performances
+
+Model performance was compared using test-set MAE.
+
+![](images/results.png){width="3169"}
+
+### Non-linearity is king
+
+Advanced models like Random Forest and Neural Networks achieve 45-50% better accuracy than linear models by capturing complex non-linear demand patterns.
+
+### COVID-19 filtering is essential
+
+Excluding the pandemic period yields a 35% improvement, confirming that training should focus on "normal" transport behavior.
+
+![](images/covid.png){width="900"}
+
+# 5. Evaluation and Challenges
+
+### Overfitting Trade-off: Bias VS Variance
+
+While Random Forests achieved the highest accuracy, they also exhibited a higher degree of overfitting (2.2, VS 1.1 for linear models), highlighting the classic bias–variance trade-off in forecasting problems.
+
+### Failed Approaches
+
+-   Yeo-Johnson and Quantile transformations increased error
+-   SARIMAX proved unfeasible due to complex, overlapping seasonalities
+
+# 6. Outlook and Future Work
+
+Several extensions could further enhance the practical value of this work: - Line-level or stop-level forecasting (data is publicly available) - Integration into real-time TPG apps (see image below) - Exploring Deep learning architectures (LSTM, Transformers) - Probabilistic forecasting for uncertainty quantification
+
+![](images/goal.png){fig-align="left" width="700"}
+
+# 7. Conclusion
+
+This project demonstrates that network-wide passenger demand on Geneva’s TPG system can be forecast with high accuracy using machine learning methods. Random Forest models outperform linear approaches by effectively capturing non-linear, seasonal, and structural patterns.
+
+Such forecasts could support both passenger decision-making and operational planning, illustrating how data science can contribute to more efficient and user-friendly public transport systems.
+
+# Appendix
+
+## Data Source
+
+-   [TPG Data](https://opendata.tpg.ch/explore/dataset/frequentation-journaliere-par-tranche-horaire/table/?disjunctive.jour_semaine&disjunctive.horaire_type&disjunctive.horaire_tranche_stop_theo&disjunctive.indice_semaine)
+-   [Weather Data](https://meteostat.net/en/place/ch/geneve?s=06700&t=2019-01-01/2025-10-24)
+-   [Population](https://www.pxweb.bfs.admin.ch/pxweb/fr/px-x-0102020000_101/px-x-0102020000_101/px-x-0102020000_101.px/)
+-   [GA Abonnement Count](data.sbb.ch/explore/dataset/generalabo-halbtax)
+-   [Half-fare and community network Abonnements](https://data.sbb.ch/explore/dataset/verbunde/information/)
+-   [Servette FC Football Matches](https://www.transfermarkt.fr/servette-fc/spielplan/verein/61/saison_id/2019/plus/1#C1)
+-   [Concerts at Arena Genève](https://www.geneva-arena.ch/fr/programme/?archive=2023)
+
+## Acknowledgements
+
+This project was completed as part of the Data Science Fundamentals (DSF) program at the University of St. Gallen. I thank the professors and teaching assistants for their guidance, as well as my group members for their collaboration throughout the project.

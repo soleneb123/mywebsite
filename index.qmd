@@ -1,0 +1,20 @@
+---
+title: "Home"
+css: styles.css
+---
+
+## Hi, I’m Solène
+
+I am a Bachelor’s student in Economics at the University of St. Gallen (HSG) with a strong interest in data science and machine learning. Through my studies and projects, I explore how data-driven methods can support better business and investment decisions.
+
+Alongside my economics degree, I am completing the Data Science Fundamentals (DSF) certificate, where I work with applied data analysis, machine learning models, and real-world datasets. I particularly enjoy turning data into clear insights through modeling, careful analysis, and visualization.
+
+This website showcases selected academic and personal projects that reflect my learning journey at the intersection of economics, data, and decision-making.
+
+### Visit my recent projects
+
+-   [Geneva Public Transport Passenger Forecasting](DSF_quarto_publish.qmd) – Network-wide demand forecasting using machine learning
+-   [Strava Map Project](Strava_quarto_publish.qmd) – Visualizing running patterns using GPS data and Strava API
+
+
+
