@@ -16,6 +16,9 @@ website:
       - icon: linkedin
         href: https://www.linkedin.com/in/solène-berney-unisg/
         aria-label: LinkedIn
+      - icon: envelope
+        href: "mailto:solenebny@gmail.com"
+        aria-label: Email
   
   page-footer:
     right:

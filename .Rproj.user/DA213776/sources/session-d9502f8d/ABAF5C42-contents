@@ -1,11 +1,9 @@
 /* ==============================
    Global Styles
 ============================== */
-
-/* Background and text */
 body {
-  background-color: #F0F0F0; /* light neutral background */
-  color: #2D2330;            /* dark gray text for readability */
+  background-color: #F0F0F0;
+  color: #2D2330;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.6;
 }
@@ -14,60 +12,52 @@ body {
    Navbar
 ============================== */
 .navbar {
-  background-color: #FF69B4; /* deep purple */
-  color: #FFD760;            /* light pink for text */
+  background-color: #FF69B4;
 }
 
-.navbar a {
+.navbar a,
+.navbar-brand {
   color: white;
+  font-weight: 500;
   text-decoration: none;
-  font-weight: 600;
 }
 
 .navbar a:hover {
-  color: #FFE4F8; /* accent on hover */
+  color: #FFE4F8;
 }
 
 /* ==============================
    Headings
 ============================== */
 h1, h2, h3, h4, h5, h6 {
-  color: #FF69B4; /* primary color for all headings */
+  color: #FF69B4;
   margin-top: 1.5em;
   margin-bottom: 0.5em;
   font-weight: 700;
 }
 
-h1 {
-  font-size: 2.5em;
-}
-
-h2 {
-  font-size: 2em;
-}
-
-h3 {
-  font-size: 1.6em;
-}
+h1 { font-size: 2.2em; }
+h2 { font-size: 1.8em; }
+h3 { font-size: 1.4em; }
 
 /* ==============================
    Links
 ============================== */
 a {
-  color: #6E0039; /* primary color for links */
+  color: #975875;
   text-decoration: underline;
 }
 
 a:hover {
-  color: #C65B41; /* accent color on hover */
+  color: #C65B41;
 }
 
 /* ==============================
    Buttons
 ============================== */
 button, .btn {
-  background-color: #6E0039; /* accent color */
-  color: #FFFFFF;             /* white text */
+  background-color: #6E0039;
+  color: #FFFFFF;
   border: none;
   padding: 0.5em 1em;
   border-radius: 8px;
@@ -77,7 +67,7 @@ button, .btn {
 }
 
 button:hover, .btn:hover {
-  background-color: #DDD7C6; /* lighter accent on hover */
+  background-color: #DDD7C6;
 }
 
 /* ==============================
@@ -87,18 +77,47 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
-  margin: 1em auto; /* center images */
+  margin: 1em auto;
 }
 
-
 /* ==============================
-   Code / Preformatted
+   Code
 ============================== */
-pre, code {
+pre {
   background-color: #F0F0F0;
-  color: #222222;
-  padding: 0.3em 0.5em;
-  border-radius: 4px;
+  padding: 1em;
+  border-radius: 6px;
   font-family: "Courier New", Courier, monospace;
   font-size: 0.95em;
+}
+
+code {
+  background-color: #F0F0F0;
+  padding: 0.15em 0.3em;
+  border-radius: 4px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* ==============================
+   Callouts (Quarto)
+============================== */
+.callout-note {
+  border-radius: 12px;
+  border-left: 6px solid #FF69B4 !important;
+  background-color: #F0F0F0;
+  margin: 1.5em 0;
+}
+
+.callout-title {
+  font-weight: 700;
+  color: #6E0039;
+}
+
+.callout pre {
+  background-color: #F0F0F0;
+}
+
+.callout pre code {
+  background: none;
+  padding: 0;
 }

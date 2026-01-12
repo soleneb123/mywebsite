@@ -147,6 +147,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </i> 
 <span class="menu-text"></span></a>
   </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:solenebny@gmail.com"> <i class="bi bi-envelope" role="img" aria-label="Email">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -174,8 +179,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#events-in-geneva" id="toc-events-in-geneva" class="nav-link" data-scroll-target="#events-in-geneva">Events in Geneva</a></li>
   </ul></li>
   <li><a href="#preprocessing" id="toc-preprocessing" class="nav-link" data-scroll-target="#preprocessing">Preprocessing</a></li>
-  <li><a href="#visualizations" id="toc-visualizations" class="nav-link" data-scroll-target="#visualizations">Visualizations</a></li>
   <li><a href="#feature-engineering" id="toc-feature-engineering" class="nav-link" data-scroll-target="#feature-engineering">Feature Engineering</a></li>
+  <li><a href="#visualizations" id="toc-visualizations" class="nav-link" data-scroll-target="#visualizations">Visualizations</a></li>
   </ul></li>
   <li><a href="#modeling-strategy" id="toc-modeling-strategy" class="nav-link" data-scroll-target="#modeling-strategy">3. Modeling Strategy</a>
   <ul class="collapse">
@@ -194,14 +199,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#overview-models-performances" id="toc-overview-models-performances" class="nav-link" data-scroll-target="#overview-models-performances">Overview Model’s Performances</a>
   <ul class="collapse">
-  <li><a href="#non-linearity-is-king" id="toc-non-linearity-is-king" class="nav-link" data-scroll-target="#non-linearity-is-king">Non-linearity is king</a></li>
+  <li><a href="#non-linear-models-clearly-outperform-linear-approaches" id="toc-non-linear-models-clearly-outperform-linear-approaches" class="nav-link" data-scroll-target="#non-linear-models-clearly-outperform-linear-approaches">Non-linear models clearly outperform linear approaches</a></li>
   <li><a href="#covid-19-filtering-is-essential" id="toc-covid-19-filtering-is-essential" class="nav-link" data-scroll-target="#covid-19-filtering-is-essential">COVID-19 filtering is essential</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#evaluation-and-challenges" id="toc-evaluation-and-challenges" class="nav-link" data-scroll-target="#evaluation-and-challenges">5. Evaluation and Challenges</a>
   <ul class="collapse">
   <li><a href="#overfitting-trade-off-bias-vs-variance" id="toc-overfitting-trade-off-bias-vs-variance" class="nav-link" data-scroll-target="#overfitting-trade-off-bias-vs-variance">Overfitting Trade-off: Bias VS Variance</a></li>
-  <li><a href="#failed-approaches" id="toc-failed-approaches" class="nav-link" data-scroll-target="#failed-approaches">Failed Approaches</a></li>
+  <li><a href="#unsuccessful-approaches" id="toc-unsuccessful-approaches" class="nav-link" data-scroll-target="#unsuccessful-approaches">Unsuccessful Approaches</a></li>
   </ul></li>
   <li><a href="#outlook-and-future-work" id="toc-outlook-and-future-work" class="nav-link" data-scroll-target="#outlook-and-future-work">6. Outlook and Future Work</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">7. Conclusion</a></li>
@@ -274,6 +279,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>One-hot encoded categorical variables such as day-of-week and schedule type</li>
 </ul>
 <p>Final dataset: 54,098 rows × 61 columns.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>TPG Dataset Cleaning
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"00_datasets/original/tpg.csv"</span>, sep<span class="op">=</span><span class="st">";"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">"Time Slot"</span>])        <span class="co"># Remove rows with missing Time Slot</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">"donnees_definitives"</span>] <span class="op">==</span> <span class="va">True</span>]  <span class="co"># Remove non-definitive data</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">"Time Slot"</span>] <span class="op">!=</span> <span class="st">"-"</span>]             <span class="co"># Remove invalid time slots</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"Date"</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">"Date"</span>])     <span class="co"># Parse date and time</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"Time Slot"</span>] <span class="op">=</span> pd.to_numeric(df[<span class="st">"Time Slot"</span>])</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[<span class="op">~</span>df[<span class="st">"Time Slot"</span>].isin([<span class="dv">2</span>, <span class="dv">3</span>])]      <span class="co"># Drop 2 and 3 am observations</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># One-hot encoding of categorical variables</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>week_day_one_hot <span class="op">=</span> pd.get_dummies(df[<span class="st">"Day Week"</span>], prefix<span class="op">=</span><span class="st">"day"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>schedule_type_one_hot <span class="op">=</span> pd.get_dummies(df[<span class="st">"Schedule Type"</span>], prefix<span class="op">=</span><span class="st">"schedule"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>months_one_hot <span class="op">=</span> pd.get_dummies(df[<span class="st">"month"</span>], prefix<span class="op">=</span><span class="st">"month"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>years_one_hot <span class="op">=</span> pd.get_dummies(df[<span class="st">"year"</span>], prefix<span class="op">=</span><span class="st">"year"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>time_slots_one_hot <span class="op">=</span> pd.get_dummies(df[<span class="st">"Time Slot"</span>], prefix<span class="op">=</span><span class="st">"slot"</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine all features</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>df_encoded <span class="op">=</span> pd.concat([df, week_day_one_hot, schedule_type_one_hot, </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    months_one_hot, years_one_hot, time_slots_one_hot], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop redundant and original categorical columns</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>columns_to_drop <span class="op">=</span> [</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Day Week"</span>,              <span class="co"># Encoded as day_</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Schedule Type"</span>,         <span class="co"># Encoded as schedule_  </span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Index Day Week"</span>,        <span class="co"># Redundant with day_of_week</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"donnees_definitives"</span>,   <span class="co"># All True after "False" values were removed</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Week Index"</span>             <span class="co"># Not used in our predictive models</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>df_encoded <span class="op">=</span> df_encoded.drop(columns<span class="op">=</span>columns_to_drop)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>df_encoded <span class="op">=</span> df_encoded.dropna().reset_index(drop<span class="op">=</span><span class="va">True</span>) <span class="co"># drop any remaining NaN values</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>df_final <span class="op">=</span> df_encoded.sort_values([<span class="st">"Date"</span>, <span class="st">"Time Slot"</span>]).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
 </section>
 <section id="weather-data" class="level3">
 <h3 class="anchored" data-anchor-id="weather-data">Weather Data</h3>
@@ -286,13 +346,107 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Counts of GA, Half-Fare, and Unireso subscriptions filtered to Geneva postal codes, aggregated yearly,</li>
 <li>2025 values extrapolated from 2024 growth rates</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Abonnements Dataset Cleaning
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<pre><code># import data of halbtax and GA
+df = pd.read_csv("00_datasets/original/generalabo_halbtax.csv", sep=';')
+
+# Drop flag columns
+df = df.drop(['GA_AG_flag', 'HTA_ADT_meta-prezzo_HFT_flag'], axis=1)
+
+# convert all of the values to integer
+df[['Postal code', 'GA_AG', 'HTA_ADT_meta-prezzo_HFT']] = df[['Postal code', 'GA_AG', 'HTA_ADT_meta-prezzo_HFT']].astype(int)
+
+# select all rows which have a value between 1200 and 1299 in the Postal Code column (canton of Geneva)
+df_geneva = df[df["Postal code"].between(1200, 1299)]
+
+# sum them up by years
+df_yearly = df_geneva.groupby('Jahr_An_Anno_Year')[['GA_AG', 'HTA_ADT_meta-prezzo_HFT']].sum().reset_index()
+
+# rename the features
+df_yearly = df_yearly.rename(columns={"Jahr_An_Anno_Year": "year", "GA_AG": "#GA", "HTA_ADT_meta-prezzo_HFT": "#half-fare"})
+
+
+
+# import data of the CH dataset (all networks)
+df_verbunde = pd.read_csv("00_datasets/original/verbunde.csv", sep=';')
+
+# drop unnecessary columns
+df_verbunde = df_verbunde.drop(['Flag'], axis=1)
+
+# select only the data that is acutally = unireso
+df_unireso = df_verbunde[df_verbunde["Verbund_Communaute_Comunita_Network"] == "unireso"]
+
+# sum them up per year again
+df_unireso_yearly = df_unireso.groupby('Jahr_An_Anno_Year')[['Anzahl_Nombre_Quantita_Number']].sum().reset_index()
+
+# rename the features
+df_unireso_yearly = df_unireso_yearly.rename(columns={"Jahr_An_Anno_Year": "year", "Anzahl_Nombre_Quantita_Number": "#unireso"})
+
+
+# merge the two datasets
+df_abos_total = df_unireso_yearly.merge(df_yearly, on="year", how="outer")
+
+# calculate the growth rates 2019/2020 for the half fare feature
+hf19 = df_abos_total[df_abos_total.year == 2019]["#half-fare"].values[0]
+hf20 = df_abos_total[df_abos_total.year == 2020]["#half-fare"].values[0]
+uni20 = df_abos_total[df_abos_total.year == 2020]["#unireso"].values[0]
+
+growth = hf20 / hf19
+
+# calculate and fill in the value at the right spot in the pandas dataframe
+df_abos_total.loc[df_abos_total.year == 2019, "#unireso"] = int(uni20 / growth)
+
+# get 2023 and 2024 values
+uni23  = df_abos_total[df_abos_total.year == 2023]["#unireso"].values[0]
+ga23   = df_abos_total[df_abos_total.year == 2023]["#GA"].values[0]
+hf23   = df_abos_total[df_abos_total.year == 2023]["#half-fare"].values[0]
+
+uni24  = df_abos_total[df_abos_total.year == 2024]["#unireso"].values[0]
+ga24   = df_abos_total[df_abos_total.year == 2024]["#GA"].values[0]
+hf24   = df_abos_total[df_abos_total.year == 2024]["#half-fare"].values[0]
+
+# compute growth rates
+g_uni = uni24 / uni23
+g_ga  = ga24 / ga23
+g_hf  = hf24 / hf23
+
+# compute 2025 values
+uni25 = int(uni24 * g_uni)
+ga25  = int(ga24  * g_ga)
+hf25  = int(hf24  * g_hf)
+
+# add new row
+df_abos_total.loc[len(df_abos_total)] = [2025, uni25, ga25, hf25]
+
+# drop all the data before 2019 (not used in our analysis)
+df_abos_total = df_abos_total[df_abos_total.year &gt;= 2019].reset_index(drop=True)
+df_abos_total = df_abos_total.astype(int)
+
+# export the cleaned csv
+df_abos_total.to_csv("00_datasets/clean/cleaned_abo_data.csv", index=False)
+</code></pre>
+</div>
+</div>
+</div>
 </section>
 <section id="events-in-geneva" class="level3">
 <h3 class="anchored" data-anchor-id="events-in-geneva">Events in Geneva</h3>
 <ul>
 <li>Servette FC football matches,</li>
-<li>Concerts at Arena de Genève These events were encoded as binary features.</li>
+<li>Concerts at Arena de Genève.</li>
 </ul>
+<p>These events were encoded as binary features.</p>
 <p>All datasets were merged by date to create the final modeling dataframe.</p>
 </section>
 </section>
@@ -305,86 +459,88 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Non-linear transformations (Yeo-Johnson, Quantile) generally worsened performance</li>
 <li>Random Forests is robust to feature scaling and does not require preprocessing</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial chronological train-test split (70-30%)</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>split_idx <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.7</span> <span class="op">*</span> <span class="bu">len</span>(df))</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>X_train, X_test <span class="op">=</span> X.iloc[:split_idx], X.iloc[split_idx:]</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>y_train, y_test <span class="op">=</span> y.iloc[:split_idx], y.iloc[split_idx:]</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the pipeline for preprocessing and model fitting</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>num_feature <span class="op">=</span> [<span class="st">'average_temp'</span>, <span class="st">"rain (mm)"</span>,<span class="st">"snow (mm)"</span>,<span class="st">"avg_wind_speed (km/h)"</span>,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Number of Stops_lag_1w"</span>,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"population"</span>, <span class="st">"#unireso"</span>,<span class="st">"#GA"</span>,<span class="st">"#half-fare"</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>               <span class="st">"lag_24h"</span>, <span class="st">"lag_1w"</span>, <span class="st">"lag_3h"</span>]</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>preprocess <span class="op">=</span> ColumnTransformer(</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"minmax"</span>, MinMaxScaler(feature_range<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">1</span>)), num_feature)],</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    remainder <span class="op">=</span> <span class="st">"passthrough"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>y_train_s <span class="op">=</span> y_train</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>pip <span class="op">=</span> Pipeline([</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"prep"</span>, preprocess),</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, LinearRegression(fit_intercept<span class="op">=</span><span class="va">True</span>))</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    ]).fit(X_train, y_train_s)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Prediction </span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>y_pred_train <span class="op">=</span> pip.predict(X_train)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>y_pred_test <span class="op">=</span> pip.predict(X_test)</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate errors</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>mse_train <span class="op">=</span> mean_squared_error(y_train, y_pred_train)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>mse_test <span class="op">=</span> mean_squared_error(y_test, y_pred_test)</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>mae_train <span class="op">=</span> mean_absolute_error(y_train, y_pred_train)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>mae_test <span class="op">=</span> mean_absolute_error(y_test, y_pred_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Code <span class="cf">for</span> Quantile Preprocessing <span class="op">-</span> Neural Network</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>split_idx <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.7</span> <span class="op">*</span> <span class="bu">len</span>(df))</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>X_train, X_test <span class="op">=</span> X.iloc[:split_idx], X.iloc[split_idx:]</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>y_train, y_test <span class="op">=</span> y.iloc[:split_idx], y.iloc[split_idx:]</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the pipeline for preprocessing and model fitting</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>num_feature <span class="op">=</span> [<span class="st">'average_temp'</span>, <span class="st">"rain (mm)"</span>,<span class="st">"snow (mm)"</span>,<span class="st">"avg_wind_speed (km/h)"</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Number of Stops_lag_1w"</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"population"</span>, <span class="st">"#unireso"</span>,<span class="st">"#GA"</span>,<span class="st">"#half-fare"</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>               <span class="st">"lag_24h"</span>, <span class="st">"lag_1w"</span>, <span class="st">"lag_3h"</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>               ]</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>preprocess <span class="op">=</span> ColumnTransformer(</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"quantile"</span>, QuantileTransformer(n_quantiles<span class="op">=</span><span class="dv">1000</span>, output_distribution <span class="op">=</span> <span class="st">"uniform"</span>, random_state<span class="op">=</span><span class="dv">42</span>), num_feature)])</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize y</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>mu, sigma <span class="op">=</span> y_train.mean(), y_train.std() </span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>y_train_s <span class="op">=</span> (y_train <span class="op">-</span> mu) <span class="op">/</span> sigma</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>pip <span class="op">=</span> Pipeline([</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"prep"</span>, preprocess),</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, MLPRegressor(</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        hidden_layer_sizes<span class="op">=</span>(<span class="dv">128</span>, <span class="dv">64</span>, <span class="dv">32</span>), </span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        learning_rate_init<span class="op">=</span><span class="fl">0.001</span>, </span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        activation<span class="op">=</span><span class="st">"relu"</span>, </span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        solver<span class="op">=</span><span class="st">"adam"</span>,</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        alpha<span class="op">=</span><span class="fl">0.01</span>, </span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        batch_size<span class="op">=</span><span class="dv">64</span>, </span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        max_iter<span class="op">=</span><span class="dv">500</span>,</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        early_stopping<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        validation_fraction<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>        random_state<span class="op">=</span><span class="dv">42</span>))</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    ]).fit(X_train, y_train_s)</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Prediction </span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>y_pred_train <span class="op">=</span> pip.predict(X_train)</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>y_pred_test <span class="op">=</span> pip.predict(X_test)</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co"># De-standardize y</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>y_pred_test <span class="op">=</span> y_pred_test<span class="op">*</span> sigma <span class="op">+</span> mu</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>y_pred_train <span class="op">=</span> y_pred_train<span class="op">*</span> sigma <span class="op">+</span> mu</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="visualizations" class="level2">
-<h2 class="anchored" data-anchor-id="visualizations">Visualizations</h2>
-<ul>
-<li>Add correlation matrix !</li>
-</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Min-Max Preprocessing Code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the pipeline for preprocessing and model fitting</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>num_feature <span class="op">=</span> [<span class="st">'average_temp'</span>, <span class="st">"rain (mm)"</span>,<span class="st">"snow (mm)"</span>,<span class="st">"avg_wind_speed (km/h)"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Number of Stops_lag_1w"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">"population"</span>, <span class="st">"#unireso"</span>,<span class="st">"#GA"</span>,<span class="st">"#half-fare"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"lag_24h"</span>, <span class="st">"lag_1w"</span>, <span class="st">"lag_3h"</span>]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>preprocess <span class="op">=</span> ColumnTransformer(</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"minmax"</span>, MinMaxScaler(feature_range<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">1</span>)), num_feature)],</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    remainder <span class="op">=</span> <span class="st">"passthrough"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>y_train_s <span class="op">=</span> y_train</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>pip <span class="op">=</span> Pipeline([</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"prep"</span>, preprocess),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, LinearRegression(fit_intercept<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    ]).fit(X_train, y_train_s)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Quantile Preprocessing for Neural Network Code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the pipeline for preprocessing and model fitting</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>num_feature <span class="op">=</span> [<span class="st">'average_temp'</span>, <span class="st">"rain (mm)"</span>,<span class="st">"snow (mm)"</span>,<span class="st">"avg_wind_speed (km/h)"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Number of Stops_lag_1w"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">"population"</span>, <span class="st">"#unireso"</span>,<span class="st">"#GA"</span>,<span class="st">"#half-fare"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"lag_24h"</span>, <span class="st">"lag_1w"</span>, <span class="st">"lag_3h"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>               ]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>preprocess <span class="op">=</span> ColumnTransformer(</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"quantile"</span>, QuantileTransformer(n_quantiles<span class="op">=</span><span class="dv">1000</span>, output_distribution <span class="op">=</span> <span class="st">"uniform"</span>, random_state<span class="op">=</span><span class="dv">42</span>), num_feature)])</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize y</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>mu, sigma <span class="op">=</span> y_train.mean(), y_train.std() </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>y_train_s <span class="op">=</span> (y_train <span class="op">-</span> mu) <span class="op">/</span> sigma</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>pip <span class="op">=</span> Pipeline([</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"prep"</span>, preprocess),</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, MLPRegressor(</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        hidden_layer_sizes<span class="op">=</span>(<span class="dv">128</span>, <span class="dv">64</span>, <span class="dv">32</span>), </span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        learning_rate_init<span class="op">=</span><span class="fl">0.001</span>, </span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        activation<span class="op">=</span><span class="st">"relu"</span>, </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        solver<span class="op">=</span><span class="st">"adam"</span>,</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        alpha<span class="op">=</span><span class="fl">0.01</span>, </span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        batch_size<span class="op">=</span><span class="dv">64</span>, </span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        max_iter<span class="op">=</span><span class="dv">500</span>,</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        early_stopping<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        validation_fraction<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        random_state<span class="op">=</span><span class="dv">42</span>))</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    ]).fit(X_train, y_train_s)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Prediction </span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>y_pred_train <span class="op">=</span> pip.predict(X_train)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>y_pred_test <span class="op">=</span> pip.predict(X_test)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co"># De-standardize y</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>y_pred_test <span class="op">=</span> y_pred_test<span class="op">*</span> sigma <span class="op">+</span> mu</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>y_pred_train <span class="op">=</span> y_pred_train<span class="op">*</span> sigma <span class="op">+</span> mu</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
 </section>
 <section id="feature-engineering" class="level2">
 <h2 class="anchored" data-anchor-id="feature-engineering">Feature Engineering</h2>
@@ -394,22 +550,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>For number of stops per time slot: 1-week lag (avoid data leakage, nb stops is not known before the hour was realized)</li>
 <li>Calendar variables: Year, month, day of month, Day-of-week, schedule type, time slot (all one-hot encoded)</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Code <span class="cf">for</span> Lagged features</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Lagged Number of Stops</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># sort by date and then time slot   </span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.sort_values([<span class="st">'Date'</span>, <span class="st">'Time Slot'</span>]).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># shift by 22 rows * 7 (1 day = 22 observations, since we dropped 2 and 3am)</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># shift works because we have equally many observations per time slot across the dataset (2,459)</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Number of Stops_lag_1w'</span>] <span class="op">=</span> df[<span class="st">'Number of Stops'</span>].shift(<span class="dv">22</span> <span class="op">*</span> <span class="dv">7</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Lagged Boarding passengers</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"lag_24h"</span>] <span class="op">=</span> df[<span class="st">"Number of Boarding Passengers"</span>].shift(<span class="dv">22</span>)     <span class="co"># same time yesterday</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"lag_1w"</span>] <span class="op">=</span> df[<span class="st">"Number of Boarding Passengers"</span>].shift(<span class="dv">22</span> <span class="op">*</span> <span class="dv">7</span>)  <span class="co"># same time 1 week before</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"lag_3h"</span>] <span class="op">=</span> np.where(df[<span class="st">"Time Slot"</span>]<span class="op">==</span><span class="dv">4</span>,                       <span class="co"># 3 hours before</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                        df[<span class="st">"Number of Boarding Passengers"</span>].shift(<span class="dv">1</span>),</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                        df[<span class="st">"Number of Boarding Passengers"</span>].shift(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Lagged Features Code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lagged Number of Stops</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># sort by date and then time slot   </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.sort_values([<span class="st">'Date'</span>, <span class="st">'Time Slot'</span>]).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># shift by 22 rows * 7 (1 day = 22 observations, since we dropped 2 and 3am)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># shift works because we have equally many observations per time slot across the dataset (2,459)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Number of Stops_lag_1w'</span>] <span class="op">=</span> df[<span class="st">'Number of Stops'</span>].shift(<span class="dv">22</span> <span class="op">*</span> <span class="dv">7</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Lagged Boarding passengers</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"lag_24h"</span>] <span class="op">=</span> df[<span class="st">"Number of Boarding Passengers"</span>].shift(<span class="dv">22</span>)     <span class="co"># same time yesterday</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"lag_1w"</span>] <span class="op">=</span> df[<span class="st">"Number of Boarding Passengers"</span>].shift(<span class="dv">22</span> <span class="op">*</span> <span class="dv">7</span>)  <span class="co"># same time 1 week before</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"lag_3h"</span>] <span class="op">=</span> np.where(df[<span class="st">"Time Slot"</span>]<span class="op">==</span><span class="dv">4</span>,                       <span class="co"># 3 hours before</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                        df[<span class="st">"Number of Boarding Passengers"</span>].shift(<span class="dv">1</span>),</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                        df[<span class="st">"Number of Boarding Passengers"</span>].shift(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="visualizations">Visualizations</h2>
+<p>From the below correlation matrix, three observations can be made:</p>
+<ol type="1">
+<li><p><strong>Dominant Seasonality</strong>: the 1-week lag (0.95) and 24-hour lag (0.82) are the strongest predictors, proving high temporal periodicity.</p></li>
+<li><p><strong>Demographic Redudancy</strong>: Population, Year, and Subscriptions are highly colinear, which requires regularization.</p></li>
+<li><p><strong>Weak External Signals</strong>: Weather and Event features show near-zero correlation (&lt;0.05), suggesting a limited global impact.</p></li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/correlation.png" class="img-fluid figure-img" width="3169"></p>
+<figcaption>Correlation Heatmap of Features</figcaption>
+</figure>
+</div>
 </section>
 </section>
 <section id="modeling-strategy" class="level1">
@@ -427,47 +611,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Naïve benchmarks provide a critical reference point for assessing whether complex models add real predictive value. We implemented three simple baselines: predicting the last observed value, the historical mean, and the historical median for each time slot.</p>
 <p>Our goal: build models outperforming MAE of 18,000 (obtained with simple these naïve methods).</p>
 <p><img src="images/naive.png" class="img-fluid"></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Code <span class="cf">for</span> Naïve Prediction </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Import Data</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"00_datasets/merged_dataframes.csv"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Define target + features</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"Number of Boarding Passengers"</span>]</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">"Number of Boarding Passengers"</span>])</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Train-test split </span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>split_idx <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.7</span> <span class="op">*</span> <span class="bu">len</span>(df)) <span class="co"># 70/30 train/test split</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> X.iloc[:split_idx]</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> X.iloc[split_idx:]</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> y.iloc[:split_idx]</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> y.iloc[split_idx:]</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Naive baseline functions</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> naive_last_value(train, test):</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    last_value <span class="op">=</span> train.iloc[<span class="op">-</span><span class="dv">1</span>] <span class="co"># select the last row of the training series</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [last_value] <span class="op">*</span> <span class="bu">len</span>(test)</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mean_forecast(train, test):</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    mean_value <span class="op">=</span> train.mean() <span class="co"># calculate the mean of the training set</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [mean_value] <span class="op">*</span> <span class="bu">len</span>(test)</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> median_forecast(train, test): </span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    median_value <span class="op">=</span> train.median() <span class="co"># calculate the median of the training set</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [median_value] <span class="op">*</span> <span class="bu">len</span>(test)</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Predictions</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>y_pred_naive <span class="op">=</span> naive_last_value(y_train, y_test)</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>y_pred_mean <span class="op">=</span> mean_forecast(y_train, y_test)</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>y_pred_median <span class="op">=</span> median_forecast(y_train, y_test)</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluation</span></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate(y_true, y_pred):</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"MAE"</span>: mean_absolute_error(y_true, y_pred),</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"RMSE"</span>: mean_squared_error(y_true, y_pred) <span class="op">**</span> <span class="fl">0.5</span></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="linear-models" class="level2">
 <h2 class="anchored" data-anchor-id="linear-models">3.2 Linear Models</h2>
@@ -478,33 +621,392 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="linear-model-with-time-lags-learning-from-the-past" class="level3">
 <h3 class="anchored" data-anchor-id="linear-model-with-time-lags-learning-from-the-past">Linear Model with Time Lags: Learning from the Past</h3>
 <p>Incorporating lagged passenger counts substantially improves performance by allowing the model to exploit temporal dependencies, both very short term fluctuations and weekly patterns in passenger demand.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Lagged Linear Regression with Cross Validation
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, mean_absolute_error</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> TimeSeriesSplit</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> SequentialFeatureSelector</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"00_datasets/merged_dataframes.csv"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create separated dataframes for features and target </span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"slot_0"</span>,<span class="st">"slot_1"</span>,<span class="st">"slot_4"</span>,<span class="st">"slot_5"</span>,<span class="st">"slot_6"</span>,<span class="st">"slot_7"</span>,<span class="st">"slot_8"</span>,<span class="st">"slot_9"</span>,<span class="st">"slot_10"</span>,<span class="st">"slot_11"</span>,<span class="st">"slot_12"</span>,<span class="st">"slot_13"</span>,<span class="st">"slot_14"</span>,<span class="st">"slot_15"</span>,<span class="st">"slot_16"</span>,<span class="st">"slot_17"</span>,<span class="st">"slot_18"</span>,<span class="st">"slot_19"</span>,<span class="st">"slot_20"</span>,<span class="st">"slot_21"</span>,<span class="st">"slot_22"</span>,<span class="st">"slot_23"</span>, </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">'day_1-Lundi'</span>, <span class="st">'day_2-Mardi'</span>, <span class="st">'day_3-Mercredi'</span>, <span class="st">'day_4-Jeudi'</span>,<span class="st">'day_5-Vendredi'</span>, <span class="st">'day_6-Samedi'</span>, <span class="st">'day_7-Dimanche'</span>,</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">'average_temp'</span>, <span class="st">"rain (mm)"</span>,<span class="st">"snow (mm)"</span>,<span class="st">"avg_wind_speed (km/h)"</span>,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Number of Stops_lag_1w"</span>,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"schedule_VACANCES"</span>,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"month_1"</span>,<span class="st">"month_2"</span>,<span class="st">"month_3"</span>,<span class="st">"month_4"</span>,<span class="st">"month_5"</span>,<span class="st">"month_6"</span>,<span class="st">"month_7"</span>,<span class="st">"month_8"</span>,<span class="st">"month_9"</span>,<span class="st">"month_10"</span>,<span class="st">"month_11"</span>,<span class="st">"month_12"</span>,</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"match FC servette"</span>,<span class="st">"Event arena de Geneve"</span>,</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"population"</span>,</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#unireso"</span>,<span class="st">"#GA"</span>,<span class="st">"#half-fare"</span>,</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lag_24h"</span>, <span class="st">"lag_1w"</span>, <span class="st">"lag_3h"</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[features]</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"Number of Boarding Passengers"</span>]</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial chronological train-test split (70-30%)</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>split_idx <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.7</span> <span class="op">*</span> <span class="bu">len</span>(df))</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>X_train, X_test <span class="op">=</span> X.iloc[:split_idx], X.iloc[split_idx:]</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>y_train, y_test <span class="op">=</span> y.iloc[:split_idx], y.iloc[split_idx:]</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the pipeline for preprocessing, cross validtaion and model fitting</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>num_feature <span class="op">=</span> [<span class="st">'average_temp'</span>, <span class="st">"rain (mm)"</span>,<span class="st">"snow (mm)"</span>,<span class="st">"avg_wind_speed (km/h)"</span>,</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Number of Stops_lag_1w"</span>,</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>               <span class="st">"population"</span>,</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>               <span class="st">"#unireso"</span>,<span class="st">"#GA"</span>,<span class="st">"#half-fare"</span>,</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>               <span class="st">"lag_24h"</span>, <span class="st">"lag_1w"</span>, <span class="st">"lag_3h"</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>               ]</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="co"># TimeSeriesSplit instead of KFold for Cross Validation</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> TimeSeriesSplit(n_splits<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>preprocess <span class="op">=</span> ColumnTransformer(</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"standa"</span>, StandardScaler(), num_feature)],</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    remainder <span class="op">=</span> <span class="st">"passthrough"</span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression(fit_intercept<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>sfs <span class="op">=</span> SequentialFeatureSelector(</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>    estimator<span class="op">=</span> model,</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    n_features_to_select<span class="op">=</span><span class="st">"auto"</span>,  </span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>    direction<span class="op">=</span><span class="st">"forward"</span>,             </span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">=</span>cv,</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>    n_jobs<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>pip <span class="op">=</span> Pipeline([</span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"preprocess"</span>, preprocess),</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"sfs"</span>, sfs),</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, model)</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>]).fit(X_train, y_train)</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="co"># Extracting the results of the CV- name of the number of column (not) kept</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a><span class="co"># names after preprocessing</span></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>feature_names <span class="op">=</span> pip.named_steps[<span class="st">"preprocess"</span>].get_feature_names_out()</span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="co"># mask of selected features</span></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> pip.named_steps[<span class="st">"sfs"</span>].get_support()</span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>selected_features <span class="op">=</span> feature_names[mask]</span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>dropped_features <span class="op">=</span> feature_names[<span class="op">~</span>mask]</span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Selected features:"</span>)</span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(selected_features)</span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Dropped features:"</span>)</span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(dropped_features)</span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a><span class="co"># Prediction </span></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>y_pred_train <span class="op">=</span> pip.predict(X_train)</span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>y_pred_test <span class="op">=</span> pip.predict(X_test)</span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate errors</span></span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>mse_train <span class="op">=</span> mean_squared_error(y_train, y_pred_train)</span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>mse_test <span class="op">=</span> mean_squared_error(y_test, y_pred_test)</span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>mae_train <span class="op">=</span> mean_absolute_error(y_train, y_pred_train)</span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>mae_test <span class="op">=</span> mean_absolute_error(y_test, y_pred_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
 </section>
 <section id="cross-validation" class="level3">
 <h3 class="anchored" data-anchor-id="cross-validation">Cross Validation</h3>
-<ul>
-<li>Add explanations and code!</li>
-</ul>
+<p>Passenger demand forecasting is inherently a time-series problem: predictions must always be made using past information only. Standard random cross-validation techniques would therefore be inappropriate, as they mix past and future observations and lead to overly optimistic results. To address this, we applied time-aware cross-validation using <strong>TimeSeriesSplit</strong>. Concretely, the data is split into successive training and validation folds using an expanding window approach. Each fold trains the model on historical data and evaluates it on a strictly later time period.</p>
+<p><img src="images/crossvalidation.png" class="img-fluid quarto-figure quarto-figure-center" width="350" alt="Expanding Window Time Series Cross Validation."> All preprocessing steps (scaling, transformations, feature selection) were embedded inside a scikit-learn Pipeline, ensuring that transformations are learned exclusively from the training portion of each fold. This design fully prevents data leakage and guarantees a fair evaluation.</p>
+<p>Hyperparameters (such as regularization strength or tree depth) were tuned over wide ranges, with the optimal configuration automatically selected based on average validation performance. Compared to rolling-window validation, the expanding-window approach is better suited to capturing long-term seasonal patterns (weekly and yearly cycles) that are central to public transport demand.</p>
 </section>
 <section id="regularized-linear-models-lasso-ridge-elastic-net" class="level3">
 <h3 class="anchored" data-anchor-id="regularized-linear-models-lasso-ridge-elastic-net">Regularized Linear Models (Lasso, Ridge, Elastic Net)</h3>
 <p>Regularization techniques were applied to mitigate overfitting and handle multicollinearity among features. Lasso performed best among linear models, particularly when COVID-19 observations were excluded from training.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Lasso Regularization (excluding Covid)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, mean_absolute_error</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Lasso</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LassoCV</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> TimeSeriesSplit</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"00_datasets/merged_dataframes.csv"</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Define covid period</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>covid_start <span class="op">=</span> pd.to_datetime(<span class="st">"2020-03-01"</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>covid_end   <span class="op">=</span> pd.to_datetime(<span class="st">"2021-06-01"</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out covid period (keep only rows before or after it)</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> (df[<span class="st">"Date"</span>] <span class="op">&lt;</span> covid_start) <span class="op">|</span> (df[<span class="st">"Date"</span>] <span class="op">&gt;</span> covid_end)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[mask].copy()</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Create separated dataframes for features and target </span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"slot_0"</span>,<span class="st">"slot_1"</span>,</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"slot_4"</span>,<span class="st">"slot_5"</span>,<span class="st">"slot_6"</span>,<span class="st">"slot_7"</span>,<span class="st">"slot_8"</span>,<span class="st">"slot_9"</span>,<span class="st">"slot_10"</span>,<span class="st">"slot_11"</span>,<span class="st">"slot_12"</span>,<span class="st">"slot_13"</span>,<span class="st">"slot_14"</span>,<span class="st">"slot_15"</span>,<span class="st">"slot_16"</span>,<span class="st">"slot_17"</span>,<span class="st">"slot_18"</span>,<span class="st">"slot_19"</span>,<span class="st">"slot_20"</span>,<span class="st">"slot_21"</span>,<span class="st">"slot_22"</span>,<span class="st">"slot_23"</span>, </span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">'day_1-Lundi'</span>, <span class="st">'day_2-Mardi'</span>, <span class="st">'day_3-Mercredi'</span>, <span class="st">'day_4-Jeudi'</span>,<span class="st">'day_5-Vendredi'</span>, <span class="st">'day_6-Samedi'</span>, <span class="st">'day_7-Dimanche'</span>,</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">'average_temp'</span>, <span class="st">"rain (mm)"</span>,<span class="st">"snow (mm)"</span>,<span class="st">"avg_wind_speed (km/h)"</span>,</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Number of Stops_lag_1w"</span>,</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"schedule_VACANCES"</span>,</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"month_1"</span>,<span class="st">"month_2"</span>,<span class="st">"month_3"</span>,<span class="st">"month_4"</span>,<span class="st">"month_5"</span>,<span class="st">"month_6"</span>,<span class="st">"month_7"</span>,<span class="st">"month_8"</span>,<span class="st">"month_9"</span>,<span class="st">"month_10"</span>,<span class="st">"month_11"</span>,<span class="st">"month_12"</span>,</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">"match FC servette"</span>,<span class="st">"Event arena de Geneve"</span>,</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"population"</span>,</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#unireso"</span>,<span class="st">"#GA"</span>,<span class="st">"#half-fare"</span>,</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lag_24h"</span>, <span class="st">"lag_1w"</span>, <span class="st">"lag_3h"</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[features]</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"Number of Boarding Passengers"</span>]</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial chronological train-test split (70-30%)</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>split_idx <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.7</span> <span class="op">*</span> <span class="bu">len</span>(df))</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>X_train, X_test <span class="op">=</span> X.iloc[:split_idx], X.iloc[split_idx:]</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>y_train, y_test <span class="op">=</span> y.iloc[:split_idx], y.iloc[split_idx:]</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="co"># TimeSeriesSplit instead of KFold</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> TimeSeriesSplit(n_splits<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the pipeline for preprocessing and model fitting</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>num_feature <span class="op">=</span> [<span class="st">'average_temp'</span>, <span class="st">"rain (mm)"</span>,<span class="st">"snow (mm)"</span>,<span class="st">"avg_wind_speed (km/h)"</span>,</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Number of Stops_lag_1w"</span>,</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>               <span class="st">"population"</span>,</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>               <span class="st">"#unireso"</span>,<span class="st">"#GA"</span>,<span class="st">"#half-fare"</span>,</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>               <span class="st">"lag_24h"</span>, <span class="st">"lag_1w"</span>, <span class="st">"lag_3h"</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>               ]</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>preprocess <span class="op">=</span> ColumnTransformer(</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"standa"</span>, StandardScaler(), num_feature)],</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>    remainder <span class="op">=</span> <span class="st">"passthrough"</span></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">100</span>)</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>pip <span class="op">=</span> Pipeline([</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"prep"</span>, preprocess),</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, LassoCV(</span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>        alphas<span class="op">=</span>alpha,</span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>        fit_intercept<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>        cv<span class="op">=</span>cv))</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>    ]).fit(X_train, y_train)</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="co"># Best alpha </span></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best alpha:"</span>, pip.named_steps[<span class="st">'model'</span>].alpha_)</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="co"># Prediction </span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>y_pred_train <span class="op">=</span> pip.predict(X_train)</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>y_pred_test <span class="op">=</span> pip.predict(X_test)</span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate errors</span></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>mse_train <span class="op">=</span> mean_squared_error(y_train, y_pred_train)</span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>mse_test <span class="op">=</span> mean_squared_error(y_test, y_pred_test)</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>mae_train <span class="op">=</span> mean_absolute_error(y_train, y_pred_train)</span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>mae_test <span class="op">=</span> mean_absolute_error(y_test, y_pred_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="neural-network" class="level2">
 <h2 class="anchored" data-anchor-id="neural-network">3.3 Neural Network</h2>
-<p>We implemented a multilayer perceptron (MLP) regressor with a funnel-shaped architecture (128–64–32 neurons) for feature compression. - Activation Function: ReLU (Rectified Linear Unit) to capture non-linear spikes (e.g.&nbsp;rush hours). - Preprocessing: Strict normalization wrapped in a Pipeline to prevent data leakage. - Regularization: L2 penalty and Early Stopping to prevent overfitting.</p>
+<p>We implemented a multilayer perceptron (MLP) regressor with a funnel-shaped architecture (128–64–32 neurons) for feature compression.</p>
+<ul>
+<li><p>Activation Function: ReLU (Rectified Linear Unit) to capture non-linear spikes (e.g.&nbsp;rush hours).</p></li>
+<li><p>Preprocessing: Strict normalization wrapped in a Pipeline to prevent data leakage.</p></li>
+<li><p>Regularization: L2 penalty and Early Stopping to prevent overfitting.</p></li>
+</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/plot.png" class="img-fluid figure-img" width="300"></p>
 <figcaption>Neural Network: Number of predicted passengers plotted against actual values.</figcaption>
 </figure>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Neural Network Code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[features]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"Number of Boarding Passengers"</span>]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>split_idx <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.7</span> <span class="op">*</span> <span class="bu">len</span>(df))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>X_train, X_test <span class="op">=</span> X.iloc[:split_idx], X.iloc[split_idx:]</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>y_train, y_test <span class="op">=</span> y.iloc[:split_idx], y.iloc[split_idx:]</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the pipeline for preprocessing and model fitting</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>num_feature <span class="op">=</span> [<span class="st">'average_temp'</span>, <span class="st">"rain (mm)"</span>,<span class="st">"snow (mm)"</span>,<span class="st">"avg_wind_speed (km/h)"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Number of Stops_lag_1w"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>               <span class="st">"population"</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>               <span class="st">"#unireso"</span>,<span class="st">"#GA"</span>,<span class="st">"#half-fare"</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>               <span class="st">"lag_24h"</span>, <span class="st">"lag_1w"</span>, <span class="st">"lag_3h"</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>               ]</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>preprocess <span class="op">=</span> ColumnTransformer(</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"standa"</span>, StandardScaler(), num_feature)],</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    remainder <span class="op">=</span> <span class="st">"passthrough"</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> TimeSeriesSplit(n_splits<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the pipeline for preprocessing and MLP Regressor</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>base_pipe <span class="op">=</span> Pipeline([</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"prep"</span>, preprocess),</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, MLPRegressor(</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>        hidden_layer_sizes<span class="op">=</span>(<span class="dv">128</span>, <span class="dv">64</span>, <span class="dv">32</span>),</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>        learning_rate_init<span class="op">=</span><span class="fl">0.001</span>,</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>        activation<span class="op">=</span><span class="st">"relu"</span>,</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>        solver<span class="op">=</span><span class="st">"adam"</span>,</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>        alpha<span class="op">=</span><span class="fl">0.009</span>,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>        batch_size<span class="op">=</span><span class="dv">64</span>,</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>        max_iter<span class="op">=</span><span class="dv">500</span>,</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>        early_stopping<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>        validation_fraction<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>        random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>ttr <span class="op">=</span> TransformedTargetRegressor(regressor<span class="op">=</span>base_pipe,</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>                                 transformer<span class="op">=</span>StandardScaler())</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>param_distributions <span class="op">=</span> {</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>    <span class="st">"regressor__model__hidden_layer_sizes"</span>: [</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>        (<span class="dv">64</span>,), (<span class="dv">64</span>, <span class="dv">32</span>), (<span class="dv">128</span>, <span class="dv">64</span>), (<span class="dv">128</span>, <span class="dv">64</span>, <span class="dv">32</span>)</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>    <span class="st">"regressor__model__alpha"</span>: [<span class="fl">0.0001</span>, <span class="fl">0.001</span>, <span class="fl">0.005</span>, <span class="fl">0.01</span>],</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>    <span class="st">"regressor__model__learning_rate_init"</span>: [<span class="fl">0.0005</span>, <span class="fl">0.001</span>, <span class="fl">0.005</span>],</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>    <span class="st">"regressor__model__batch_size"</span>: [<span class="dv">32</span>, <span class="dv">64</span>, <span class="dv">128</span>],</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>    <span class="st">"regressor__model__max_iter"</span>: [<span class="dv">300</span>, <span class="dv">500</span>, <span class="dv">800</span>]</span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> RandomizedSearchCV(</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>    estimator<span class="op">=</span>ttr,</span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>    param_distributions<span class="op">=</span>param_distributions,</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>    n_iter<span class="op">=</span><span class="dv">5</span>,                           </span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>    scoring<span class="op">=</span><span class="st">"neg_mean_squared_error"</span>,</span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">=</span>cv,</span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>    refit<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>    n_jobs<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>search.fit(X_train, y_train)</span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a>y_pred_train <span class="op">=</span> search.predict(X_train)</span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a>y_pred_test <span class="op">=</span> search.predict(X_test)</span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a>mse_train <span class="op">=</span> mean_squared_error(y_train, y_pred_train)</span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a>mse_test <span class="op">=</span> mean_squared_error(y_test, y_pred_test)</span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>mae_train <span class="op">=</span> mean_absolute_error(y_train, y_pred_train)</span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>mae_test <span class="op">=</span> mean_absolute_error(y_test, y_pred_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
 </section>
 <section id="random-forest" class="level2">
 <h2 class="anchored" data-anchor-id="random-forest">3.4 Random Forest</h2>
-<p>The Random Forest Regressor emerged as the most accurate model overall. Its ensemble structure allows it to capture complex non-linear interactions and overlapping seasonal patterns (daily, weekly, yearly) while remaining robust to noise.</p>
-<p>Performance: - MAE ≈ 1,500 - Relative error ≈ 6.4% - Equivalent to 6 trams worth of passengers per hour</p>
+<p>The Random Forest Regressor emerged as the most accurate model overall. Its ensemble structure allows it to capture complex non-linear interactions and overlapping seasonal patterns (daily, weekly, yearly) while remaining robust to noise. A cross validation was also applied to the Random Forest models (as well as on neural networks) with the package RandomizedSearchedCV.</p>
+<p>Performance:</p>
+<ul>
+<li>MAE ≈ 1,500</li>
+<li>Relative error ≈ 6.4%</li>
+<li>Equivalent to 6 trams worth of passengers per hour</li>
+</ul>
 <p><strong>This represents a 50% improvement over the best linear model (Lasso without Covid).</strong></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Random Forest Code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[features]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"Number of Boarding Passengers"</span>]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>split_idx <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.7</span> <span class="op">*</span> <span class="bu">len</span>(df))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>X_train, X_test <span class="op">=</span> X.iloc[:split_idx], X.iloc[split_idx:]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>y_train, y_test <span class="op">=</span> y.iloc[:split_idx], y.iloc[split_idx:]</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> TimeSeriesSplit(n_splits<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the pipeline for preprocessing, hyperparameter tuning (cv) and model fitting</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>param_distributions <span class="op">=</span> { </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"n_estimators"</span>: [<span class="dv">100</span>, <span class="dv">300</span>], </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"max_depth"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="va">None</span>], </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"min_samples_leaf"</span>: [<span class="dv">2</span>, <span class="dv">5</span>], </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"max_features"</span>: [<span class="st">"sqrt"</span>, <span class="fl">0.5</span>], </span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"max_samples"</span>: [<span class="va">None</span>, <span class="fl">0.8</span>] </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> RandomizedSearchCV(</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    RandomForestRegressor(random_state<span class="op">=</span><span class="dv">72</span>, bootstrap <span class="op">=</span> <span class="va">True</span>),</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    param_distributions<span class="op">=</span>param_distributions,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    n_iter<span class="op">=</span><span class="dv">12</span>,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    scoring<span class="op">=</span><span class="st">"neg_mean_squared_error"</span>,</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">=</span>cv,</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">72</span>,</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    refit<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    return_train_score<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>search.fit(X_train, y_train)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Prediction </span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>y_pred_train <span class="op">=</span> search.predict(X_train)</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>y_pred_test <span class="op">=</span> search.predict(X_test)</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>mse_train <span class="op">=</span> mean_squared_error(y_train, y_pred_train)</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>mse_test <span class="op">=</span> mean_squared_error(y_test, y_pred_test)</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>mae_train <span class="op">=</span> mean_absolute_error(y_train, y_pred_train)</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>mae_test <span class="op">=</span> mean_absolute_error(y_test, y_pred_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="results-interpretation" class="level1">
@@ -513,8 +1015,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="overview-models-performances">Overview Model’s Performances</h2>
 <p>Model performance was compared using test-set MAE.</p>
 <p><img src="images/results.png" class="img-fluid" width="3169"></p>
-<section id="non-linearity-is-king" class="level3">
-<h3 class="anchored" data-anchor-id="non-linearity-is-king">Non-linearity is king</h3>
+<section id="non-linear-models-clearly-outperform-linear-approaches" class="level3">
+<h3 class="anchored" data-anchor-id="non-linear-models-clearly-outperform-linear-approaches">Non-linear models clearly outperform linear approaches</h3>
 <p>Advanced models like Random Forest and Neural Networks achieve 45-50% better accuracy than linear models by capturing complex non-linear demand patterns.</p>
 </section>
 <section id="covid-19-filtering-is-essential" class="level3">
@@ -530,8 +1032,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="overfitting-trade-off-bias-vs-variance">Overfitting Trade-off: Bias VS Variance</h3>
 <p>While Random Forests achieved the highest accuracy, they also exhibited a higher degree of overfitting (2.2, VS 1.1 for linear models), highlighting the classic bias–variance trade-off in forecasting problems.</p>
 </section>
-<section id="failed-approaches" class="level3">
-<h3 class="anchored" data-anchor-id="failed-approaches">Failed Approaches</h3>
+<section id="unsuccessful-approaches" class="level3">
+<h3 class="anchored" data-anchor-id="unsuccessful-approaches">Unsuccessful Approaches</h3>
 <ul>
 <li>Yeo-Johnson and Quantile transformations increased error</li>
 <li>SARIMAX proved unfeasible due to complex, overlapping seasonalities</li>
