@@ -1,6 +1,6 @@
 ---
 title: "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot"
-authors: "Solène Berney, Nela Brack, Nils Stadler, Morgane Vuissoz"
+authors: "Solène Berney, Nela Brack, Nils Stadler"
 date: "January 10, 2025"
 format: html
 keywords: [Machine Learning, Data Science, Public Transport, Forecasting, Time Series]
@@ -741,7 +741,7 @@ Such forecasts could support both passenger decision-making and operational plan
 -   [Concerts at Arena Genève](https://www.geneva-arena.ch/fr/programme/?archive=2023)
 
 ## Acknowledgements
-This project was completed as part of the Data Science Fundamentals (DSF) program at the University of St. Gallen. I thank the professors and teaching assistants for their guidance. I also warmly thank my group members — Nils Stadler, [Nela Brack](https://www.linkedin.com/in/nela-brack/), Morgane Vuissoz — for their collaboration throughout the project.
+This project was completed as part of the Data Science Fundamentals (DSF) program at the University of St. Gallen. I thank the professors and teaching assistants for their guidance. I also warmly thank my group members — Nils Stadler, [Nela Brack](https://www.linkedin.com/in/nela-brack/) — for their collaboration throughout the project.
 
 
 
