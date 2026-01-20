@@ -11,7 +11,7 @@ This website showcases selected academic and personal projects that reflect my l
 ### Visit my recent projects
 
 -   [Geneva Public Transport Passenger Forecasting](DSF_quarto_publish.qmd) – Network-wide demand forecasting using machine learning
--   [Strava Map Project](Strava_quarto_publish.qmd) – Visualizing running patterns using GPS data and Strava API
+-   [Strava Map Project](Strava_quarto_publish.qmd) – Visualizing my running routes using GPS data and Strava API
 
 
 
