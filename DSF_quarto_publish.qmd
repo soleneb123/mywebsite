@@ -8,7 +8,6 @@ execute:
   eval: false
   freeze: true
 code-fold: true
-
 ---
 
 # 1. Introduction and Motivation
@@ -39,6 +38,7 @@ Final dataset: 54,098 rows × 61 columns.
 
 ::: {.callout-note collapse="true"}
 ## TPG Dataset Cleaning
+
 ``` python
 import pandas as pd
 import numpy as np
@@ -95,7 +95,8 @@ Weather influences passenger behavior. We included daily average temperature, ra
 
 ::: {.callout-note collapse="true"}
 ## Abonnements Dataset Cleaning
-```
+
+```         
 # import data of halbtax and GA
 df = pd.read_csv("00_datasets/original/generalabo_halbtax.csv", sep=';')
 
@@ -173,7 +174,6 @@ df_abos_total = df_abos_total.astype(int)
 
 # export the cleaned csv
 df_abos_total.to_csv("00_datasets/clean/cleaned_abo_data.csv", index=False)
-
 ```
 :::
 
@@ -195,9 +195,9 @@ We experimented several preprocessing methods (applied to our numerical features
 -   Non-linear transformations (Yeo-Johnson, Quantile) generally worsened performance
 -   Random Forests is robust to feature scaling and does not require preprocessing
 
-
 ::: {.callout-note collapse="true"}
 ## Min-Max Preprocessing Code
+
 ``` python
 # Creating the pipeline for preprocessing and model fitting
 num_feature = ['average_temp', "rain (mm)","snow (mm)","avg_wind_speed (km/h)",
@@ -220,6 +220,7 @@ pip = Pipeline([
 
 ::: {.callout-note collapse="true"}
 ## Quantile Preprocessing for Neural Network Code
+
 ``` python
 # Creating the pipeline for preprocessing and model fitting
 num_feature = ['average_temp', "rain (mm)","snow (mm)","avg_wind_speed (km/h)",
@@ -270,6 +271,7 @@ To improve predictive performance, we engineered additional lagged features desi
 
 ::: {.callout-note collapse="true"}
 ## Lagged Features Code
+
 ``` python
 # Lagged Number of Stops
 # sort by date and then time slot   
@@ -289,15 +291,14 @@ df["lag_3h"] = np.where(df["Time Slot"]==4,                       # 3 hours befo
 :::
 
 ## Visualizations
+
 From the below correlation matrix, three observations can be made:
 
-1. **Dominant Seasonality**: the 1-week lag (0.95) and 24-hour lag (0.82) are the strongest predictors, proving high temporal periodicity.
+1.  **Dominant Seasonality**: the 1-week lag (0.95) and 24-hour lag (0.82) are the strongest predictors, proving high temporal periodicity.
 
+2.  **Demographic Redudancy**: Population, Year, and Subscriptions are highly colinear, which requires regularization.
 
-2. **Demographic Redudancy**: Population, Year, and Subscriptions are highly  colinear, which requires regularization.
-
-
-3. **Weak External Signals**: Weather and Event features show near-zero correlation (<0.05), suggesting a limited global impact.
+3.  **Weak External Signals**: Weather and Event features show near-zero correlation (\<0.05), suggesting a limited global impact.
 
 ![Correlation Heatmap of Features](images/correlation.png){width="3169"}
 
@@ -320,7 +321,6 @@ Our goal: build models outperforming MAE of 18,000 (obtained with simple these n
 
 ![](images/naive.png)
 
-
 ## 3.2 Linear Models
 
 ### Basic Linear Regression: Focus on Simplicity
@@ -333,6 +333,7 @@ Incorporating lagged passenger counts substantially improves performance by allo
 
 ::: {.callout-note collapse="true"}
 ## Lagged Linear Regression with Cross Validation
+
 ``` python
 import pandas as pd
 import numpy as np
@@ -431,24 +432,21 @@ mae_test = mean_absolute_error(y_test, y_pred_test)
 ```
 :::
 
-
 ### Cross Validation
 
 Passenger demand forecasting is inherently a time-series problem: predictions must always be made using past information only. Standard random cross-validation techniques would therefore be inappropriate, as they mix past and future observations and lead to overly optimistic results. To address this, we applied time-aware cross-validation using **TimeSeriesSplit**. Concretely, the data is split into successive training and validation folds using an expanding window approach. Each fold trains the model on historical data and evaluates it on a strictly later time period.
 
-![Expanding Window Time Series Cross Validation.](images/crossvalidation.png){fig-align="center" width="350"}
-All preprocessing steps (scaling, transformations, feature selection) were embedded inside a scikit-learn Pipeline, ensuring that transformations are learned exclusively from the training portion of each fold. This design fully prevents data leakage and guarantees a fair evaluation.
+![Expanding Window Time Series Cross Validation.](images/crossvalidation.png){fig-align="center" width="350"} All preprocessing steps (scaling, transformations, feature selection) were embedded inside a scikit-learn Pipeline, ensuring that transformations are learned exclusively from the training portion of each fold. This design fully prevents data leakage and guarantees a fair evaluation.
 
 Hyperparameters (such as regularization strength or tree depth) were tuned over wide ranges, with the optimal configuration automatically selected based on average validation performance. Compared to rolling-window validation, the expanding-window approach is better suited to capturing long-term seasonal patterns (weekly and yearly cycles) that are central to public transport demand.
-
 
 ### Regularized Linear Models (Lasso, Ridge, Elastic Net)
 
 Regularization techniques were applied to mitigate overfitting and handle multicollinearity among features. Lasso performed best among linear models, particularly when COVID-19 observations were excluded from training.
 
-
 ::: {.callout-note collapse="true"}
 ## Lasso Regularization (excluding Covid)
+
 ``` python
 import pandas as pd
 import numpy as np
@@ -536,21 +534,21 @@ mae_test = mean_absolute_error(y_test, y_pred_test)
 ```
 :::
 
-
 ## 3.3 Neural Network
 
-We implemented a multilayer perceptron (MLP) regressor with a funnel-shaped architecture (128–64–32 neurons) for feature compression. 
+We implemented a multilayer perceptron (MLP) regressor with a funnel-shaped architecture (128–64–32 neurons) for feature compression.
 
-- Activation Function: ReLU (Rectified Linear Unit) to capture non-linear spikes (e.g. rush hours). 
+-   Activation Function: ReLU (Rectified Linear Unit) to capture non-linear spikes (e.g. rush hours).
 
-- Preprocessing: Strict normalization wrapped in a Pipeline to prevent data leakage. 
+-   Preprocessing: Strict normalization wrapped in a Pipeline to prevent data leakage.
 
-- Regularization: L2 penalty and Early Stopping to prevent overfitting.
+-   Regularization: L2 penalty and Early Stopping to prevent overfitting.
 
 ![Neural Network: Number of predicted passengers plotted against actual values.](images/plot.png){fig-align="center" width="300"}
 
 ::: {.callout-note collapse="true"}
 ## Neural Network Code
+
 ``` python
 X = df[features]
 y = df["Number of Boarding Passengers"]
@@ -625,7 +623,6 @@ mse_train = mean_squared_error(y_train, y_pred_train)
 mse_test = mean_squared_error(y_test, y_pred_test)
 mae_train = mean_absolute_error(y_train, y_pred_train)
 mae_test = mean_absolute_error(y_test, y_pred_test)
-
 ```
 :::
 
@@ -633,16 +630,17 @@ mae_test = mean_absolute_error(y_test, y_pred_test)
 
 The Random Forest Regressor emerged as the most accurate model overall. Its ensemble structure allows it to capture complex non-linear interactions and overlapping seasonal patterns (daily, weekly, yearly) while remaining robust to noise. A cross validation was also applied to the Random Forest models (as well as on neural networks) with the package RandomizedSearchedCV.
 
-Performance: 
+Performance:
 
-- MAE ≈ 1,500 
-- Relative error ≈ 6.4% 
-- Equivalent to 6 trams worth of passengers per hour
+-   MAE ≈ 1,500
+-   Relative error ≈ 6.4%
+-   Equivalent to 6 trams worth of passengers per hour
 
 **This represents a 50% improvement over the best linear model (Lasso without Covid).**
 
 ::: {.callout-note collapse="true"}
 ## Random Forest Code
+
 ``` python
 X = df[features]
 y = df["Number of Boarding Passengers"]
@@ -683,7 +681,6 @@ mse_train = mean_squared_error(y_train, y_pred_train)
 mse_test = mean_squared_error(y_test, y_pred_test)
 mae_train = mean_absolute_error(y_train, y_pred_train)
 mae_test = mean_absolute_error(y_test, y_pred_test)
-
 ```
 :::
 
@@ -741,7 +738,5 @@ Such forecasts could support both passenger decision-making and operational plan
 -   [Concerts at Arena Genève](https://www.geneva-arena.ch/fr/programme/?archive=2023)
 
 ## Acknowledgements
+
 This project was completed as part of the Data Science Fundamentals (DSF) program at the University of St. Gallen. I thank the professors and teaching assistants for their guidance. I also warmly thank my group members — Nils Stadler, [Nela Brack](https://www.linkedin.com/in/nela-brack/), Morgane Vuissoz — for their collaboration throughout the project.
-
-
-
