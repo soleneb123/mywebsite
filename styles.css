@@ -1,73 +1,224 @@
+
 /* ==============================
-   Global Styles
+   Imports & Variables
+============================== */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+
+:root {
+  --pink-hot:      #E8407A;
+  --pink-soft:     #F2A8C3;
+  --pink-blush:    #FDE8F0;
+  --pink-muted:    #C1607F;
+  --dark:          #1A1120;
+  --dark-mid:      #2D1E2F;
+  --charcoal:      #4A3850;
+  --warm-white:    #FDFAFC;
+  --off-white:     #F7F1F5;
+  --border:        #EAD9E5;
+  --shadow-sm:     0 2px 8px rgba(232,64,122,0.08);
+  --shadow-md:     0 6px 24px rgba(232,64,122,0.12);
+  --shadow-lg:     0 16px 48px rgba(26,17,32,0.14);
+  --radius-sm:     6px;
+  --radius-md:     12px;
+  --radius-lg:     20px;
+  --font-display:  'DM Serif Display', Georgia, serif;
+  --font-body:     'DM Sans', Helvetica, sans-serif;
+}
+
+/* ==============================
+   Base Reset
+============================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* ==============================
+   Global Body
 ============================== */
 body {
-  background-color: #F0F0F0;
-  color: #2D2330;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  line-height: 1.6;
+  background-color: var(--warm-white);
+  color: var(--dark-mid);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: -0.01em;
 }
 
 /* ==============================
    Navbar
 ============================== */
 .navbar {
-  background-color: #FF69B4;
+  background-color: var(--dark) !important;
+  border-bottom: 1px solid rgba(232,64,122,0.25);
+  padding: 0.65rem 1.5rem;
+  box-shadow: 0 1px 24px rgba(26,17,32,0.25);
+  backdrop-filter: blur(8px);
 }
 
-.navbar a,
-.navbar-brand {
-  color: white;
+.navbar-brand,
+.navbar .navbar-brand {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--warm-white) !important;
+  letter-spacing: 0.01em;
+}
+
+.navbar-brand span,
+.navbar-brand::after {
+  content: '';
+}
+
+.navbar a {
+  color: rgba(255,255,255,0.75) !important;
+  font-size: 0.875rem;
   font-weight: 500;
+  letter-spacing: 0.02em;
   text-decoration: none;
+  padding: 0.3em 0.75em;
+  border-radius: var(--radius-sm);
+  transition: color 0.2s ease, background 0.2s ease;
 }
 
 .navbar a:hover {
-  color: #FFE4F8;
+  color: var(--pink-soft) !important;
+  background: rgba(232,64,122,0.12);
+}
+
+.navbar a.active,
+.navbar .nav-link.active {
+  color: var(--pink-hot) !important;
+  background: rgba(232,64,122,0.1);
+}
+
+/* Social icons in navbar */
+.navbar .bi {
+  font-size: 1.1rem;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+}
+.navbar .bi:hover {
+  opacity: 1;
+  color: var(--pink-soft);
+}
+
+/* ==============================
+   Page Layout
+============================== */
+#quarto-content,
+.quarto-container {
+  max-width: 900px;
+}
+
+main.content {
+  padding-top: 2.5rem;
+  padding-bottom: 4rem;
 }
 
 /* ==============================
    Headings
 ============================== */
 h1, h2, h3, h4, h5, h6 {
-  color: #FF69B4;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.25;
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+  letter-spacing: -0.02em;
 }
 
-h1 { font-size: 2.2em; }
-h2 { font-size: 1.8em; }
-h3 { font-size: 1.4em; }
+h1 {
+  font-size: 2.6rem;
+  color: var(--dark);
+  margin-top: 0.5em;
+  /* Subtle pink accent under h1 */
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid var(--pink-blush);
+  background: linear-gradient(135deg, var(--dark) 60%, var(--pink-muted) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2 {
+  font-size: 1.9rem;
+  color: var(--dark);
+  position: relative;
+  padding-left: 1rem;
+}
+
+h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  bottom: 0.15em;
+  width: 3px;
+  background: linear-gradient(180deg, var(--pink-hot), var(--pink-soft));
+  border-radius: 2px;
+}
+
+h3 {
+  font-size: 1.4rem;
+  color: var(--pink-muted);
+}
+
+h4, h5, h6 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--charcoal);
+  letter-spacing: 0;
+}
 
 /* ==============================
    Links
 ============================== */
 a {
-  color: #975875;
-  text-decoration: underline;
+  color: var(--pink-hot);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(232,64,122,0.3);
+  transition: color 0.2s, border-color 0.2s;
 }
 
 a:hover {
-  color: #C65B41;
+  color: var(--pink-muted);
+  border-bottom-color: var(--pink-muted);
 }
 
 /* ==============================
    Buttons
 ============================== */
-button, .btn {
-  background-color: #6E0039;
-  color: #FFFFFF;
+button,
+.btn,
+.btn-primary {
+  background: linear-gradient(135deg, var(--pink-hot), var(--pink-muted));
+  color: #FFFFFF !important;
   border: none;
-  padding: 0.5em 1em;
-  border-radius: 8px;
+  padding: 0.55em 1.4em;
+  border-radius: 100px;
   cursor: pointer;
+  font-family: var(--font-body);
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 4px 14px rgba(232,64,122,0.35);
+  text-decoration: none;
+  display: inline-block;
 }
 
-button:hover, .btn:hover {
-  background-color: #DDD7C6;
+button:hover,
+.btn:hover,
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(232,64,122,0.45);
+  opacity: 0.95;
+  color: #FFFFFF !important;
+}
+
+button:active,
+.btn:active {
+  transform: translateY(0);
 }
 
 /* ==============================
@@ -77,47 +228,288 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
-  margin: 1em auto;
+  margin: 1.5em auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
 }
 
 /* ==============================
    Code
 ============================== */
 pre {
-  background-color: #F0F0F0;
-  padding: 1em;
-  border-radius: 6px;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 0.95em;
+  background-color: var(--dark);
+  color: #F2D4E2;
+  padding: 1.4em 1.6em;
+  border-radius: var(--radius-md);
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  font-size: 0.875em;
+  line-height: 1.7;
+  overflow-x: auto;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(232,64,122,0.15);
+  position: relative;
+}
+
+pre::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--pink-hot), var(--pink-soft), transparent);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
 }
 
 code {
-  background-color: #F0F0F0;
-  padding: 0.15em 0.3em;
-  border-radius: 4px;
-  font-family: "Courier New", Courier, monospace;
+  background-color: var(--pink-blush);
+  color: var(--pink-muted);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  font-size: 0.88em;
+  border: 1px solid rgba(232,64,122,0.18);
+}
+
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  border: none;
+  font-size: inherit;
 }
 
 /* ==============================
    Callouts (Quarto)
 ============================== */
+.callout {
+  border-radius: var(--radius-md) !important;
+  border: 1px solid var(--border) !important;
+  border-left: 4px solid var(--pink-hot) !important;
+  background-color: var(--pink-blush) !important;
+  margin: 1.75em 0;
+  padding: 1.2em 1.4em;
+  box-shadow: var(--shadow-sm);
+}
+
 .callout-note {
-  border-radius: 12px;
-  border-left: 6px solid #FF69B4 !important;
-  background-color: #F0F0F0;
-  margin: 1.5em 0;
+  border-left-color: var(--pink-hot) !important;
+  background-color: var(--pink-blush) !important;
+}
+
+.callout-tip {
+  border-left-color: #52B788 !important;
+  background-color: #F0FAF5 !important;
+}
+
+.callout-warning {
+  border-left-color: #E9A84C !important;
+  background-color: #FEF7ED !important;
 }
 
 .callout-title {
+  font-family: var(--font-body);
   font-weight: 700;
-  color: #6E0039;
+  font-size: 0.85rem;
+  color: var(--pink-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.4em;
 }
 
 .callout pre {
-  background-color: #F0F0F0;
+  background-color: rgba(255,255,255,0.6);
+  border: none;
+  box-shadow: none;
 }
+
+.callout pre::before { display: none; }
 
 .callout pre code {
   background: none;
-  padding: 0;
+  color: var(--dark-mid);
+}
+
+/* ==============================
+   Tables
+============================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+thead {
+  background: linear-gradient(135deg, var(--dark), var(--dark-mid));
+  color: var(--warm-white);
+}
+
+thead th {
+  padding: 0.85em 1em;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: left;
+  border: none;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+tbody tr:hover {
+  background-color: var(--pink-blush);
+}
+
+tbody td {
+  padding: 0.75em 1em;
+  border: none;
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* ==============================
+   TOC (Table of Contents)
+============================== */
+#TOC,
+.toc-active #TOC {
+  border-left: 2px solid var(--border);
+  padding-left: 1.2rem;
+  font-size: 0.85rem;
+}
+
+#TOC a {
+  color: var(--charcoal);
+  border-bottom: none;
+  display: block;
+  padding: 0.15em 0;
+  transition: color 0.2s, padding-left 0.2s;
+}
+
+#TOC a:hover,
+#TOC a.active {
+  color: var(--pink-hot);
+  padding-left: 4px;
+}
+
+#TOC .active > a {
+  color: var(--pink-hot);
+  font-weight: 600;
+}
+
+/* ==============================
+   Page Footer
+============================== */
+.nav-footer {
+  background-color: var(--dark) !important;
+  border-top: 1px solid rgba(232,64,122,0.2);
+  color: rgba(255,255,255,0.5);
+  font-size: 0.82rem;
+  padding: 1.2rem 1.5rem;
+}
+
+.nav-footer a {
+  color: rgba(255,255,255,0.55);
+  border-bottom: none;
+  transition: color 0.2s;
+}
+
+.nav-footer a:hover {
+  color: var(--pink-soft);
+}
+
+.nav-footer .bi {
+  font-size: 1.15rem;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.nav-footer .bi:hover {
+  opacity: 1;
+}
+
+/* ==============================
+   Horizontal Rules
+============================== */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--pink-soft), transparent);
+  margin: 2.5em 0;
+}
+
+/* ==============================
+   Blockquotes
+============================== */
+blockquote {
+  border-left: 3px solid var(--pink-hot);
+  background: var(--pink-blush);
+  margin: 1.5em 0;
+  padding: 1em 1.4em;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-style: italic;
+  color: var(--charcoal);
+}
+
+blockquote p {
+  margin: 0;
+}
+
+/* ==============================
+   Paragraphs & Body Text
+============================== */
+p {
+  margin-bottom: 1.2em;
+  color: var(--dark-mid);
+}
+
+/* ==============================
+   Selection
+============================== */
+::selection {
+  background: var(--pink-soft);
+  color: var(--dark);
+}
+
+/* ==============================
+   Scrollbar (WebKit)
+============================== */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--off-white);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--pink-soft);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pink-hot);
+}
+
+/* ==============================
+   Responsive
+============================== */
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.2rem; }
+
+  pre {
+    font-size: 0.8em;
+    padding: 1em;
+  }
+
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
 }
