@@ -36,6 +36,8 @@ That's exactly why we built Investopia; a city-building investment simulation wh
 
 The core idea is simple: one asset class, one district. Equities, bonds, commodities, ETFs, crypto: each has its own district, centered around its exchange. Every asset you purchase shows up as a building. Good returns make your buildings grow taller. A thriving, diversified portfolio gives you a thriving, growing city.
 
+![1 ASSET CLASS = 1 DISTRICT](images/district.png)
+
 Want tall buildings? Get good returns. Want to keep them? Make sure you're diversified.
 
 We took something intangible and made it visible, and that's the whole game.
@@ -48,9 +50,11 @@ We took something intangible and made it visible, and that's the whole game.
 
 **The Sandbox** lets you explore your portfolio allocations using real market data from 2007 onwards, all visualized as a city. It's designed to highlight what people most often overlook: the long-term benefits of staying invested and the quiet power of compounding.
 
+
 **The Fire Drill** is our favorite feature. At any point, a financial crisis can strike and the assets that burn are determined by how diversified your portfolio is. The less diversified, the more you lose.
 
 **Friends & Allocations** - because learning is better together. You can connect with friends and peek into their cities, or follow the portfolios of well-known investors. Watch their buildings shake when they go all-in on a single stock.
+![Watch your friends' cities](images/friends.png){fig-align="center" width="300"}
 
 **Battle Mode** lets you compete head-to-head with a friend's portfolio in an accelerated simulation. But be careful: chasing high short-term returns at high risk won't be rewarded in the ranking. Your tallest buildings might burn.
 

@@ -10,7 +10,7 @@ website:
       - href: DSF_quarto_publish.qmd
         text: ML Forecasting
       - href: Strava_quarto_publish.qmd
-        text: Strava Map
+        text: Strava API
       - href: Hackathon.qmd
         text: Hackathon
         

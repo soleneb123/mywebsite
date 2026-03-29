@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2026-03-30">
-<meta name="keywords" content="Machine Learning, Data Science, Public Transport, Forecasting, Time Series">
+<meta name="keywords" content="Investing Game, PostFinance, Hackathon">
 
-<title>hackathon – Solène Berney</title>
+<title>START Hack 2026 - Investopia – Solène Berney</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -98,11 +98,15 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./DSF_quarto_publish.html"> 
-<span class="menu-text">Public Transport Passenger Forecast</span></a>
+<span class="menu-text">ML Forecasting</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./Strava_quarto_publish.html"> 
-<span class="menu-text">Strava Map</span></a>
+<span class="menu-text">Strava API</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./Hackathon.html" aria-current="page"> 
+<span class="menu-text">Hackathon</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -127,15 +131,30 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-problem" id="toc-the-problem" class="nav-link active" data-scroll-target="#the-problem">The Problem</a></li>
+  <li><a href="#the-challenge" id="toc-the-challenge" class="nav-link" data-scroll-target="#the-challenge">The Challenge</a></li>
+  <li><a href="#the-team" id="toc-the-team" class="nav-link" data-scroll-target="#the-team">The Team</a></li>
+  <li><a href="#our-solution-investopia" id="toc-our-solution-investopia" class="nav-link" data-scroll-target="#our-solution-investopia">Our Solution: Investopia</a></li>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">How It Works</a></li>
+  <li><a href="#how-we-built-it---in-36-hours" id="toc-how-we-built-it---in-36-hours" class="nav-link" data-scroll-target="#how-we-built-it---in-36-hours">How We Built It - In 36 Hours</a></li>
+  <li><a href="#what-i-learned" id="toc-what-i-learned" class="nav-link" data-scroll-target="#what-i-learned">What I Learned</a></li>
+  <li><a href="#what-wed-build-next" id="toc-what-wed-build-next" class="nav-link" data-scroll-target="#what-wed-build-next">What We’d Build Next</a></li>
+  <li><a href="#a-final-word" id="toc-a-final-word" class="nav-link" data-scroll-target="#a-final-word">A Final Word</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">hackathon</h1>
+<h1 class="title">START Hack 2026 - Investopia</h1>
 </div>
 
 
@@ -145,7 +164,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Solène Berney, Nela Brack, Nils Stadler, Morgane Vuissoz </p>
+             <p>Antonin Ricard-Boual, Andriy Svidrun, Peter Thürbach, Solène Berney </p>
           </div>
   </div>
     
@@ -163,15 +182,89 @@ ul.task-list li input[type="checkbox"] {
 <div>
   <div class="keywords">
     <div class="block-title">Keywords</div>
-    <p>Machine Learning, Data Science, Public Transport, Forecasting, Time Series</p>
+    <p>Investing Game, PostFinance, Hackathon</p>
   </div>
 </div>
 
 </header>
 
 
+<section id="the-problem" class="level2">
+<h2 class="anchored" data-anchor-id="the-problem">The Problem</h2>
+<p>Most adults know they should invest. Most never do.</p>
+<p>Not because they lack the money or time, but because investing feels like a world built for other people. The vocabulary is opaque, the stakes feel high, and somewhere along the way the idea took hold that investing is just a sophisticated form of gambling. So people wait. And waiting, compounded over decades, is one of the most expensive financial decisions a person can make.</p>
+<p>This was the problem PostFinance put in front of us at START Hack 2026: make investing feel safe to try, engaging to learn, and realistic enough to correct the misconceptions that keep people on the sidelines.</p>
+</section>
+<section id="the-challenge" class="level2">
+<h2 class="anchored" data-anchor-id="the-challenge">The Challenge</h2>
+<p>PostFinance’s ask was to build a gamified, playable investment education prototype that teaches beginners the core principles of investing — risk profiling, diversification, asset classes, long-term thinking, handling volatility — without any real money on the line.</p>
+<p>The goal wasn’t to build a trading app, but to was to build something that changes how a young public (aged 14-30) feels about investing before they ever open a brokerage account and learns them the fundamentals of finance.</p>
+</section>
+<section id="the-team" class="level2">
+<h2 class="anchored" data-anchor-id="the-team">The Team</h2>
+<p>We were four students from the University of St.&nbsp;Gallen, all connected through the Data Science Fundamentals program. As economics and business students, this was our first hackathon. We didn’t really know what to expect - but it turned out to be 36 hours of very little sleep, a lot of laughter, and one of the best team experiences we’ve had at uni so far.</p>
+</section>
+<section id="our-solution-investopia" class="level2">
+<h2 class="anchored" data-anchor-id="our-solution-investopia">Our Solution: Investopia</h2>
+<p>Have you ever played a city-building game? What did you like about it? For most people, the answer is the same: you build something, and you watch it grow before your very eyes. Progress is visible, effort has a shape.</p>
+<p>That’s exactly why we built Investopia; a city-building investment simulation where learning is the price of entry, and your portfolio is your city.</p>
+<p>The core idea is simple: one asset class, one district. Equities, bonds, commodities, ETFs, crypto: each has its own district, centered around its exchange. Every asset you purchase shows up as a building. Good returns make your buildings grow taller. A thriving, diversified portfolio gives you a thriving, growing city.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/district.png" class="img-fluid figure-img" width="600"></p>
+<figcaption>1 ASSET CLASS = 1 DISTRICT</figcaption>
+</figure>
+</div>
+<p>Want tall buildings? Get good returns. Want to keep them? Make sure you’re diversified.</p>
+<p>We took something intangible and made it visible, and that’s the whole game.</p>
+</section>
+<section id="how-it-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-it-works">How It Works</h2>
+<p><strong>The Library</strong> is where you start. Education is at the core of Investopia: before you can trade anything, you need to learn about it. Each module covers one asset class with short, clear explanations, followed by a quiz. Pass the quiz, unlock the district. You also earn badges along the way, displayed in your personal museum.</p>
+<p><strong>The Market</strong> lets you buy and sell assets within your unlocked districts. Prices evolve across a simulated timeline, giving you a real feel for how different asset classes behave over time.</p>
+<p><strong>The Sandbox</strong> lets you explore your portfolio allocations using real market data from 2007 onwards, all visualized as a city. It’s designed to highlight what people most often overlook: the long-term benefits of staying invested and the quiet power of compounding.</p>
+<p><strong>The Fire Drill</strong> is our favorite feature. At any point, a financial crisis can strike and the assets that burn are determined by how diversified your portfolio is. The less diversified, the more you lose.</p>
+<p><strong>Friends &amp; Allocations</strong> - because learning is better together. You can connect with friends and peek into their cities, or follow the portfolios of well-known investors. Watch their buildings shake when they go all-in on a single stock.</p>
+<p><strong>Battle Mode</strong> lets you compete head-to-head with a friend’s portfolio in an accelerated simulation. But be careful: chasing high short-term returns at high risk won’t be rewarded in the ranking. Your tallest buildings might burn.</p>
+<p><strong>The Leaderboard and streaks</strong> keep it competitive and habit-forming, two things that matter a lot when your audience has never opened a finance book.</p>
+<p>[Demo video]</p>
+</section>
+<section id="how-we-built-it---in-36-hours" class="level2">
+<h2 class="anchored" data-anchor-id="how-we-built-it---in-36-hours">How We Built It - In 36 Hours</h2>
+<p>We vibe-coded the entire thing. React on the frontend, Firebase as the backend, and Claude Code doing a lot of the heavy lifting on implementation. One of us would be deep in feature development while the others were working on the pitch deck, refining the game design, or stress-testing the flow as a first-time user. Then we’d rotate, everyone touched everything.</p>
+<p>By the end of those 36 hours, we walked into the presentation room ready to pitch, and proud of what we’d built.</p>
+</section>
+<section id="what-i-learned" class="level2">
+<h2 class="anchored" data-anchor-id="what-i-learned">What I Learned</h2>
+<ol type="1">
+<li>Shipping fast</li>
+<li>Teamwork</li>
+<li>Pitch</li>
+</ol>
+</section>
+<section id="what-wed-build-next" class="level2">
+<h2 class="anchored" data-anchor-id="what-wed-build-next">What We’d Build Next</h2>
+<p>Investopia is a prototype, and there’s a clear path to making it much more:</p>
+<ul>
+<li>A UI closer to PostFinance’s e-trading app</li>
+<li>Deeper quiz content and more nuanced asset classes, including digital assets</li>
+<li>An integrated LLM investment coach to guide users through decisions</li>
+<li>Stop-loss mechanisms and more advanced trading features</li>
+<li>Income and expense simulation</li>
+<li>Mobile-friendly design</li>
+</ul>
+</section>
+<section id="a-final-word" class="level2">
+<h2 class="anchored" data-anchor-id="a-final-word">A Final Word</h2>
+<p>Investopia won’t make you a millionaire. But it might make you start.</p>
+<p>And starting, it turns out, is most of the battle.</p>
+</section>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>This project was completed as part of the <a href="https://www.startglobal.org">START Hack</a> 2026 in St.&nbsp;Gallen. I warmly thank my group members - <a href="https://www.linkedin.com/in/antonin-ricard-boual-572715327/">Antonin Ricard-Boual</a>, <a href="https://www.linkedin.com/in/andriy-svidrun/">Andriy Svidrun</a>, <a href="https://www.linkedin.com/in/thürbach/">Peter Thürbach</a> - for their collaboration throughout the project.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -247,7 +340,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/soleneb123\.github\.io\/mywebsite\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

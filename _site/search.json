@@ -63,11 +63,88 @@
     "text": "About this site\n\n1 + 1\n\n[1] 2"
   },
   {
+    "objectID": "Hackathon.html",
+    "href": "Hackathon.html",
+    "title": "START Hack 2026 - Investopia",
+    "section": "",
+    "text": "Most adults know they should invest. Most never do.\nNot because they lack the money or time, but because investing feels like a world built for other people. The vocabulary is opaque, the stakes feel high, and somewhere along the way the idea took hold that investing is just a sophisticated form of gambling. So people wait. And waiting, compounded over decades, is one of the most expensive financial decisions a person can make.\nThis was the problem PostFinance put in front of us at START Hack 2026: make investing feel safe to try, engaging to learn, and realistic enough to correct the misconceptions that keep people on the sidelines."
+  },
+  {
+    "objectID": "Hackathon.html#the-problem",
+    "href": "Hackathon.html#the-problem",
+    "title": "START Hack 2026 - Investopia",
+    "section": "",
+    "text": "Most adults know they should invest. Most never do.\nNot because they lack the money or time, but because investing feels like a world built for other people. The vocabulary is opaque, the stakes feel high, and somewhere along the way the idea took hold that investing is just a sophisticated form of gambling. So people wait. And waiting, compounded over decades, is one of the most expensive financial decisions a person can make.\nThis was the problem PostFinance put in front of us at START Hack 2026: make investing feel safe to try, engaging to learn, and realistic enough to correct the misconceptions that keep people on the sidelines."
+  },
+  {
+    "objectID": "Hackathon.html#the-challenge",
+    "href": "Hackathon.html#the-challenge",
+    "title": "START Hack 2026 - Investopia",
+    "section": "The Challenge",
+    "text": "The Challenge\nPostFinance’s ask was to build a gamified, playable investment education prototype that teaches beginners the core principles of investing — risk profiling, diversification, asset classes, long-term thinking, handling volatility — without any real money on the line.\nThe goal wasn’t to build a trading app, but to was to build something that changes how a young public (aged 14-30) feels about investing before they ever open a brokerage account and learns them the fundamentals of finance."
+  },
+  {
+    "objectID": "Hackathon.html#the-team",
+    "href": "Hackathon.html#the-team",
+    "title": "START Hack 2026 - Investopia",
+    "section": "The Team",
+    "text": "The Team\nWe were four students from the University of St. Gallen, all connected through the Data Science Fundamentals program. As economics and business students, this was our first hackathon. We didn’t really know what to expect - but it turned out to be 36 hours of very little sleep, a lot of laughter, and one of the best team experiences we’ve had at uni so far."
+  },
+  {
+    "objectID": "Hackathon.html#our-solution-investopia",
+    "href": "Hackathon.html#our-solution-investopia",
+    "title": "START Hack 2026 - Investopia",
+    "section": "Our Solution: Investopia",
+    "text": "Our Solution: Investopia\nHave you ever played a city-building game? What did you like about it? For most people, the answer is the same: you build something, and you watch it grow before your very eyes. Progress is visible, effort has a shape.\nThat’s exactly why we built Investopia; a city-building investment simulation where learning is the price of entry, and your portfolio is your city.\nThe core idea is simple: one asset class, one district. Equities, bonds, commodities, ETFs, crypto: each has its own district, centered around its exchange. Every asset you purchase shows up as a building. Good returns make your buildings grow taller. A thriving, diversified portfolio gives you a thriving, growing city.\n\n\n\n1 ASSET CLASS = 1 DISTRICT\n\n\nWant tall buildings? Get good returns. Want to keep them? Make sure you’re diversified.\nWe took something intangible and made it visible, and that’s the whole game."
+  },
+  {
+    "objectID": "Hackathon.html#how-it-works",
+    "href": "Hackathon.html#how-it-works",
+    "title": "START Hack 2026 - Investopia",
+    "section": "How It Works",
+    "text": "How It Works\nThe Library is where you start. Education is at the core of Investopia: before you can trade anything, you need to learn about it. Each module covers one asset class with short, clear explanations, followed by a quiz. Pass the quiz, unlock the district. You also earn badges along the way, displayed in your personal museum.\nThe Market lets you buy and sell assets within your unlocked districts. Prices evolve across a simulated timeline, giving you a real feel for how different asset classes behave over time.\nThe Sandbox lets you explore your portfolio allocations using real market data from 2007 onwards, all visualized as a city. It’s designed to highlight what people most often overlook: the long-term benefits of staying invested and the quiet power of compounding.\nThe Fire Drill is our favorite feature. At any point, a financial crisis can strike and the assets that burn are determined by how diversified your portfolio is. The less diversified, the more you lose.\nFriends & Allocations - because learning is better together. You can connect with friends and peek into their cities, or follow the portfolios of well-known investors. Watch their buildings shake when they go all-in on a single stock.\nBattle Mode lets you compete head-to-head with a friend’s portfolio in an accelerated simulation. But be careful: chasing high short-term returns at high risk won’t be rewarded in the ranking. Your tallest buildings might burn.\nThe Leaderboard and streaks keep it competitive and habit-forming, two things that matter a lot when your audience has never opened a finance book.\n[Demo video]"
+  },
+  {
+    "objectID": "Hackathon.html#how-we-built-it---in-36-hours",
+    "href": "Hackathon.html#how-we-built-it---in-36-hours",
+    "title": "START Hack 2026 - Investopia",
+    "section": "How We Built It - In 36 Hours",
+    "text": "How We Built It - In 36 Hours\nWe vibe-coded the entire thing. React on the frontend, Firebase as the backend, and Claude Code doing a lot of the heavy lifting on implementation. One of us would be deep in feature development while the others were working on the pitch deck, refining the game design, or stress-testing the flow as a first-time user. Then we’d rotate, everyone touched everything.\nBy the end of those 36 hours, we walked into the presentation room ready to pitch, and proud of what we’d built."
+  },
+  {
+    "objectID": "Hackathon.html#what-i-learned",
+    "href": "Hackathon.html#what-i-learned",
+    "title": "START Hack 2026 - Investopia",
+    "section": "What I Learned",
+    "text": "What I Learned\n\nShipping fast\nTeamwork\nPitch"
+  },
+  {
+    "objectID": "Hackathon.html#what-wed-build-next",
+    "href": "Hackathon.html#what-wed-build-next",
+    "title": "START Hack 2026 - Investopia",
+    "section": "What We’d Build Next",
+    "text": "What We’d Build Next\nInvestopia is a prototype, and there’s a clear path to making it much more:\n\nA UI closer to PostFinance’s e-trading app\nDeeper quiz content and more nuanced asset classes, including digital assets\nAn integrated LLM investment coach to guide users through decisions\nStop-loss mechanisms and more advanced trading features\nIncome and expense simulation\nMobile-friendly design"
+  },
+  {
+    "objectID": "Hackathon.html#a-final-word",
+    "href": "Hackathon.html#a-final-word",
+    "title": "START Hack 2026 - Investopia",
+    "section": "A Final Word",
+    "text": "A Final Word\nInvestopia won’t make you a millionaire. But it might make you start.\nAnd starting, it turns out, is most of the battle."
+  },
+  {
+    "objectID": "Hackathon.html#acknowledgements",
+    "href": "Hackathon.html#acknowledgements",
+    "title": "START Hack 2026 - Investopia",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nThis project was completed as part of the START Hack 2026 in St. Gallen. I warmly thank my group members - Antonin Ricard-Boual, Andriy Svidrun, Peter Thürbach - for their collaboration throughout the project."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Welcome",
     "section": "",
-    "text": "As an Economics student at the University of St. Gallen (HSG), I am interested in how data can support smarter business decisions. I enjoy learning new data science tools and exploring their connections to business and entrepreneurship, and I am eager to continue learning in this direction through my studies, projects, and internships.\nThis website showcases selected academic and personal projects that reflect my learning journey.\n\nVisit my recent projects\n\nGeneva Public Transport Passenger Forecasting – Network-wide demand forecasting using machine learning\nStrava Map Project – Visualizing my running routes using GPS data and Strava API"
+    "text": "As an Economics student at the University of St. Gallen (HSG), I am interested in how data can support smarter business decisions. I enjoy learning new data science tools and exploring their connections to business and entrepreneurship, and I am eager to continue learning in this direction through my studies, projects, and internships.\nThis website showcases selected academic and personal projects that reflect my learning journey.\n\nVisit my recent projects\n\nGeneva Public Transport Passenger Forecasting – Network-wide demand forecasting using machine learning\nStrava Map Project – Visualizing my running routes using GPS data and Strava API\nStart Hackathon 2026 – Gamified investment education game for PostFinance"
   },
   {
     "objectID": "DSF_quarto_publish.html",
