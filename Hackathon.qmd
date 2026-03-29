@@ -1,0 +1,11 @@
+---
+title: "hackathon"
+authors: "Solène Berney, Nela Brack, Nils Stadler, Morgane Vuissoz"
+date: "March 30, 2026"
+format: html
+keywords: [Machine Learning, Data Science, Public Transport, Forecasting, Time Series]
+execute:
+  eval: false
+  freeze: true
+code-fold: true
+---
