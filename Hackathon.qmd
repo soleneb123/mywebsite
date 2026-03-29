@@ -99,10 +99,6 @@ And starting, it turns out, is most of the battle.
 
 ## Acknowledgements
 
-This project was built at START Hack 2026, one of Europe's largest student hackathons, hosted annually in St. Gallen. The challenge was proposed by PostFinance, and we're grateful for the brief — it was the right mix of open-ended and grounded to bring out something we're genuinely proud of.
-
-A warm thank you to my teammates — Antonin Ricard-Boual, Andriy Svidrun, and Peter Thürbach — for 36 hours of good ideas, good energy, and no complaints.
-
 This project was completed as part of the [START Hack 2026](https://www.startglobal.org), Europe's largest student hackathon, hosted annually in St. Gallen. The challenge was proposed by PostFinance, and we're greatful for the opportunity to have worked on a cause that geniunly interests us.
 
 A warm thank you to my teammates - [Antonin Ricard-Boual](https://www.linkedin.com/in/antonin-ricard-boual-572715327/), [Andriy Svidrun](https://www.linkedin.com/in/andriy-svidrun/), [Peter Thürbach](https://www.linkedin.com/in/thürbach/) - for 36 hours of good ideas and energy.

@@ -67,21 +67,21 @@
     "href": "Hackathon.html",
     "title": "START Hack 2026 - Investopia",
     "section": "",
-    "text": "Most adults know they should invest. Most never do.\nNot because they lack the money or time, but because investing feels like a world built for other people. The vocabulary is opaque, the stakes feel high, and somewhere along the way the idea took hold that investing is just a sophisticated form of gambling. So people wait. And waiting, compounded over decades, is one of the most expensive financial decisions a person can make.\nThis was the problem PostFinance put in front of us at START Hack 2026: make investing feel safe to try, engaging to learn, and realistic enough to correct the misconceptions that keep people on the sidelines."
+    "text": "Most adults know they should invest, and yet, most never do.\nNot because they lack the money or time, but because investing feels like a world built for other people. The vocabulary is opaque, the stakes feel high, and somewhere along the way the idea took hold that investing is just a sophisticated form of gambling. So people wait. And waiting, compounded over decades, is one of the most expensive financial decisions a person can make.\nThis was the problem PostFinance put in front of us at START Hack 2026: make investing feel safe to try, engaging to learn, and realistic enough to correct the misconceptions that keep people on the sidelines."
   },
   {
     "objectID": "Hackathon.html#the-problem",
     "href": "Hackathon.html#the-problem",
     "title": "START Hack 2026 - Investopia",
     "section": "",
-    "text": "Most adults know they should invest. Most never do.\nNot because they lack the money or time, but because investing feels like a world built for other people. The vocabulary is opaque, the stakes feel high, and somewhere along the way the idea took hold that investing is just a sophisticated form of gambling. So people wait. And waiting, compounded over decades, is one of the most expensive financial decisions a person can make.\nThis was the problem PostFinance put in front of us at START Hack 2026: make investing feel safe to try, engaging to learn, and realistic enough to correct the misconceptions that keep people on the sidelines."
+    "text": "Most adults know they should invest, and yet, most never do.\nNot because they lack the money or time, but because investing feels like a world built for other people. The vocabulary is opaque, the stakes feel high, and somewhere along the way the idea took hold that investing is just a sophisticated form of gambling. So people wait. And waiting, compounded over decades, is one of the most expensive financial decisions a person can make.\nThis was the problem PostFinance put in front of us at START Hack 2026: make investing feel safe to try, engaging to learn, and realistic enough to correct the misconceptions that keep people on the sidelines."
   },
   {
     "objectID": "Hackathon.html#the-challenge",
     "href": "Hackathon.html#the-challenge",
     "title": "START Hack 2026 - Investopia",
     "section": "The Challenge",
-    "text": "The Challenge\nPostFinance’s ask was to build a gamified, playable investment education prototype that teaches beginners the core principles of investing — risk profiling, diversification, asset classes, long-term thinking, handling volatility — without any real money on the line.\nThe goal wasn’t to build a trading app, but to was to build something that changes how a young public (aged 14-30) feels about investing before they ever open a brokerage account and learns them the fundamentals of finance."
+    "text": "The Challenge\nPostFinance’s ask was to build a gamified, playable investment education prototype that teaches beginners the core principles of investing — risk profiling, diversification, asset classes, long-term thinking, handling volatility — without any real money on the line.\nThe goal wasn’t to build a trading app, but to was to build something that changes how a young public (aged 14-30) feels about investing before they ever open a brokerage account and teaches them the fundamentals of finance."
   },
   {
     "objectID": "Hackathon.html#the-team",
@@ -102,21 +102,21 @@
     "href": "Hackathon.html#how-it-works",
     "title": "START Hack 2026 - Investopia",
     "section": "How It Works",
-    "text": "How It Works\nThe Library is where you start. Education is at the core of Investopia: before you can trade anything, you need to learn about it. Each module covers one asset class with short, clear explanations, followed by a quiz. Pass the quiz, unlock the district. You also earn badges along the way, displayed in your personal museum.\nThe Market lets you buy and sell assets within your unlocked districts. Prices evolve across a simulated timeline, giving you a real feel for how different asset classes behave over time.\nThe Sandbox lets you explore your portfolio allocations using real market data from 2007 onwards, all visualized as a city. It’s designed to highlight what people most often overlook: the long-term benefits of staying invested and the quiet power of compounding.\nThe Fire Drill is our favorite feature. At any point, a financial crisis can strike and the assets that burn are determined by how diversified your portfolio is. The less diversified, the more you lose.\nFriends & Allocations - because learning is better together. You can connect with friends and peek into their cities, or follow the portfolios of well-known investors. Watch their buildings shake when they go all-in on a single stock. \nBattle Mode lets you compete head-to-head with a friend’s portfolio in an accelerated simulation. But be careful: chasing high short-term returns at high risk won’t be rewarded in the ranking. Your tallest buildings might burn.\nThe Leaderboard and streaks keep it competitive and habit-forming, two things that matter a lot when your audience has never opened a finance book.\n[Demo video]"
+    "text": "How It Works\nThe Library is where you start. Education is at the core of Investopia: before you can trade anything, you need to learn about it. Each module covers one asset class with short, clear explanations, followed by a quiz. Pass the quiz, unlock the district. You also earn badges along the way, displayed in your personal museum.\nThe Market lets you buy and sell assets within your unlocked districts. Prices evolve across a simulated timeline, giving you a real feel for how different asset classes behave over time.\nThe Sandbox lets you explore how different portfolio allocations would have actually performed, visualized as a city evolving over time. It’s designed to highlight what people most often overlook: the long-term benefits of staying invested and the quiet power of compounding.\nThe Fire Drill is our favorite feature. At any point, a financial crisis can strike and the assets that burn are determined by how diversified your portfolio is. The less diversified, the more you lose.\nFriends & Allocations - because learning is better together. You can connect with friends and peek into their cities, or follow the portfolios of well-known investors. Watch their buildings shake when they go all-in on a single stock. \nBattle Mode lets you compete head-to-head with a friend’s portfolio in an accelerated simulation. But be careful: chasing high short-term returns at high risk won’t be rewarded in the ranking. Your tallest buildings might burn.\nThe Leaderboard and streaks keep it competitive and habit-forming, two things that matter a lot when your audience has never opened a finance book.\n[Demo video]"
   },
   {
-    "objectID": "Hackathon.html#how-we-built-it---in-36-hours",
-    "href": "Hackathon.html#how-we-built-it---in-36-hours",
+    "objectID": "Hackathon.html#our-stack-and-workflow",
+    "href": "Hackathon.html#our-stack-and-workflow",
     "title": "START Hack 2026 - Investopia",
-    "section": "How We Built It - In 36 Hours",
-    "text": "How We Built It - In 36 Hours\nWe vibe-coded the entire thing. React on the frontend, Firebase as the backend, and Claude Code doing a lot of the heavy lifting on implementation. One of us would be deep in feature development while the others were working on the pitch deck, refining the game design, or stress-testing the flow as a first-time user. Then we’d rotate, everyone touched everything.\nBy the end of those 36 hours, we walked into the presentation room ready to pitch, and proud of what we’d built."
+    "section": "Our Stack and Workflow",
+    "text": "Our Stack and Workflow\nThe frontend is built with React and Vite, styled with Tailwind CSS, and uses Three.js for the 3D city rendering. The backend runs on Firebase (Firestore for real-time data, and Firebase Auth for user accounts). All asset price data is computed client-side from historical datasets embedded in the app.\nGiven the 36-hour constraint, we leaned heavily on Claude Code as an AI coding assistant. It significantly accelerated implementation, from scaffolding components to debugging tricky state logic. That said, every feature was discussed, designed, and validated by the team before and after it was built.\nRoles were fluid by necessity. At any given point, one of us was coding, another was shaping the pitch narrative, another was testing the game as a first-time user, and the last was tightening the demo flow. We rotated constantly, everyone touched the product, the story, and the presentation.\nBy the end of those 36 hours, we walked into the room ready to pitch, and proud of what we’d built."
   },
   {
     "objectID": "Hackathon.html#what-i-learned",
     "href": "Hackathon.html#what-i-learned",
     "title": "START Hack 2026 - Investopia",
     "section": "What I Learned",
-    "text": "What I Learned\n\nShipping fast\nTeamwork\nPitch"
+    "text": "What I Learned\n\nDeliver fast\nTeamwork\nPitch"
   },
   {
     "objectID": "Hackathon.html#what-wed-build-next",
@@ -137,7 +137,7 @@
     "href": "Hackathon.html#acknowledgements",
     "title": "START Hack 2026 - Investopia",
     "section": "Acknowledgements",
-    "text": "Acknowledgements\nThis project was completed as part of the START Hack 2026 in St. Gallen. I warmly thank my group members - Antonin Ricard-Boual, Andriy Svidrun, Peter Thürbach - for their collaboration throughout the project."
+    "text": "Acknowledgements\nThis project was built at START Hack 2026, one of Europe’s largest student hackathons, hosted annually in St. Gallen. The challenge was proposed by PostFinance, and we’re grateful for the brief — it was the right mix of open-ended and grounded to bring out something we’re genuinely proud of.\nA warm thank you to my teammates — Antonin Ricard-Boual, Andriy Svidrun, and Peter Thürbach — for 36 hours of good ideas, good energy, and no complaints.\nThis project was completed as part of the START Hack 2026, Europe’s largest student hackathon, hosted annually in St. Gallen. The challenge was proposed by PostFinance, and we’re greatful for the opportunity to have worked on a cause that geniunly interests us.\nA warm thank you to my teammates - Antonin Ricard-Boual, Andriy Svidrun, Peter Thürbach - for 36 hours of good ideas and energy."
   },
   {
     "objectID": "index.html",
