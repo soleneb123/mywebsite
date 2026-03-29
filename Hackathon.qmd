@@ -12,7 +12,7 @@ code-fold: true
 
 ## The Problem
 
-Most adults know they should invest. Most never do.
+Most adults know they should invest, and yet, most never do.
 
 Not because they lack the money or time, but because investing feels like a world built for other people. The vocabulary is opaque, the stakes feel high, and somewhere along the way the idea took hold that investing is just a sophisticated form of gambling. So people wait. And waiting, compounded over decades, is one of the most expensive financial decisions a person can make.
 
@@ -22,11 +22,13 @@ This was the problem PostFinance put in front of us at START Hack 2026: make inv
 
 PostFinance's ask was to build a gamified, playable investment education prototype that teaches beginners the core principles of investing — risk profiling, diversification, asset classes, long-term thinking, handling volatility — without any real money on the line.
 
-The goal wasn't to build a trading app, but to was to build something that changes how a young public (aged 14-30) feels about investing before they ever open a brokerage account and learns them the fundamentals of finance.
+The goal wasn't to build a trading app, but to was to build something that changes how a young public (aged 14-30) feels about investing before they ever open a brokerage account and teaches them the fundamentals of finance.
 
 ## The Team
 
 We were four students from the University of St. Gallen, all connected through the Data Science Fundamentals program. As economics and business students, this was our first hackathon. We didn't really know what to expect - but it turned out to be 36 hours of very little sleep, a lot of laughter, and one of the best team experiences we've had at uni so far.
+![Start Hack 2026](images/hack.png)
+
 
 ## Our Solution: Investopia
 
@@ -48,13 +50,12 @@ We took something intangible and made it visible, and that's the whole game.
 
 **The Market** lets you buy and sell assets within your unlocked districts. Prices evolve across a simulated timeline, giving you a real feel for how different asset classes behave over time.
 
-**The Sandbox** lets you explore your portfolio allocations using real market data from 2007 onwards, all visualized as a city. It's designed to highlight what people most often overlook: the long-term benefits of staying invested and the quiet power of compounding.
-
+**The Sandbox** lets you explore how different portfolio allocations would have actually performed, visualized as a city evolving over time. It's designed to highlight what people most often overlook: the long-term benefits of staying invested and the quiet power of compounding.
 
 **The Fire Drill** is our favorite feature. At any point, a financial crisis can strike and the assets that burn are determined by how diversified your portfolio is. The less diversified, the more you lose.
 
 **Friends & Allocations** - because learning is better together. You can connect with friends and peek into their cities, or follow the portfolios of well-known investors. Watch their buildings shake when they go all-in on a single stock.
-![Watch your friends' cities](images/friends.png){fig-align="center" width="300"}
+![Watch your friends' cities](images/friends.png){fig-align="center" width="500"}
 
 **Battle Mode** lets you compete head-to-head with a friend's portfolio in an accelerated simulation. But be careful: chasing high short-term returns at high risk won't be rewarded in the ranking. Your tallest buildings might burn.
 
@@ -62,17 +63,21 @@ We took something intangible and made it visible, and that's the whole game.
 
 \[Demo video\]
 
-## How We Built It - In 36 Hours
+## Our Stack and Workflow
+The frontend is built with React and Vite, styled with Tailwind CSS, and uses Three.js for the 3D city rendering. The backend runs on Firebase (Firestore for real-time data, and Firebase Auth for user accounts). All asset price data is computed client-side from historical datasets embedded in the app.
 
-We vibe-coded the entire thing. React on the frontend, Firebase as the backend, and Claude Code doing a lot of the heavy lifting on implementation. One of us would be deep in feature development while the others were working on the pitch deck, refining the game design, or stress-testing the flow as a first-time user. Then we'd rotate, everyone touched everything.
+Given the 36-hour constraint, we leaned heavily on Claude Code as an AI coding assistant. It significantly accelerated implementation, from scaffolding components to debugging tricky state logic. That said, every feature was discussed, designed, and validated by the team before and after it was built.
 
-By the end of those 36 hours, we walked into the presentation room ready to pitch, and proud of what we'd built.
+Roles were fluid by necessity. At any given point, one of us was coding, another was shaping the pitch narrative, another was testing the game as a first-time user, and the last was tightening the demo flow. We rotated constantly, everyone touched the product, the story, and the presentation.
+
+By the end of those 36 hours, we walked into the room ready to pitch, and proud of what we'd built.
 
 ## What I Learned
 
-1. Shipping fast
+1. Deliver fast
 2. Teamwork
 3. Pitch
+
 
 ## What We'd Build Next
 
@@ -94,5 +99,13 @@ And starting, it turns out, is most of the battle.
 
 ## Acknowledgements
 
-This project was completed as part of the [START Hack](https://www.startglobal.org) 2026 in St. Gallen. I warmly thank my group members - [Antonin Ricard-Boual](https://www.linkedin.com/in/antonin-ricard-boual-572715327/), [Andriy Svidrun](https://www.linkedin.com/in/andriy-svidrun/), [Peter Thürbach](https://www.linkedin.com/in/thürbach/) - for their collaboration throughout the project. 
+This project was built at START Hack 2026, one of Europe's largest student hackathons, hosted annually in St. Gallen. The challenge was proposed by PostFinance, and we're grateful for the brief — it was the right mix of open-ended and grounded to bring out something we're genuinely proud of.
+
+A warm thank you to my teammates — Antonin Ricard-Boual, Andriy Svidrun, and Peter Thürbach — for 36 hours of good ideas, good energy, and no complaints.
+
+This project was completed as part of the [START Hack 2026](https://www.startglobal.org), Europe's largest student hackathon, hosted annually in St. Gallen. The challenge was proposed by PostFinance, and we're greatful for the opportunity to have worked on a cause that geniunly interests us.
+
+A warm thank you to my teammates - [Antonin Ricard-Boual](https://www.linkedin.com/in/antonin-ricard-boual-572715327/), [Andriy Svidrun](https://www.linkedin.com/in/andriy-svidrun/), [Peter Thürbach](https://www.linkedin.com/in/thürbach/) - for 36 hours of good ideas and energy.
+
+
 
