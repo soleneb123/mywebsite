@@ -27,7 +27,7 @@ The goal wasn't to build a trading app, but to was to build something that chang
 ## The Team
 
 We were four students from the University of St. Gallen, all connected through the Data Science Fundamentals program. As economics and business students, this was our first hackathon. We didn't really know what to expect - but it turned out to be 36 hours of very little sleep, a lot of laughter, and one of the best team experiences we've had at uni so far.
-![Start Hack 2026](images/hack.png)
+![Start Hack 2026](images/hack.png){fig-align="center" width="400"}
 
 
 ## Our Solution: Investopia

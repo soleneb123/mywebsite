@@ -30,6 +30,7 @@ website:
 
 format:
   html:
+    page-layout: article
     theme:
       - cosmo
       - brand
