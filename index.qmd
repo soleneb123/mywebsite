@@ -12,6 +12,8 @@ This website showcases selected academic and personal projects that reflect my l
 
 -   [Geneva Public Transport Passenger Forecasting](DSF_quarto_publish.qmd) – Network-wide demand forecasting using machine learning
 -   [Strava Map Project](Strava_quarto_publish.qmd) – Visualizing my running routes using GPS data and Strava API
+-   [Start Hackathon 2026](Hackathon.qmd) – Gamified investment education game for PostFinance
+
 
 
 

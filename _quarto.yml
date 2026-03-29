@@ -8,9 +8,11 @@ website:
       - href: index.qmd
         text: Home
       - href: DSF_quarto_publish.qmd
-        text: Public Transport Passenger Forecast
+        text: ML Forecasting
       - href: Strava_quarto_publish.qmd
         text: Strava Map
+      - href: Hackathon.qmd
+        text: Hackathon
         
     right:
       - icon: linkedin
