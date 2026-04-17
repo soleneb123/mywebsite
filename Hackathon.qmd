@@ -1,9 +1,9 @@
 ---
-title: "START Hack 2026 - Investopia"
+title: "2nd Place — START Hack 26, PostFinance Hackathon Challenge"
 authors: "Antonin Ricard-Boual, Andriy Svidrun, Peter Thürbach, Solène Berney"
 date: "March 30, 2026"
 format: html
-keywords: [Investing Game, PostFinance, Hackathon]
+keywords: [Investing Game, PostFinance, Hackathon, START Hack]
 execute:
   eval: false
   freeze: true
@@ -109,7 +109,7 @@ And starting, it turns out, is most of the battle.
 
 ## Acknowledgements
 
-This project was completed as part of the [START Hack 2026](https://www.startglobal.org), Europe's largest student hackathon, hosted annually in St. Gallen. The challenge was proposed by PostFinance, and we're grateful for the opportunity to have worked on a cause that geniunely interests us.
+This project was completed as part of the [START Hack 2026](https://www.startglobal.org), Europe's largest student hackathon, hosted annually in St. Gallen. We're proud to have placed 2nd in the PostFinance challenge, and grateful for the opportunity to have worked on a cause that geniunely interests us.
 
 A warm thank you to my teammates - [Antonin Ricard-Boual](https://www.linkedin.com/in/antonin-ricard-boual-572715327/), [Andriy Svidrun](https://www.linkedin.com/in/andriy-svidrun/), [Peter Thürbach](https://www.linkedin.com/in/thürbach/) - for 36 hours of good ideas and energy.
 
