@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-03-30">
-<meta name="keywords" content="Investing Game, PostFinance, Hackathon, START Hack">
+<meta name="dcterms.date" content="2026-05-07">
+<meta name="keywords" content="Exploratory Data Analysis, Data Visualization, Operational KPI design, Business Analytics">
 
-<title>2nd Place — START Hack 26, PostFinance Hackathon Challenge – Solène Berney</title>
+<title>Delta Air Lines Efficiency Analysis: An Operational Audit Based on Four Years of US Flight Data – Solène Berney</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -105,11 +105,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Strava API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./Hackathon.html" aria-current="page"> 
+    <a class="nav-link" href="./Hackathon.html"> 
 <span class="menu-text">Hackathon</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./delta.html"> 
+    <a class="nav-link active" href="./delta.html" aria-current="page"> 
 <span class="menu-text">Data Exploration</span></a>
   </li>  
 </ul>
@@ -140,21 +140,21 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-problem" id="toc-the-problem" class="nav-link active" data-scroll-target="#the-problem">The Problem</a></li>
-  <li><a href="#the-challenge" id="toc-the-challenge" class="nav-link" data-scroll-target="#the-challenge">The Challenge</a></li>
-  <li><a href="#the-team" id="toc-the-team" class="nav-link" data-scroll-target="#the-team">The Team</a></li>
-  <li><a href="#our-solution-investopia" id="toc-our-solution-investopia" class="nav-link" data-scroll-target="#our-solution-investopia">Our Solution: Investopia</a></li>
-  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">How It Works</a></li>
-  <li><a href="#our-stack-and-workflow" id="toc-our-stack-and-workflow" class="nav-link" data-scroll-target="#our-stack-and-workflow">Our Stack and Workflow</a></li>
-  <li><a href="#what-i-learned" id="toc-what-i-learned" class="nav-link" data-scroll-target="#what-i-learned">What I Learned</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The Data</a></li>
+  <li><a href="#the-us-aviation-market" id="toc-the-us-aviation-market" class="nav-link" data-scroll-target="#the-us-aviation-market">The US Aviation Market</a></li>
+  <li><a href="#deltas-strategic-position" id="toc-deltas-strategic-position" class="nav-link" data-scroll-target="#deltas-strategic-position">Delta’s Strategic Position</a></li>
+  <li><a href="#three-pillars-of-operational-efficiency" id="toc-three-pillars-of-operational-efficiency" class="nav-link" data-scroll-target="#three-pillars-of-operational-efficiency">Three Pillars of Operational Efficiency</a>
   <ul class="collapse">
-  <li><a href="#deliver-fast-but-with-focus" id="toc-deliver-fast-but-with-focus" class="nav-link" data-scroll-target="#deliver-fast-but-with-focus">1. Deliver fast, but with focus</a></li>
-  <li><a href="#teamwork-is-the-real-multiplier" id="toc-teamwork-is-the-real-multiplier" class="nav-link" data-scroll-target="#teamwork-is-the-real-multiplier">2. Teamwork is the real multiplier</a></li>
-  <li><a href="#a-great-pitch-makes-the-product-click" id="toc-a-great-pitch-makes-the-product-click" class="nav-link" data-scroll-target="#a-great-pitch-makes-the-product-click">3. A great pitch makes the product click</a></li>
+  <li><a href="#delays" id="toc-delays" class="nav-link" data-scroll-target="#delays">1 — Delays</a></li>
+  <li><a href="#schedule-adherence" id="toc-schedule-adherence" class="nav-link" data-scroll-target="#schedule-adherence">2 — Schedule Adherence</a></li>
+  <li><a href="#ground-time" id="toc-ground-time" class="nav-link" data-scroll-target="#ground-time">3 — Ground Time</a></li>
   </ul></li>
-  <li><a href="#what-wed-build-next" id="toc-what-wed-build-next" class="nav-link" data-scroll-target="#what-wed-build-next">What We’d Build Next</a></li>
-  <li><a href="#a-final-word" id="toc-a-final-word" class="nav-link" data-scroll-target="#a-final-word">A Final Word</a></li>
-  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  <li><a href="#toward-a-composite-efficiency-score" id="toc-toward-a-composite-efficiency-score" class="nav-link" data-scroll-target="#toward-a-composite-efficiency-score">Toward a Composite Efficiency Score</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s Next</a>
+  <ul class="collapse">
+  <li><a href="#data-source" id="toc-data-source" class="nav-link" data-scroll-target="#data-source">Data source:</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -163,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">2nd Place — START Hack 26, PostFinance Hackathon Challenge</h1>
+<h1 class="title">Delta Air Lines Efficiency Analysis: An Operational Audit Based on Four Years of US Flight Data</h1>
 </div>
 
 
@@ -173,14 +173,14 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Antonin Ricard-Boual, Andriy Svidrun, Peter Thürbach, Solène Berney </p>
+             <p>Solène Berney </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 30, 2026</p>
+      <p class="date">May 7, 2026</p>
     </div>
   </div>
   
@@ -191,101 +191,178 @@ ul.task-list li input[type="checkbox"] {
 <div>
   <div class="keywords">
     <div class="block-title">Keywords</div>
-    <p>Investing Game, PostFinance, Hackathon, START Hack</p>
+    <p>Exploratory Data Analysis, Data Visualization, Operational KPI design, Business Analytics</p>
   </div>
 </div>
 
 </header>
 
 
-<section id="the-problem" class="level2">
-<h2 class="anchored" data-anchor-id="the-problem">The Problem</h2>
-<p>Most people know they should invest, yet very few actually start.</p>
-<p>Not because they lack money or time, but because investing feels inaccessible. The language is confusing, the perceived risk is high, and for many it still looks like gambling. Ironically, not investing, waiting, compounded over decades, can be one of the most expensive financial decisions.</p>
-<p>This was the problem PostFinance put in front of us at START Hack 2026: make investing feel safe to try, engaging to learn, and realistic enough to correct the misconceptions that keep people on the sidelines.</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>How do you measure whether an airline is actually operating well — not just according to its marketing, but across its full network? That’s the question I set out to answer in this project. Using four years of publicly available US domestic flight data, I conducted a deep operational audit of Delta Air Lines: examining delay frequency and causes, schedule honesty, and ground efficiency. The goal was to go beyond a single headline metric and build a composite performance score that could be used to benchmark airlines against one another.</p>
 </section>
-<section id="the-challenge" class="level2">
-<h2 class="anchored" data-anchor-id="the-challenge">The Challenge</h2>
-<p>PostFinance’s ask was to build a gamified, playable investment education prototype that teaches beginners the core principles of investing — risk profiling, diversification, asset classes, long-term thinking, handling volatility — without any real money on the line</p>
-<p>The goal wasn’t to build a trading app, but something that changes how young people (14–30) feel about investing before they ever open a brokerage account.</p>
+<section id="the-data" class="level2">
+<h2 class="anchored" data-anchor-id="the-data">The Data</h2>
+<p>The dataset comes from the US Department of Transport’s Bureau of Transport Statistics — “Marketing Carrier On-Time Performance” database, covering 2019 to 2022. It contains 26 million commercial domestic flight records across 21 airlines and 375 airports. For this analysis, I worked with a curated subset of the database of 66 variables, covering the key operational variables: scheduled and actual departure and arrival times, delay causes broken down by category, taxi times, and cancellation flags.</p>
+<p>For the analysis, I restricted metrics to operated flights only — cancelled and diverted flights were excluded from delay and elapsed-time calculations. For route-level aggregations, I applied a minimum threshold of 100 flights per route to ensure statistical reliability.</p>
 </section>
-<section id="the-team" class="level2">
-<h2 class="anchored" data-anchor-id="the-team">The Team</h2>
-<p>We were four students from the University of St.&nbsp;Gallen, all connected through the Data Science Fundamentals program. As economics and business students, this was our first hackathon. We didn’t really know what to expect - but it turned out to be 36 hours of very little sleep, a lot of laughter, and one of the best team experiences we’ve had at uni so far. <img src="images/hack.png" class="img-fluid quarto-figure quarto-figure-center" width="600" alt="Start Hack 2026"></p>
-</section>
-<section id="our-solution-investopia" class="level2">
-<h2 class="anchored" data-anchor-id="our-solution-investopia">Our Solution: Investopia</h2>
-<p>We kept coming back to one question: how do you make something abstract feel tangible?</p>
-<p>Have you ever played a city-building game? What did you like about it? For most people, the answer is the same: you build something, and you watch it grow before your very eyes. Progress is visible, effort has a shape.</p>
-<p>That’s exactly the idea behind Investopia: a city-building investment simulation where learning is the price of entry, and your portfolio is your city.</p>
-<p>The core idea is simple: one asset class, one district. Equities, bonds, commodities, ETFs, crypto: each has its own district, centered around its exchange. Every asset you purchase shows up as a building. Good returns make your buildings grow taller. A thriving, diversified portfolio gives you a thriving, growing city.</p>
-<p>In one sentence: Investopia turns investing into a visual system where decisions directly shape a city, making abstract concepts immediately visible.</p>
+<section id="the-us-aviation-market" class="level2">
+<h2 class="anchored" data-anchor-id="the-us-aviation-market">The US Aviation Market</h2>
+<p>The US domestic market is dominated by a small number of carriers. Southwest is the largest single airline at 17.8% of all flights, but it operates a point-to-point model with no hubs — which makes it structurally different from legacy carriers when comparing operational metrics. The Big 3 legacy carriers — American, Delta, and United — together account for 35% of domestic flights. It’s also worth noting that regional carriers like SkyWest and Endeavour operate largely under Delta’s network, meaning Delta’s real operational footprint is larger than its headline share suggests.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/district.png" class="img-fluid figure-img"></p>
-<figcaption>1 ASSET CLASS = 1 DISTRICT</figcaption>
+<p><img src="images/delta-images/market_structure.png" class="img-fluid figure-img"></p>
+<figcaption>US Domestic Flight Volume by Airline (2019-2022)</figcaption>
 </figure>
 </div>
-<p>Want tall buildings? Get good returns. Want to keep them? Make sure you’re diversified.</p>
-<p>We took something intangible and made it visible, and that’s the whole game.</p>
+<p>Geographically, the picture is clear: Delta dominates the Southeast and the Northern corridor, while Southwest controls the West and many secondary cities. These patterns matter: an airline’s operational efficiency is shaped by the airports it dominates and the competitors it faces.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/bubble_map_airline.png" class="img-fluid figure-img"></p>
+<figcaption>US Airport Traffic — Dominant Airline per Airport</figcaption>
+</figure>
+</div>
 </section>
-<section id="how-it-works" class="level2">
-<h2 class="anchored" data-anchor-id="how-it-works">How It Works</h2>
-<p>The experience is built around a simple loop: learn → invest → observe → adapt and refine strategy.</p>
-<p><strong>The Library</strong> is where you start. Education is at the core of Investopia: before you can trade anything, you need to learn about it. Each module covers one asset class with short, clear explanations, followed by a quiz. Pass the quiz, unlock the district. You also earn badges along the way, displayed in your personal museum.</p>
-<p><strong>The Market</strong> lets you buy and sell assets within your unlocked districts. Prices evolve across a simulated timeline, giving you a real feel for how different asset classes behave over time.</p>
-<p><strong>The Sandbox</strong> lets you explore how different portfolio allocations would have actually performed, visualized as a city evolving over time. It’s designed to highlight what people most often overlook: the long-term benefits of staying invested and the quiet power of compounding.</p>
-<p><strong>The Fire Drill</strong> is our favorite feature. At any point, a financial crisis can strike and the assets that burn are determined by how diversified your portfolio is. The less diversified, the more you lose.</p>
-<p><strong>Friends &amp; Allocations</strong> - because learning is better together. You can connect with friends and peek into their cities, or follow the portfolios of well-known investors. Watch their buildings shake when they go all-in on a single stock.</p>
-<p><strong>Battle Mode</strong> lets you compete head-to-head with a friend’s portfolio in an accelerated simulation. But be careful: chasing high short-term returns at high risk won’t be rewarded in the ranking. Your tallest buildings might burn.</p>
-<p><strong>The Leaderboard and streaks</strong> keep it competitive and habit-forming, two things that matter a lot when your audience has never opened a finance book.</p>
-<p>Have a look at our demo: </p><div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/au37ZIeAXx0" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div><p></p>
+<section id="deltas-strategic-position" class="level2">
+<h2 class="anchored" data-anchor-id="deltas-strategic-position">Delta’s Strategic Position</h2>
+<p>Delta operates close to 500 routes. Looking at its top 100 by flight volume, 20 of them are near-monopoly routes where Delta holds more than 85% of departures — concentrated heavily around its hub network.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/top100_routes.png" class="img-fluid figure-img"></p>
+<figcaption>Delta’s Top 100 Routes</figcaption>
+</figure>
+</div>
+<p>At the airport level, the concentration is even starker. Delta controls over 60% of all departures at the world’s busiest airport, Atlanta (ATL). Outside its hubs, the picture is more competitive: at JFK, for example, Delta’s share drops to around 24%. This distinction between Delta’s monopoly strongholds and its contested markets will come back in the performance analysis.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/airports_market_share.png" class="img-fluid figure-img"></p>
+<figcaption>Top 15 Airports by Delta Market Share</figcaption>
+</figure>
+</div>
 </section>
-<section id="our-stack-and-workflow" class="level2">
-<h2 class="anchored" data-anchor-id="our-stack-and-workflow">Our Stack and Workflow</h2>
-<p>The frontend is built with React and Vite, styled with Tailwind CSS, and uses Three.js for the 3D city rendering. The backend runs on Firebase (Firestore for real-time data, and Firebase Auth for user accounts). All asset price data is computed client-side from historical datasets embedded in the app.</p>
-<p>Given the 36-hour constraint, we leaned heavily on Claude Code as an AI coding assistant. It significantly accelerated implementation, from scaffolding components to debugging tricky state logic. That said, every feature was discussed, designed, and validated by the team before and after it was built.</p>
-<p>We worked in short, iterative cycles with fluid roles. At any given point, one of us was coding, another was shaping the pitch narrative, another was testing the game as a first-time user, and the last was tightening the demo flow. We rotated constantly, everyone touched the product, the story, and the presentation.</p>
-<p>By the end of those 36 hours, we walked into the room ready to pitch, and proud of what we’d built.</p>
+<section id="three-pillars-of-operational-efficiency" class="level2">
+<h2 class="anchored" data-anchor-id="three-pillars-of-operational-efficiency">Three Pillars of Operational Efficiency</h2>
+<p>I structured the audit around three dimensions: <strong>delays, schedule adherence, and ground time</strong>.</p>
+<section id="delays" class="level3">
+<h3 class="anchored" data-anchor-id="delays">1 — Delays</h3>
+<section id="frequency" class="level4">
+<h4 class="anchored" data-anchor-id="frequency">Frequency</h4>
+<p>In 2022, 15.4% of Delta flights were delayed by more than 15 minutes, making it the best performer among the Big 3 legacy carriers, and below the industry average of 20.3%. Delta also leads in early arrivals — which is a good result on paper, but raises an immediate question: is this genuine operational excellence, or is Delta simply scheduling more time than routes require? I’ll address that in the schedule adherence section.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/reliability.png" class="img-fluid figure-img" width="610"></p>
+<figcaption>Flight Reliability by Airline</figcaption>
+</figure>
+</div>
 </section>
-<section id="what-i-learned" class="level2">
-<h2 class="anchored" data-anchor-id="what-i-learned">What I Learned</h2>
-<section id="deliver-fast-but-with-focus" class="level3">
-<h3 class="anchored" data-anchor-id="deliver-fast-but-with-focus">1. Deliver fast, but with focus</h3>
-<p>In a 36-hour hackathon, the challenge isn’t a lack of ideas—it’s choosing what not to build. We had many directions we could have explored, but we quickly defined a clear core product and prioritized must-have features over nice-to-haves. Focusing on a simple, working core loop first allowed us to move fast while still leaving room for additional ideas. Under tight time constraints, clarity and decisiveness matter more than completeness.</p>
+<section id="causes" class="level4">
+<h4 class="anchored" data-anchor-id="causes">Causes</h4>
+<p>When Delta is late, the causes are mostly self-inflicted.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/causes_donut.png" class="img-fluid figure-img" width="480"></p>
+<figcaption>Delta Delay Attribution 2022</figcaption>
+</figure>
+</div>
+<p>78.5% of Delta’s total delay minutes are controllable — either carrier delays (maintenance, crew, operations) at 52%, or late aircraft delays at 27%. The remaining 21.5% come from external factors like weather or Air Traffic Control.</p>
+<p>What’s concerning is the trend: Delta’s share of controllable delay minutes has risen steadily from 65% in 2019 to 79% in 2022. This is broadly in line with the industry average (around 78%), but the upward trajectory is specific to Delta and worth monitoring.</p>
 </section>
-<section id="teamwork-is-the-real-multiplier" class="level3">
-<h3 class="anchored" data-anchor-id="teamwork-is-the-real-multiplier">2. Teamwork is the real multiplier</h3>
-<p>What made the experience work wasn’t just individual contributions, but how well we worked together. We constantly built on each other’s ideas, brainstormed as a group, and leaned into our respective strengths. Roles stayed flexible, and there was a strong sense that we were solving the problem together. That alignment made us both faster and more consistent, and it made the whole experience a lot more fun.</p>
+<section id="severity" class="level4">
+<h4 class="anchored" data-anchor-id="severity">Severity</h4>
+<p>When delays do occur, most are relatively contained. About 68.6% of delays are under 30 minutes, and the median delay is only 16 minutes. However, the mean is 39 minutes — a significant gap driven by a tail of severe disruptions. 5.4% of delayed flights are over 2 hours. Most passengers experience short delays; a minority experience very long ones.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/intensity_histo.png" class="img-fluid figure-img"></p>
+<figcaption>Delta Delay Intensity Distribution</figcaption>
+</figure>
+</div>
 </section>
-<section id="a-great-pitch-makes-the-product-click" class="level3">
-<h3 class="anchored" data-anchor-id="a-great-pitch-makes-the-product-click">3. A great pitch makes the product click</h3>
-<p>With only three minutes, every second counts. We focused on being clear, punchy, and structured—framing our presentation so it felt like a direct answer to PostFinance’s problem. The goal wasn’t just to explain what we built, but to make them feel why it works. Showing the game in action, keeping slides simple, and delivering a memorable message made a huge difference. We treated the pitch as a product in itself, not just a presentation.</p>
+<section id="cascade-effect" class="level4">
+<h4 class="anchored" data-anchor-id="cascade-effect">Cascade Effect</h4>
+<p>One of the more interesting findings concerns how delays propagate through the day. By tracking individual aircraft through their daily schedules, I found that when a flight starts the day 30 to 60 minutes late, subsequent flights on the same aircraft still run an average of 18 minutes behind.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/cascade_delay.png" class="img-fluid figure-img" width="460"></p>
+<figcaption>Cascade Effect</figcaption>
+</figure>
+</div>
+<p>This is the cascade effect in numbers: 27% of Delta’s total delay minutes are attributed to late aircraft, meaning delays from earlier in the day carry over into later flights. Delays are not isolated events, they’re systemic, and a disruption at 7am can still be felt at 9pm across the network.</p>
 </section>
 </section>
-<section id="what-wed-build-next" class="level2">
-<h2 class="anchored" data-anchor-id="what-wed-build-next">What We’d Build Next</h2>
-<p>If we were to take Investopia further, we would focus on three directions: realism, personalization, and long-term engagement:</p>
+<section id="schedule-adherence" class="level3">
+<h3 class="anchored" data-anchor-id="schedule-adherence">2 — Schedule Adherence</h3>
+<p>The question of whether Delta’s on-time performance is earned or bought comes down to schedule adherence. I measured this using a Schedule Adherence Ratio (SAR) — the ratio of actual block time to scheduled block time. A SAR of 1.0 means the schedule is honest; below 0.93 suggests padding.</p>
+<p>Delta’s median SAR is 0.94, meaning flights land about 6% earlier than the published schedule. 28% of routes show clear padding, with a median buffer of 8 minutes per flight. On those routes, flights are simply scheduled longer than they need to be.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/sar.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>GRAPH: Does Schedule Padding Buy On-Time Performance?</figcaption>
+</figure>
+</div>
+<p>The scatter plot makes the effect visible: padded routes tend to have higher on-time rates, and there’s a negative correlation (r = −0.21) between SAR and punctuality. Delta uses schedule inflation as a buffer, and it works. That doesn’t mean it’s necessarily bad practice — padding is a common industry tool — but it does mean the headline on-time figure overstates pure operational quality to some degree.</p>
+</section>
+<section id="ground-time" class="level3">
+<h3 class="anchored" data-anchor-id="ground-time">3 — Ground Time</h3>
+<p>The final pillar is ground efficiency: how quickly Delta turns its aircraft compared to competitors at the same airports. I built a Ground Time Index (GTI) — the ratio of Delta’s median turnaround time (taxi-out + taxi-in) to all airlines’ median at the same airport. A GTI below 1.0 means Delta is faster.</p>
+<p>Delta’s average GTI across all airports is 0.915 — roughly 8.5% faster than the industry average. At ATL, its home hub, the advantage is even sharper: 10% faster than competitors, even at the world’s busiest airport. The home advantage is real.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/GTI_bar_chart copy.png" class="img-fluid figure-img" width="470"></p>
+<figcaption>GRAPH: Ground Time Index by Airport — Delta vs.&nbsp;Competitors 2022, bar chart</figcaption>
+</figure>
+</div>
+<p>There is, however, a notable exception. At airports dominated by Southwest — such as HOU, MDW, or SAN — Delta’s GTI exceeds 1.0, meaning it’s slower than competitors there. My interpretation is structural: Southwest’s entire business model is built around fast ground turns, often at the cost of higher delay rates. At airports where Southwest sets the operational tempo, Delta’s turnaround model doesn’t translate.</p>
+</section>
+</section>
+<section id="toward-a-composite-efficiency-score" class="level2">
+<h2 class="anchored" data-anchor-id="toward-a-composite-efficiency-score">Toward a Composite Efficiency Score</h2>
+<p>The next step is to consolidate these metrics into a single comparable score. I designed a composite Efficiency Score combining four components:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>What it captures</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>On-Time Rate</td>
+<td>Frequency of failure from the passenger’s view</td>
+</tr>
+<tr class="even">
+<td>Delay Severity</td>
+<td>Magnitude when delays do occur</td>
+</tr>
+<tr class="odd">
+<td>Schedule Honesty (SAR)</td>
+<td>Whether performance is earned or padded</td>
+</tr>
+<tr class="even">
+<td>Ground Time Index</td>
+<td>Operational execution speed</td>
+</tr>
+</tbody>
+</table>
+<p>Each metric is directionally aligned (higher = better) and normalized across the peer group using min-max scaling. The final score is a weighted average:</p>
+<p>Efficiency Score = 0.35 × On-Time Rate + 0.25 × Severity Score + 0.25 × Schedule Honesty + 0.15 × Ground Time Index</p>
+<p>The weights reflect passenger impact: punctuality matters most, followed by how bad delays are when they happen and whether the schedule is honest, then ground execution. The framework is modular, components can be adjusted, replaced, or applied at the route level rather than the airline level.</p>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s Next</h2>
+<p>This analysis raises as many questions as it answers. The most compelling extension would be applying the score at the route level, particularly comparing Delta’s monopoly routes to its competitive ones. Does Delta relax its operations where it faces no competition?</p>
+<p>Other directions worth exploring:</p>
 <ul>
-<li>A UI closer to PostFinance’s e-trading app</li>
-<li>Deeper quiz content and more nuanced asset classes, including digital assets</li>
-<li>An integrated LLM investment coach to guide users through decisions</li>
-<li>Stop-loss mechanisms and more advanced trading features</li>
-<li>Income and expense simulation</li>
-<li>Mobile-friendly design</li>
+<li>the performance contrast between ATL and JFK airports as operationally distinct hubs;</li>
+<li>the role of cancellations and diversions (excluded from this analysis) as potential indicators of systemic issues;</li>
+<li>the evolution of Delta’s network from 2019 to 2022, capturing post-COVID recovery and route restructuring.</li>
 </ul>
-</section>
-<section id="a-final-word" class="level2">
-<h2 class="anchored" data-anchor-id="a-final-word">A Final Word</h2>
-<p>Investopia won’t make you a millionaire. But it might make you start.</p>
-<p>And starting, it turns out, is most of the battle.</p>
-</section>
-<section id="acknowledgements" class="level2">
-<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
-<p>This project was completed as part of the <a href="https://www.startglobal.org">START Hack 2026</a>, Europe’s largest student hackathon, hosted annually in St.&nbsp;Gallen. We’re proud to have placed 2nd in the PostFinance challenge, and grateful for the opportunity to have worked on a cause that geniunely interests us.</p>
-<p>A warm thank you to my teammates - <a href="https://www.linkedin.com/in/antonin-ricard-boual-572715327/">Antonin Ricard-Boual</a>, <a href="https://www.linkedin.com/in/andriy-svidrun/">Andriy Svidrun</a>, <a href="https://www.linkedin.com/in/thürbach/">Peter Thürbach</a> - for 36 hours of good ideas and energy.</p>
+<section id="data-source" class="level3">
+<h3 class="anchored" data-anchor-id="data-source">Data source:</h3>
+<p><a href="https://www.transtats.bts.gov/Fields.asp?gnoyr_VQ=FGK">US Department of Transport, Bureau of Transport Statistics — “Marketing Carrier On-Time Performance” database, 2019–2022</a>. All statistics computed from the data.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
