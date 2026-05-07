@@ -5,15 +5,16 @@ css: styles.css
 
 As an Economics student at the University of St. Gallen (HSG) with a specialization in Data Science, I am interested in how data can support smarter business decisions. I enjoy learning new data science tools and exploring their connections to business and entrepreneurship, and I am eager to continue learning in this direction through my studies, projects, and internships.
 
-This website showcases selected academic and personal projects that reflect my learning journey.
+This website showcases selected academic and personal projects that reflect my learning journey. Visit my recent projects below: 
 
+#### Data & Visualisation
+-   [Mapping My Runs with the Strava API](Strava_quarto_publish.qmd) – What do my 2025 runs look like on a map?
+-   [Delta Efficiency Audit](delta.qmd) - Auditing Delta's operations with four years of flight data
 
-### Visit my recent projects
+#### Machine Learning
+-   [Predicting Geneva's Public Transport Demand](DSF_quarto_publish.qmd) – Can ML predict when the bus gets crowded, across an entire city?
 
--   [Geneva Public Transport Passenger Forecasting](DSF_quarto_publish.qmd) – Network-wide demand forecasting using machine learning
--   [Strava Map Project](Strava_quarto_publish.qmd) – Visualizing my running routes using GPS data and Strava API
--   [Start Hackathon 2026](Hackathon.qmd) – Gamified investment education game for PostFinance
-
-
+#### Web Application
+-   [Start Hackathon 2026](Hackathon.qmd) – Ranked 2nd: a game that teaches people to invest, built in 36 hours
 
 

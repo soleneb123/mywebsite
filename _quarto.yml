@@ -8,13 +8,13 @@ website:
       - href: index.qmd
         text: Home
       - href: DSF_quarto_publish.qmd
-        text: ML Forecasting
+        text: Public Transport Forecast
       - href: Strava_quarto_publish.qmd
-        text: Strava API
+        text: My Runs on a Map
       - href: Hackathon.qmd
-        text: Hackathon
+        text: 36h Fintech Game
       - href: delta.qmd
-        text: Data Exploration
+        text: Delta Efficiency Audit
         
         
     right:
@@ -29,6 +29,7 @@ website:
     right:
       - icon: linkedin
         href: https://www.linkedin.com/in/solene-berney-unisg/
+    left: "Solène Berney"
 
 
 format:

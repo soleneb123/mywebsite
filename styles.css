@@ -62,6 +62,12 @@ body {
   letter-spacing: 0.01em;
 }
 
+.navbar-brand {
+  box-shadow: none !important;
+  background: none !important;
+  border: none !important;
+}
+
 .navbar a {
   color: rgba(255,255,255,0.65) !important;
   font-size: 0.875rem;
@@ -92,6 +98,7 @@ body {
 .navbar .bi:hover {
   opacity: 1;
 }
+
 
 /* ==============================
    Headings
@@ -371,7 +378,7 @@ tbody tr:last-child {
    Page Footer
 ============================== */
 .nav-footer {
-  background-color: var(--dark) !important;
+  background-color: var(--dark-mid) !important;
   border-top: 1px solid rgba(255,255,255,0.07);
   color: rgba(255,255,255,0.45);
   font-size: 0.82rem;
