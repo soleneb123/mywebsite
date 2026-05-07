@@ -106,6 +106,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./Hackathon.html"> 
 <span class="menu-text">Hackathon</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./delta.html"> 
+<span class="menu-text">Data Exploration</span></a>
+  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
@@ -160,7 +164,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>As an Economics student at the University of St.&nbsp;Gallen (HSG), I am interested in how data can support smarter business decisions. I enjoy learning new data science tools and exploring their connections to business and entrepreneurship, and I am eager to continue learning in this direction through my studies, projects, and internships.</p>
+<p>As an Economics student at the University of St.&nbsp;Gallen (HSG) with a specialization in Data Science, I am interested in how data can support smarter business decisions. I enjoy learning new data science tools and exploring their connections to business and entrepreneurship, and I am eager to continue learning in this direction through my studies, projects, and internships.</p>
 <p>This website showcases selected academic and personal projects that reflect my learning journey.</p>
 <section id="visit-my-recent-projects" class="level3">
 <h3 class="anchored" data-anchor-id="visit-my-recent-projects">Visit my recent projects</h3>
@@ -247,7 +251,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/soleneb123\.github\.io\/mywebsite\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

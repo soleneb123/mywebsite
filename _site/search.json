@@ -56,97 +56,6 @@
     "text": "My Strava 2025 St Gallen Activity Map\n\n\n\n\nThis project was inspired by a Strava mapping example shared by Prof. Dr. Aurélien Sallin, which I adapted and extended for my own data."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "Solène Berney",
-    "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
-  },
-  {
-    "objectID": "Hackathon.html",
-    "href": "Hackathon.html",
-    "title": "START Hack 2026 - Investopia",
-    "section": "",
-    "text": "Most people know they should invest, yet very few actually start.\nNot because they lack money or time, but because investing feels inaccessible. The language is confusing, the perceived risk is high, and for many it still looks like gambling. Ironically, not investing, waiting, compounded over decades, can be one of the most expensive financial decisions.\nThis was the problem PostFinance put in front of us at START Hack 2026: make investing feel safe to try, engaging to learn, and realistic enough to correct the misconceptions that keep people on the sidelines."
-  },
-  {
-    "objectID": "Hackathon.html#the-problem",
-    "href": "Hackathon.html#the-problem",
-    "title": "START Hack 2026 - Investopia",
-    "section": "",
-    "text": "Most people know they should invest, yet very few actually start.\nNot because they lack money or time, but because investing feels inaccessible. The language is confusing, the perceived risk is high, and for many it still looks like gambling. Ironically, not investing, waiting, compounded over decades, can be one of the most expensive financial decisions.\nThis was the problem PostFinance put in front of us at START Hack 2026: make investing feel safe to try, engaging to learn, and realistic enough to correct the misconceptions that keep people on the sidelines."
-  },
-  {
-    "objectID": "Hackathon.html#the-challenge",
-    "href": "Hackathon.html#the-challenge",
-    "title": "START Hack 2026 - Investopia",
-    "section": "The Challenge",
-    "text": "The Challenge\nPostFinance’s ask was to build a gamified, playable investment education prototype that teaches beginners the core principles of investing — risk profiling, diversification, asset classes, long-term thinking, handling volatility — without any real money on the line\nThe goal wasn’t to build a trading app, but something that changes how young people (14–30) feel about investing before they ever open a brokerage account."
-  },
-  {
-    "objectID": "Hackathon.html#the-team",
-    "href": "Hackathon.html#the-team",
-    "title": "START Hack 2026 - Investopia",
-    "section": "The Team",
-    "text": "The Team\nWe were four students from the University of St. Gallen, all connected through the Data Science Fundamentals program. As economics and business students, this was our first hackathon. We didn’t really know what to expect - but it turned out to be 36 hours of very little sleep, a lot of laughter, and one of the best team experiences we’ve had at uni so far."
-  },
-  {
-    "objectID": "Hackathon.html#our-solution-investopia",
-    "href": "Hackathon.html#our-solution-investopia",
-    "title": "START Hack 2026 - Investopia",
-    "section": "Our Solution: Investopia",
-    "text": "Our Solution: Investopia\nWe kept coming back to one question: how do you make something abstract feel tangible?\nHave you ever played a city-building game? What did you like about it? For most people, the answer is the same: you build something, and you watch it grow before your very eyes. Progress is visible, effort has a shape.\nThat’s exactly the idea behind Investopia: a city-building investment simulation where learning is the price of entry, and your portfolio is your city.\nThe core idea is simple: one asset class, one district. Equities, bonds, commodities, ETFs, crypto: each has its own district, centered around its exchange. Every asset you purchase shows up as a building. Good returns make your buildings grow taller. A thriving, diversified portfolio gives you a thriving, growing city.\nIn one sentence: Investopia turns investing into a visual system where decisions directly shape a city, making abstract concepts immediately visible.\n\n\n\n1 ASSET CLASS = 1 DISTRICT\n\n\nWant tall buildings? Get good returns. Want to keep them? Make sure you’re diversified.\nWe took something intangible and made it visible, and that’s the whole game."
-  },
-  {
-    "objectID": "Hackathon.html#how-it-works",
-    "href": "Hackathon.html#how-it-works",
-    "title": "START Hack 2026 - Investopia",
-    "section": "How It Works",
-    "text": "How It Works\nThe experience is built around a simple loop: learn → invest → observe → adapt and refine strategy.\nThe Library is where you start. Education is at the core of Investopia: before you can trade anything, you need to learn about it. Each module covers one asset class with short, clear explanations, followed by a quiz. Pass the quiz, unlock the district. You also earn badges along the way, displayed in your personal museum.\nThe Market lets you buy and sell assets within your unlocked districts. Prices evolve across a simulated timeline, giving you a real feel for how different asset classes behave over time.\nThe Sandbox lets you explore how different portfolio allocations would have actually performed, visualized as a city evolving over time. It’s designed to highlight what people most often overlook: the long-term benefits of staying invested and the quiet power of compounding.\nThe Fire Drill is our favorite feature. At any point, a financial crisis can strike and the assets that burn are determined by how diversified your portfolio is. The less diversified, the more you lose.\nFriends & Allocations - because learning is better together. You can connect with friends and peek into their cities, or follow the portfolios of well-known investors. Watch their buildings shake when they go all-in on a single stock.\nBattle Mode lets you compete head-to-head with a friend’s portfolio in an accelerated simulation. But be careful: chasing high short-term returns at high risk won’t be rewarded in the ranking. Your tallest buildings might burn.\nThe Leaderboard and streaks keep it competitive and habit-forming, two things that matter a lot when your audience has never opened a finance book.\nHave a look at our demo:"
-  },
-  {
-    "objectID": "Hackathon.html#our-stack-and-workflow",
-    "href": "Hackathon.html#our-stack-and-workflow",
-    "title": "START Hack 2026 - Investopia",
-    "section": "Our Stack and Workflow",
-    "text": "Our Stack and Workflow\nThe frontend is built with React and Vite, styled with Tailwind CSS, and uses Three.js for the 3D city rendering. The backend runs on Firebase (Firestore for real-time data, and Firebase Auth for user accounts). All asset price data is computed client-side from historical datasets embedded in the app.\nGiven the 36-hour constraint, we leaned heavily on Claude Code as an AI coding assistant. It significantly accelerated implementation, from scaffolding components to debugging tricky state logic. That said, every feature was discussed, designed, and validated by the team before and after it was built.\nWe worked in short, iterative cycles with fluid roles. At any given point, one of us was coding, another was shaping the pitch narrative, another was testing the game as a first-time user, and the last was tightening the demo flow. We rotated constantly, everyone touched the product, the story, and the presentation.\nBy the end of those 36 hours, we walked into the room ready to pitch, and proud of what we’d built."
-  },
-  {
-    "objectID": "Hackathon.html#what-i-learned",
-    "href": "Hackathon.html#what-i-learned",
-    "title": "START Hack 2026 - Investopia",
-    "section": "What I Learned",
-    "text": "What I Learned\n\n1. Deliver fast, but with focus\nIn a 36-hour hackathon, the challenge isn’t a lack of ideas—it’s choosing what not to build. We had many directions we could have explored, but we quickly defined a clear core product and prioritized must-have features over nice-to-haves. Focusing on a simple, working core loop first allowed us to move fast while still leaving room for additional ideas. Under tight time constraints, clarity and decisiveness matter more than completeness.\n\n\n2. Teamwork is the real multiplier\nWhat made the experience work wasn’t just individual contributions, but how well we worked together. We constantly built on each other’s ideas, brainstormed as a group, and leaned into our respective strengths. Roles stayed flexible, and there was a strong sense that we were solving the problem together. That alignment made us both faster and more consistent, and it made the whole experience a lot more fun.\n\n\n3. A great pitch makes the product click\nWith only three minutes, every second counts. We focused on being clear, punchy, and structured—framing our presentation so it felt like a direct answer to PostFinance’s problem. The goal wasn’t just to explain what we built, but to make them feel why it works. Showing the game in action, keeping slides simple, and delivering a memorable message made a huge difference. We treated the pitch as a product in itself, not just a presentation."
-  },
-  {
-    "objectID": "Hackathon.html#what-wed-build-next",
-    "href": "Hackathon.html#what-wed-build-next",
-    "title": "START Hack 2026 - Investopia",
-    "section": "What We’d Build Next",
-    "text": "What We’d Build Next\nIf we were to take Investopia further, we would focus on three directions: realism, personalization, and long-term engagement:\n\nA UI closer to PostFinance’s e-trading app\nDeeper quiz content and more nuanced asset classes, including digital assets\nAn integrated LLM investment coach to guide users through decisions\nStop-loss mechanisms and more advanced trading features\nIncome and expense simulation\nMobile-friendly design"
-  },
-  {
-    "objectID": "Hackathon.html#a-final-word",
-    "href": "Hackathon.html#a-final-word",
-    "title": "START Hack 2026 - Investopia",
-    "section": "A Final Word",
-    "text": "A Final Word\nInvestopia won’t make you a millionaire. But it might make you start.\nAnd starting, it turns out, is most of the battle."
-  },
-  {
-    "objectID": "Hackathon.html#acknowledgements",
-    "href": "Hackathon.html#acknowledgements",
-    "title": "START Hack 2026 - Investopia",
-    "section": "Acknowledgements",
-    "text": "Acknowledgements\nThis project was completed as part of the START Hack 2026, Europe’s largest student hackathon, hosted annually in St. Gallen. The challenge was proposed by PostFinance, and we’re grateful for the opportunity to have worked on a cause that geniunely interests us.\nA warm thank you to my teammates - Antonin Ricard-Boual, Andriy Svidrun, Peter Thürbach - for 36 hours of good ideas and energy."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome",
-    "section": "",
-    "text": "As an Economics student at the University of St. Gallen (HSG), I am interested in how data can support smarter business decisions. I enjoy learning new data science tools and exploring their connections to business and entrepreneurship, and I am eager to continue learning in this direction through my studies, projects, and internships.\nThis website showcases selected academic and personal projects that reflect my learning journey.\n\nVisit my recent projects\n\nGeneva Public Transport Passenger Forecasting – Network-wide demand forecasting using machine learning\nStrava Map Project – Visualizing my running routes using GPS data and Strava API\nStart Hackathon 2026 – Gamified investment education game for PostFinance"
-  },
-  {
     "objectID": "DSF_quarto_publish.html",
     "href": "DSF_quarto_publish.html",
     "title": "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot",
@@ -229,5 +138,180 @@
     "title": "Forecasting the Number of Passengers on Geneva’s TPG Network per Time Slot",
     "section": "Acknowledgements",
     "text": "Acknowledgements\nThis project was completed as part of the Data Science Fundamentals (DSF) program at the University of St. Gallen. I thank the professors and teaching assistants for their guidance. I also warmly thank my group members — Nils Stadler, Nela Brack, Morgane Vuissoz — for their collaboration throughout the project."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome",
+    "section": "",
+    "text": "As an Economics student at the University of St. Gallen (HSG) with a specialization in Data Science, I am interested in how data can support smarter business decisions. I enjoy learning new data science tools and exploring their connections to business and entrepreneurship, and I am eager to continue learning in this direction through my studies, projects, and internships.\nThis website showcases selected academic and personal projects that reflect my learning journey.\n\nVisit my recent projects\n\nGeneva Public Transport Passenger Forecasting – Network-wide demand forecasting using machine learning\nStrava Map Project – Visualizing my running routes using GPS data and Strava API\nStart Hackathon 2026 – Gamified investment education game for PostFinance"
+  },
+  {
+    "objectID": "Hackathon.html",
+    "href": "Hackathon.html",
+    "title": "2nd Place — START Hack 26, PostFinance Hackathon Challenge",
+    "section": "",
+    "text": "Most people know they should invest, yet very few actually start.\nNot because they lack money or time, but because investing feels inaccessible. The language is confusing, the perceived risk is high, and for many it still looks like gambling. Ironically, not investing, waiting, compounded over decades, can be one of the most expensive financial decisions.\nThis was the problem PostFinance put in front of us at START Hack 2026: make investing feel safe to try, engaging to learn, and realistic enough to correct the misconceptions that keep people on the sidelines."
+  },
+  {
+    "objectID": "Hackathon.html#the-problem",
+    "href": "Hackathon.html#the-problem",
+    "title": "2nd Place — START Hack 26, PostFinance Hackathon Challenge",
+    "section": "",
+    "text": "Most people know they should invest, yet very few actually start.\nNot because they lack money or time, but because investing feels inaccessible. The language is confusing, the perceived risk is high, and for many it still looks like gambling. Ironically, not investing, waiting, compounded over decades, can be one of the most expensive financial decisions.\nThis was the problem PostFinance put in front of us at START Hack 2026: make investing feel safe to try, engaging to learn, and realistic enough to correct the misconceptions that keep people on the sidelines."
+  },
+  {
+    "objectID": "Hackathon.html#the-challenge",
+    "href": "Hackathon.html#the-challenge",
+    "title": "2nd Place — START Hack 26, PostFinance Hackathon Challenge",
+    "section": "The Challenge",
+    "text": "The Challenge\nPostFinance’s ask was to build a gamified, playable investment education prototype that teaches beginners the core principles of investing — risk profiling, diversification, asset classes, long-term thinking, handling volatility — without any real money on the line\nThe goal wasn’t to build a trading app, but something that changes how young people (14–30) feel about investing before they ever open a brokerage account."
+  },
+  {
+    "objectID": "Hackathon.html#the-team",
+    "href": "Hackathon.html#the-team",
+    "title": "2nd Place — START Hack 26, PostFinance Hackathon Challenge",
+    "section": "The Team",
+    "text": "The Team\nWe were four students from the University of St. Gallen, all connected through the Data Science Fundamentals program. As economics and business students, this was our first hackathon. We didn’t really know what to expect - but it turned out to be 36 hours of very little sleep, a lot of laughter, and one of the best team experiences we’ve had at uni so far."
+  },
+  {
+    "objectID": "Hackathon.html#our-solution-investopia",
+    "href": "Hackathon.html#our-solution-investopia",
+    "title": "2nd Place — START Hack 26, PostFinance Hackathon Challenge",
+    "section": "Our Solution: Investopia",
+    "text": "Our Solution: Investopia\nWe kept coming back to one question: how do you make something abstract feel tangible?\nHave you ever played a city-building game? What did you like about it? For most people, the answer is the same: you build something, and you watch it grow before your very eyes. Progress is visible, effort has a shape.\nThat’s exactly the idea behind Investopia: a city-building investment simulation where learning is the price of entry, and your portfolio is your city.\nThe core idea is simple: one asset class, one district. Equities, bonds, commodities, ETFs, crypto: each has its own district, centered around its exchange. Every asset you purchase shows up as a building. Good returns make your buildings grow taller. A thriving, diversified portfolio gives you a thriving, growing city.\nIn one sentence: Investopia turns investing into a visual system where decisions directly shape a city, making abstract concepts immediately visible.\n\n\n\n1 ASSET CLASS = 1 DISTRICT\n\n\nWant tall buildings? Get good returns. Want to keep them? Make sure you’re diversified.\nWe took something intangible and made it visible, and that’s the whole game."
+  },
+  {
+    "objectID": "Hackathon.html#how-it-works",
+    "href": "Hackathon.html#how-it-works",
+    "title": "2nd Place — START Hack 26, PostFinance Hackathon Challenge",
+    "section": "How It Works",
+    "text": "How It Works\nThe experience is built around a simple loop: learn → invest → observe → adapt and refine strategy.\nThe Library is where you start. Education is at the core of Investopia: before you can trade anything, you need to learn about it. Each module covers one asset class with short, clear explanations, followed by a quiz. Pass the quiz, unlock the district. You also earn badges along the way, displayed in your personal museum.\nThe Market lets you buy and sell assets within your unlocked districts. Prices evolve across a simulated timeline, giving you a real feel for how different asset classes behave over time.\nThe Sandbox lets you explore how different portfolio allocations would have actually performed, visualized as a city evolving over time. It’s designed to highlight what people most often overlook: the long-term benefits of staying invested and the quiet power of compounding.\nThe Fire Drill is our favorite feature. At any point, a financial crisis can strike and the assets that burn are determined by how diversified your portfolio is. The less diversified, the more you lose.\nFriends & Allocations - because learning is better together. You can connect with friends and peek into their cities, or follow the portfolios of well-known investors. Watch their buildings shake when they go all-in on a single stock.\nBattle Mode lets you compete head-to-head with a friend’s portfolio in an accelerated simulation. But be careful: chasing high short-term returns at high risk won’t be rewarded in the ranking. Your tallest buildings might burn.\nThe Leaderboard and streaks keep it competitive and habit-forming, two things that matter a lot when your audience has never opened a finance book.\nHave a look at our demo:"
+  },
+  {
+    "objectID": "Hackathon.html#our-stack-and-workflow",
+    "href": "Hackathon.html#our-stack-and-workflow",
+    "title": "2nd Place — START Hack 26, PostFinance Hackathon Challenge",
+    "section": "Our Stack and Workflow",
+    "text": "Our Stack and Workflow\nThe frontend is built with React and Vite, styled with Tailwind CSS, and uses Three.js for the 3D city rendering. The backend runs on Firebase (Firestore for real-time data, and Firebase Auth for user accounts). All asset price data is computed client-side from historical datasets embedded in the app.\nGiven the 36-hour constraint, we leaned heavily on Claude Code as an AI coding assistant. It significantly accelerated implementation, from scaffolding components to debugging tricky state logic. That said, every feature was discussed, designed, and validated by the team before and after it was built.\nWe worked in short, iterative cycles with fluid roles. At any given point, one of us was coding, another was shaping the pitch narrative, another was testing the game as a first-time user, and the last was tightening the demo flow. We rotated constantly, everyone touched the product, the story, and the presentation.\nBy the end of those 36 hours, we walked into the room ready to pitch, and proud of what we’d built."
+  },
+  {
+    "objectID": "Hackathon.html#what-i-learned",
+    "href": "Hackathon.html#what-i-learned",
+    "title": "2nd Place — START Hack 26, PostFinance Hackathon Challenge",
+    "section": "What I Learned",
+    "text": "What I Learned\n\n1. Deliver fast, but with focus\nIn a 36-hour hackathon, the challenge isn’t a lack of ideas—it’s choosing what not to build. We had many directions we could have explored, but we quickly defined a clear core product and prioritized must-have features over nice-to-haves. Focusing on a simple, working core loop first allowed us to move fast while still leaving room for additional ideas. Under tight time constraints, clarity and decisiveness matter more than completeness.\n\n\n2. Teamwork is the real multiplier\nWhat made the experience work wasn’t just individual contributions, but how well we worked together. We constantly built on each other’s ideas, brainstormed as a group, and leaned into our respective strengths. Roles stayed flexible, and there was a strong sense that we were solving the problem together. That alignment made us both faster and more consistent, and it made the whole experience a lot more fun.\n\n\n3. A great pitch makes the product click\nWith only three minutes, every second counts. We focused on being clear, punchy, and structured—framing our presentation so it felt like a direct answer to PostFinance’s problem. The goal wasn’t just to explain what we built, but to make them feel why it works. Showing the game in action, keeping slides simple, and delivering a memorable message made a huge difference. We treated the pitch as a product in itself, not just a presentation."
+  },
+  {
+    "objectID": "Hackathon.html#what-wed-build-next",
+    "href": "Hackathon.html#what-wed-build-next",
+    "title": "2nd Place — START Hack 26, PostFinance Hackathon Challenge",
+    "section": "What We’d Build Next",
+    "text": "What We’d Build Next\nIf we were to take Investopia further, we would focus on three directions: realism, personalization, and long-term engagement:\n\nA UI closer to PostFinance’s e-trading app\nDeeper quiz content and more nuanced asset classes, including digital assets\nAn integrated LLM investment coach to guide users through decisions\nStop-loss mechanisms and more advanced trading features\nIncome and expense simulation\nMobile-friendly design"
+  },
+  {
+    "objectID": "Hackathon.html#a-final-word",
+    "href": "Hackathon.html#a-final-word",
+    "title": "2nd Place — START Hack 26, PostFinance Hackathon Challenge",
+    "section": "A Final Word",
+    "text": "A Final Word\nInvestopia won’t make you a millionaire. But it might make you start.\nAnd starting, it turns out, is most of the battle."
+  },
+  {
+    "objectID": "Hackathon.html#acknowledgements",
+    "href": "Hackathon.html#acknowledgements",
+    "title": "2nd Place — START Hack 26, PostFinance Hackathon Challenge",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nThis project was completed as part of the START Hack 2026, Europe’s largest student hackathon, hosted annually in St. Gallen. We’re proud to have placed 2nd in the PostFinance challenge, and grateful for the opportunity to have worked on a cause that geniunely interests us.\nA warm thank you to my teammates - Antonin Ricard-Boual, Andriy Svidrun, Peter Thürbach - for 36 hours of good ideas and energy."
+  },
+  {
+    "objectID": "notes.html",
+    "href": "notes.html",
+    "title": "Notes & to add to project",
+    "section": "",
+    "text": "DSF project\nHackathon Web app\nStrava API"
+  },
+  {
+    "objectID": "notes.html#current-website-content-and-structure",
+    "href": "notes.html#current-website-content-and-structure",
+    "title": "Notes & to add to project",
+    "section": "",
+    "text": "DSF project\nHackathon Web app\nStrava API"
+  },
+  {
+    "objectID": "notes.html#categories",
+    "href": "notes.html#categories",
+    "title": "Notes & to add to project",
+    "section": "Categories",
+    "text": "Categories\n\nMachine Learning - TPG forecast\nData & Visualisation - Strava API + EDA flights + Invoice analysis\nWeb & Apps - Investopia Hack + Sudoku"
+  },
+  {
+    "objectID": "notes.html#articles-to-add-future-projects",
+    "href": "notes.html#articles-to-add-future-projects",
+    "title": "Notes & to add to project",
+    "section": "Articles to add, future projects",
+    "text": "Articles to add, future projects\n\nUS flight data EDA\nSalt invoice data consumption extraction\nSudokuh\n\nData Source Flights EDA: https://www.transtats.bts.gov/Fields.asp?gnoyr_VQ=FGK"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Solène Berney",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "delta.html",
+    "href": "delta.html",
+    "title": "Delta Air Lines Efficiency Analysis: An Operational Audit Based on Four Years of US Flight Data",
+    "section": "",
+    "text": "How do you measure whether an airline is actually operating well — not just according to its marketing, but across its full network? That’s the question I set out to answer in this project. Using four years of publicly available US domestic flight data, I conducted a deep operational audit of Delta Air Lines: examining delay frequency and causes, schedule honesty, and ground efficiency. The goal was to go beyond a single headline metric and build a composite performance score that could be used to benchmark airlines against one another."
+  },
+  {
+    "objectID": "delta.html#introduction",
+    "href": "delta.html#introduction",
+    "title": "Delta Air Lines Efficiency Analysis: An Operational Audit Based on Four Years of US Flight Data",
+    "section": "",
+    "text": "How do you measure whether an airline is actually operating well — not just according to its marketing, but across its full network? That’s the question I set out to answer in this project. Using four years of publicly available US domestic flight data, I conducted a deep operational audit of Delta Air Lines: examining delay frequency and causes, schedule honesty, and ground efficiency. The goal was to go beyond a single headline metric and build a composite performance score that could be used to benchmark airlines against one another."
+  },
+  {
+    "objectID": "delta.html#the-data",
+    "href": "delta.html#the-data",
+    "title": "Delta Air Lines Efficiency Analysis: An Operational Audit Based on Four Years of US Flight Data",
+    "section": "The Data",
+    "text": "The Data\nThe dataset comes from the US Department of Transport’s Bureau of Transport Statistics — “Marketing Carrier On-Time Performance” database, covering 2019 to 2022. It contains 26 million commercial domestic flight records across 21 airlines and 375 airports. For this analysis, I worked with a curated subset of the database of 66 variables, covering the key operational variables: scheduled and actual departure and arrival times, delay causes broken down by category, taxi times, and cancellation flags.\nFor the analysis, I restricted metrics to operated flights only — cancelled and diverted flights were excluded from delay and elapsed-time calculations. For route-level aggregations, I applied a minimum threshold of 100 flights per route to ensure statistical reliability."
+  },
+  {
+    "objectID": "delta.html#the-us-aviation-market",
+    "href": "delta.html#the-us-aviation-market",
+    "title": "Delta Air Lines Efficiency Analysis: An Operational Audit Based on Four Years of US Flight Data",
+    "section": "The US Aviation Market",
+    "text": "The US Aviation Market\nThe US domestic market is dominated by a small number of carriers. Southwest is the largest single airline at 17.8% of all flights, but it operates a point-to-point model with no hubs — which makes it structurally different from legacy carriers when comparing operational metrics. The Big 3 legacy carriers — American, Delta, and United — together account for 35% of domestic flights. It’s also worth noting that regional carriers like SkyWest and Endeavour operate largely under Delta’s network, meaning Delta’s real operational footprint is larger than its headline share suggests.\n\n\n\nUS Domestic Flight Volume by Airline (2019-2022)\n\n\nGeographically, the picture is clear: Delta dominates the Southeast and the Northern corridor, while Southwest controls the West and many secondary cities. These patterns matter: an airline’s operational efficiency is shaped by the airports it dominates and the competitors it faces.\n\n\n\nUS Airport Traffic — Dominant Airline per Airport"
+  },
+  {
+    "objectID": "delta.html#deltas-strategic-position",
+    "href": "delta.html#deltas-strategic-position",
+    "title": "Delta Air Lines Efficiency Analysis: An Operational Audit Based on Four Years of US Flight Data",
+    "section": "Delta’s Strategic Position",
+    "text": "Delta’s Strategic Position\nDelta operates close to 500 routes. Looking at its top 100 by flight volume, 20 of them are near-monopoly routes where Delta holds more than 85% of departures — concentrated heavily around its hub network.\n\n\n\nDelta’s Top 100 Routes\n\n\nAt the airport level, the concentration is even starker. Delta controls over 60% of all departures at the world’s busiest airport, Atlanta (ATL). Outside its hubs, the picture is more competitive: at JFK, for example, Delta’s share drops to around 24%. This distinction between Delta’s monopoly strongholds and its contested markets will come back in the performance analysis.\n\n\n\nTop 15 Airports by Delta Market Share"
+  },
+  {
+    "objectID": "delta.html#three-pillars-of-operational-efficiency",
+    "href": "delta.html#three-pillars-of-operational-efficiency",
+    "title": "Delta Air Lines Efficiency Analysis: An Operational Audit Based on Four Years of US Flight Data",
+    "section": "Three Pillars of Operational Efficiency",
+    "text": "Three Pillars of Operational Efficiency\nI structured the audit around three dimensions: delays, schedule adherence, and ground time.\n\n1 — Delays\n\nFrequency\nIn 2022, 15.4% of Delta flights were delayed by more than 15 minutes, making it the best performer among the Big 3 legacy carriers, and below the industry average of 20.3%. Delta also leads in early arrivals — which is a good result on paper, but raises an immediate question: is this genuine operational excellence, or is Delta simply scheduling more time than routes require? I’ll address that in the schedule adherence section.\n\n\n\nFlight Reliability by Airline\n\n\n\n\nCauses\nWhen Delta is late, the causes are mostly self-inflicted.\n\n\n\nDelta Delay Attribution 2022\n\n\n78.5% of Delta’s total delay minutes are controllable — either carrier delays (maintenance, crew, operations) at 52%, or late aircraft delays at 27%. The remaining 21.5% come from external factors like weather or Air Traffic Control.\nWhat’s concerning is the trend: Delta’s share of controllable delay minutes has risen steadily from 65% in 2019 to 79% in 2022. This is broadly in line with the industry average (around 78%), but the upward trajectory is specific to Delta and worth monitoring.\n\n\nSeverity\nWhen delays do occur, most are relatively contained. About 68.6% of delays are under 30 minutes, and the median delay is only 16 minutes. However, the mean is 39 minutes — a significant gap driven by a tail of severe disruptions. 5.4% of delayed flights are over 2 hours. Most passengers experience short delays; a minority experience very long ones.\n\n\n\nDelta Delay Intensity Distribution\n\n\n\n\nCascade Effect\nOne of the more interesting findings concerns how delays propagate through the day. By tracking individual aircraft through their daily schedules, I found that when a flight starts the day 30 to 60 minutes late, subsequent flights on the same aircraft still run an average of 18 minutes behind.\n\n\n\nCascade Effect\n\n\nThis is the cascade effect in numbers: 27% of Delta’s total delay minutes are attributed to late aircraft, meaning delays from earlier in the day carry over into later flights. Delays are not isolated events, they’re systemic, and a disruption at 7am can still be felt at 9pm across the network.\n\n\n\n2 — Schedule Adherence\nThe question of whether Delta’s on-time performance is earned or bought comes down to schedule adherence. I measured this using a Schedule Adherence Ratio (SAR) — the ratio of actual block time to scheduled block time. A SAR of 1.0 means the schedule is honest; below 0.93 suggests padding.\nDelta’s median SAR is 0.94, meaning flights land about 6% earlier than the published schedule. 28% of routes show clear padding, with a median buffer of 8 minutes per flight. On those routes, flights are simply scheduled longer than they need to be.\n\n\n\nGRAPH: Does Schedule Padding Buy On-Time Performance?\n\n\nThe scatter plot makes the effect visible: padded routes tend to have higher on-time rates, and there’s a negative correlation (r = −0.21) between SAR and punctuality. Delta uses schedule inflation as a buffer, and it works. That doesn’t mean it’s necessarily bad practice — padding is a common industry tool — but it does mean the headline on-time figure overstates pure operational quality to some degree.\n\n\n3 — Ground Time\nThe final pillar is ground efficiency: how quickly Delta turns its aircraft compared to competitors at the same airports. I built a Ground Time Index (GTI) — the ratio of Delta’s median turnaround time (taxi-out + taxi-in) to all airlines’ median at the same airport. A GTI below 1.0 means Delta is faster.\nDelta’s average GTI across all airports is 0.915 — roughly 8.5% faster than the industry average. At ATL, its home hub, the advantage is even sharper: 10% faster than competitors, even at the world’s busiest airport. The home advantage is real.\n\n\n\nGRAPH: Ground Time Index by Airport — Delta vs. Competitors 2022, bar chart\n\n\nThere is, however, a notable exception. At airports dominated by Southwest — such as HOU, MDW, or SAN — Delta’s GTI exceeds 1.0, meaning it’s slower than competitors there. My interpretation is structural: Southwest’s entire business model is built around fast ground turns, often at the cost of higher delay rates. At airports where Southwest sets the operational tempo, Delta’s turnaround model doesn’t translate."
+  },
+  {
+    "objectID": "delta.html#toward-a-composite-efficiency-score",
+    "href": "delta.html#toward-a-composite-efficiency-score",
+    "title": "Delta Air Lines Efficiency Analysis: An Operational Audit Based on Four Years of US Flight Data",
+    "section": "Toward a Composite Efficiency Score",
+    "text": "Toward a Composite Efficiency Score\nThe next step is to consolidate these metrics into a single comparable score. I designed a composite Efficiency Score combining four components:\n\n\n\nComponent\nWhat it captures\n\n\n\n\nOn-Time Rate\nFrequency of failure from the passenger’s view\n\n\nDelay Severity\nMagnitude when delays do occur\n\n\nSchedule Honesty (SAR)\nWhether performance is earned or padded\n\n\nGround Time Index\nOperational execution speed\n\n\n\nEach metric is directionally aligned (higher = better) and normalized across the peer group using min-max scaling. The final score is a weighted average:\nEfficiency Score = 0.35 × On-Time Rate + 0.25 × Severity Score + 0.25 × Schedule Honesty + 0.15 × Ground Time Index\nThe weights reflect passenger impact: punctuality matters most, followed by how bad delays are when they happen and whether the schedule is honest, then ground execution. The framework is modular, components can be adjusted, replaced, or applied at the route level rather than the airline level."
+  },
+  {
+    "objectID": "delta.html#whats-next",
+    "href": "delta.html#whats-next",
+    "title": "Delta Air Lines Efficiency Analysis: An Operational Audit Based on Four Years of US Flight Data",
+    "section": "What’s Next",
+    "text": "What’s Next\nThis analysis raises as many questions as it answers. The most compelling extension would be applying the score at the route level, particularly comparing Delta’s monopoly routes to its competitive ones. Does Delta relax its operations where it faces no competition?\nOther directions worth exploring:\n\nthe performance contrast between ATL and JFK airports as operationally distinct hubs;\nthe role of cancellations and diversions (excluded from this analysis) as potential indicators of systemic issues;\nthe evolution of Delta’s network from 2019 to 2022, capturing post-COVID recovery and route restructuring.\n\n\nData source:\nUS Department of Transport, Bureau of Transport Statistics — “Marketing Carrier On-Time Performance” database, 2019–2022. All statistics computed from the data."
   }
 ]

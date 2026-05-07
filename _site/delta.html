@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-05-07">
+<meta name="keywords" content="Data analysis and exploration, Operational KPI, Aviation Data">
 
-<title>about – Solène Berney</title>
+<title>Delta Air Lines Efficiency Analysis: An Operational Audit Based on Four Years of US Flight Data – Solène Berney</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,41 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -164,24 +131,235 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The Data</a></li>
+  <li><a href="#the-us-aviation-market" id="toc-the-us-aviation-market" class="nav-link" data-scroll-target="#the-us-aviation-market">The US Aviation Market</a></li>
+  <li><a href="#deltas-strategic-position" id="toc-deltas-strategic-position" class="nav-link" data-scroll-target="#deltas-strategic-position">Delta’s Strategic Position</a></li>
+  <li><a href="#three-pillars-of-operational-efficiency" id="toc-three-pillars-of-operational-efficiency" class="nav-link" data-scroll-target="#three-pillars-of-operational-efficiency">Three Pillars of Operational Efficiency</a>
+  <ul class="collapse">
+  <li><a href="#delays" id="toc-delays" class="nav-link" data-scroll-target="#delays">1 — Delays</a></li>
+  <li><a href="#schedule-adherence" id="toc-schedule-adherence" class="nav-link" data-scroll-target="#schedule-adherence">2 — Schedule Adherence</a></li>
+  <li><a href="#ground-time" id="toc-ground-time" class="nav-link" data-scroll-target="#ground-time">3 — Ground Time</a></li>
+  </ul></li>
+  <li><a href="#toward-a-composite-efficiency-score" id="toc-toward-a-composite-efficiency-score" class="nav-link" data-scroll-target="#toward-a-composite-efficiency-score">Toward a Composite Efficiency Score</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s Next</a>
+  <ul class="collapse">
+  <li><a href="#data-source" id="toc-data-source" class="nav-link" data-scroll-target="#data-source">Data source:</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
 
-
-
-
-<p>About this site</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
-</div>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Delta Air Lines Efficiency Analysis: An Operational Audit Based on Four Years of US Flight Data</h1>
 </div>
 
 
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Solène Berney </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 7, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>Data analysis and exploration, Operational KPI, Aviation Data</p>
+  </div>
+</div>
+
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>How do you measure whether an airline is actually operating well — not just according to its marketing, but across its full network? That’s the question I set out to answer in this project. Using four years of publicly available US domestic flight data, I conducted a deep operational audit of Delta Air Lines: examining delay frequency and causes, schedule honesty, and ground efficiency. The goal was to go beyond a single headline metric and build a composite performance score that could be used to benchmark airlines against one another.</p>
+</section>
+<section id="the-data" class="level2">
+<h2 class="anchored" data-anchor-id="the-data">The Data</h2>
+<p>The dataset comes from the US Department of Transport’s Bureau of Transport Statistics — “Marketing Carrier On-Time Performance” database, covering 2019 to 2022. It contains 26 million commercial domestic flight records across 21 airlines and 375 airports. For this analysis, I worked with a curated subset of the database of 66 variables, covering the key operational variables: scheduled and actual departure and arrival times, delay causes broken down by category, taxi times, and cancellation flags.</p>
+<p>For the analysis, I restricted metrics to operated flights only — cancelled and diverted flights were excluded from delay and elapsed-time calculations. For route-level aggregations, I applied a minimum threshold of 100 flights per route to ensure statistical reliability.</p>
+</section>
+<section id="the-us-aviation-market" class="level2">
+<h2 class="anchored" data-anchor-id="the-us-aviation-market">The US Aviation Market</h2>
+<p>The US domestic market is dominated by a small number of carriers. Southwest is the largest single airline at 17.8% of all flights, but it operates a point-to-point model with no hubs — which makes it structurally different from legacy carriers when comparing operational metrics. The Big 3 legacy carriers — American, Delta, and United — together account for 35% of domestic flights. It’s also worth noting that regional carriers like SkyWest and Endeavour operate largely under Delta’s network, meaning Delta’s real operational footprint is larger than its headline share suggests.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/market_structure.png" class="img-fluid figure-img"></p>
+<figcaption>US Domestic Flight Volume by Airline (2019-2022)</figcaption>
+</figure>
+</div>
+<p>Geographically, the picture is clear: Delta dominates the Southeast and the Northern corridor, while Southwest controls the West and many secondary cities. These patterns matter: an airline’s operational efficiency is shaped by the airports it dominates and the competitors it faces.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/bubble_map_airline.png" class="img-fluid figure-img"></p>
+<figcaption>US Airport Traffic — Dominant Airline per Airport</figcaption>
+</figure>
+</div>
+</section>
+<section id="deltas-strategic-position" class="level2">
+<h2 class="anchored" data-anchor-id="deltas-strategic-position">Delta’s Strategic Position</h2>
+<p>Delta operates close to 500 routes. Looking at its top 100 by flight volume, 20 of them are near-monopoly routes where Delta holds more than 85% of departures — concentrated heavily around its hub network.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/top100_routes.png" class="img-fluid figure-img"></p>
+<figcaption>Delta’s Top 100 Routes</figcaption>
+</figure>
+</div>
+<p>At the airport level, the concentration is even starker. Delta controls over 60% of all departures at the world’s busiest airport, Atlanta (ATL). Outside its hubs, the picture is more competitive: at JFK, for example, Delta’s share drops to around 24%. This distinction between Delta’s monopoly strongholds and its contested markets will come back in the performance analysis.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/airports_market_share.png" class="img-fluid figure-img"></p>
+<figcaption>Top 15 Airports by Delta Market Share</figcaption>
+</figure>
+</div>
+</section>
+<section id="three-pillars-of-operational-efficiency" class="level2">
+<h2 class="anchored" data-anchor-id="three-pillars-of-operational-efficiency">Three Pillars of Operational Efficiency</h2>
+<p>I structured the audit around three dimensions: <strong>delays, schedule adherence, and ground time</strong>.</p>
+<section id="delays" class="level3">
+<h3 class="anchored" data-anchor-id="delays">1 — Delays</h3>
+<section id="frequency" class="level4">
+<h4 class="anchored" data-anchor-id="frequency">Frequency</h4>
+<p>In 2022, 15.4% of Delta flights were delayed by more than 15 minutes, making it the best performer among the Big 3 legacy carriers, and below the industry average of 20.3%. Delta also leads in early arrivals — which is a good result on paper, but raises an immediate question: is this genuine operational excellence, or is Delta simply scheduling more time than routes require? I’ll address that in the schedule adherence section.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/reliability.png" class="img-fluid figure-img" width="610"></p>
+<figcaption>Flight Reliability by Airline</figcaption>
+</figure>
+</div>
+</section>
+<section id="causes" class="level4">
+<h4 class="anchored" data-anchor-id="causes">Causes</h4>
+<p>When Delta is late, the causes are mostly self-inflicted.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/causes_donut.png" class="img-fluid figure-img" width="480"></p>
+<figcaption>Delta Delay Attribution 2022</figcaption>
+</figure>
+</div>
+<p>78.5% of Delta’s total delay minutes are controllable — either carrier delays (maintenance, crew, operations) at 52%, or late aircraft delays at 27%. The remaining 21.5% come from external factors like weather or Air Traffic Control.</p>
+<p>What’s concerning is the trend: Delta’s share of controllable delay minutes has risen steadily from 65% in 2019 to 79% in 2022. This is broadly in line with the industry average (around 78%), but the upward trajectory is specific to Delta and worth monitoring.</p>
+</section>
+<section id="severity" class="level4">
+<h4 class="anchored" data-anchor-id="severity">Severity</h4>
+<p>When delays do occur, most are relatively contained. About 68.6% of delays are under 30 minutes, and the median delay is only 16 minutes. However, the mean is 39 minutes — a significant gap driven by a tail of severe disruptions. 5.4% of delayed flights are over 2 hours. Most passengers experience short delays; a minority experience very long ones.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/intensity_histo.png" class="img-fluid figure-img"></p>
+<figcaption>Delta Delay Intensity Distribution</figcaption>
+</figure>
+</div>
+</section>
+<section id="cascade-effect" class="level4">
+<h4 class="anchored" data-anchor-id="cascade-effect">Cascade Effect</h4>
+<p>One of the more interesting findings concerns how delays propagate through the day. By tracking individual aircraft through their daily schedules, I found that when a flight starts the day 30 to 60 minutes late, subsequent flights on the same aircraft still run an average of 18 minutes behind.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/cascade_delay.png" class="img-fluid figure-img" width="460"></p>
+<figcaption>Cascade Effect</figcaption>
+</figure>
+</div>
+<p>This is the cascade effect in numbers: 27% of Delta’s total delay minutes are attributed to late aircraft, meaning delays from earlier in the day carry over into later flights. Delays are not isolated events, they’re systemic, and a disruption at 7am can still be felt at 9pm across the network.</p>
+</section>
+</section>
+<section id="schedule-adherence" class="level3">
+<h3 class="anchored" data-anchor-id="schedule-adherence">2 — Schedule Adherence</h3>
+<p>The question of whether Delta’s on-time performance is earned or bought comes down to schedule adherence. I measured this using a Schedule Adherence Ratio (SAR) — the ratio of actual block time to scheduled block time. A SAR of 1.0 means the schedule is honest; below 0.93 suggests padding.</p>
+<p>Delta’s median SAR is 0.94, meaning flights land about 6% earlier than the published schedule. 28% of routes show clear padding, with a median buffer of 8 minutes per flight. On those routes, flights are simply scheduled longer than they need to be.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/sar.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>GRAPH: Does Schedule Padding Buy On-Time Performance?</figcaption>
+</figure>
+</div>
+<p>The scatter plot makes the effect visible: padded routes tend to have higher on-time rates, and there’s a negative correlation (r = −0.21) between SAR and punctuality. Delta uses schedule inflation as a buffer, and it works. That doesn’t mean it’s necessarily bad practice — padding is a common industry tool — but it does mean the headline on-time figure overstates pure operational quality to some degree.</p>
+</section>
+<section id="ground-time" class="level3">
+<h3 class="anchored" data-anchor-id="ground-time">3 — Ground Time</h3>
+<p>The final pillar is ground efficiency: how quickly Delta turns its aircraft compared to competitors at the same airports. I built a Ground Time Index (GTI) — the ratio of Delta’s median turnaround time (taxi-out + taxi-in) to all airlines’ median at the same airport. A GTI below 1.0 means Delta is faster.</p>
+<p>Delta’s average GTI across all airports is 0.915 — roughly 8.5% faster than the industry average. At ATL, its home hub, the advantage is even sharper: 10% faster than competitors, even at the world’s busiest airport. The home advantage is real.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/delta-images/GTI_bar_chart copy.png" class="img-fluid figure-img" width="470"></p>
+<figcaption>GRAPH: Ground Time Index by Airport — Delta vs.&nbsp;Competitors 2022, bar chart</figcaption>
+</figure>
+</div>
+<p>There is, however, a notable exception. At airports dominated by Southwest — such as HOU, MDW, or SAN — Delta’s GTI exceeds 1.0, meaning it’s slower than competitors there. My interpretation is structural: Southwest’s entire business model is built around fast ground turns, often at the cost of higher delay rates. At airports where Southwest sets the operational tempo, Delta’s turnaround model doesn’t translate.</p>
+</section>
+</section>
+<section id="toward-a-composite-efficiency-score" class="level2">
+<h2 class="anchored" data-anchor-id="toward-a-composite-efficiency-score">Toward a Composite Efficiency Score</h2>
+<p>The next step is to consolidate these metrics into a single comparable score. I designed a composite Efficiency Score combining four components:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>What it captures</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>On-Time Rate</td>
+<td>Frequency of failure from the passenger’s view</td>
+</tr>
+<tr class="even">
+<td>Delay Severity</td>
+<td>Magnitude when delays do occur</td>
+</tr>
+<tr class="odd">
+<td>Schedule Honesty (SAR)</td>
+<td>Whether performance is earned or padded</td>
+</tr>
+<tr class="even">
+<td>Ground Time Index</td>
+<td>Operational execution speed</td>
+</tr>
+</tbody>
+</table>
+<p>Each metric is directionally aligned (higher = better) and normalized across the peer group using min-max scaling. The final score is a weighted average:</p>
+<p>Efficiency Score = 0.35 × On-Time Rate + 0.25 × Severity Score + 0.25 × Schedule Honesty + 0.15 × Ground Time Index</p>
+<p>The weights reflect passenger impact: punctuality matters most, followed by how bad delays are when they happen and whether the schedule is honest, then ground execution. The framework is modular, components can be adjusted, replaced, or applied at the route level rather than the airline level.</p>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s Next</h2>
+<p>This analysis raises as many questions as it answers. The most compelling extension would be applying the score at the route level, particularly comparing Delta’s monopoly routes to its competitive ones. Does Delta relax its operations where it faces no competition?</p>
+<p>Other directions worth exploring:</p>
+<ul>
+<li>the performance contrast between ATL and JFK airports as operationally distinct hubs;</li>
+<li>the role of cancellations and diversions (excluded from this analysis) as potential indicators of systemic issues;</li>
+<li>the evolution of Delta’s network from 2019 to 2022, capturing post-COVID recovery and route restructuring.</li>
+</ul>
+<section id="data-source" class="level3">
+<h3 class="anchored" data-anchor-id="data-source">Data source:</h3>
+<p><a href="https://www.transtats.bts.gov/Fields.asp?gnoyr_VQ=FGK">US Department of Transport, Bureau of Transport Statistics — “Marketing Carrier On-Time Performance” database, 2019–2022</a>. All statistics computed from the data.</p>
+
+
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

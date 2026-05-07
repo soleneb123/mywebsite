@@ -13,6 +13,9 @@ website:
         text: Strava API
       - href: Hackathon.qmd
         text: Hackathon
+      - href: delta.qmd
+        text: Data Exploration
+        
         
     right:
       - icon: linkedin
