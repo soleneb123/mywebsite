@@ -146,15 +146,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#deltas-strategic-position" id="toc-deltas-strategic-position" class="nav-link" data-scroll-target="#deltas-strategic-position">Delta’s Strategic Position</a></li>
   <li><a href="#three-pillars-of-operational-efficiency" id="toc-three-pillars-of-operational-efficiency" class="nav-link" data-scroll-target="#three-pillars-of-operational-efficiency">Three Pillars of Operational Efficiency</a>
   <ul class="collapse">
-  <li><a href="#delays" id="toc-delays" class="nav-link" data-scroll-target="#delays">1 — Delays</a></li>
   <li><a href="#schedule-adherence" id="toc-schedule-adherence" class="nav-link" data-scroll-target="#schedule-adherence">2 — Schedule Adherence</a></li>
   <li><a href="#ground-time" id="toc-ground-time" class="nav-link" data-scroll-target="#ground-time">3 — Ground Time</a></li>
   </ul></li>
   <li><a href="#toward-a-composite-efficiency-score" id="toc-toward-a-composite-efficiency-score" class="nav-link" data-scroll-target="#toward-a-composite-efficiency-score">Toward a Composite Efficiency Score</a></li>
-  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s Next</a>
-  <ul class="collapse">
-  <li><a href="#data-source" id="toc-data-source" class="nav-link" data-scroll-target="#data-source">Data source:</a></li>
-  </ul></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s Next</a></li>
   </ul>
 </nav>
     </div>
@@ -243,11 +239,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="three-pillars-of-operational-efficiency" class="level2">
 <h2 class="anchored" data-anchor-id="three-pillars-of-operational-efficiency">Three Pillars of Operational Efficiency</h2>
-<p>I structured the audit around three dimensions: <strong>delays, schedule adherence, and ground time</strong>.</p>
-<section id="delays" class="level3">
-<h3 class="anchored" data-anchor-id="delays">1 — Delays</h3>
-<section id="frequency" class="level4">
-<h4 class="anchored" data-anchor-id="frequency">Frequency</h4>
+<p>I structured the audit around three dimensions: <strong>delays, schedule adherence, and ground time</strong>. ### 1 — Delays #### Frequency</p>
 <p>In 2022, 15.4% of Delta flights were delayed by more than 15 minutes, making it the best performer among the Big 3 legacy carriers, and below the industry average of 20.3%. Delta also leads in early arrivals — which is a good result on paper, but raises an immediate question: is this genuine operational excellence, or is Delta simply scheduling more time than routes require? I’ll address that in the schedule adherence section.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -255,7 +247,6 @@ ul.task-list li input[type="checkbox"] {
 <figcaption>Flight Reliability by Airline</figcaption>
 </figure>
 </div>
-</section>
 <section id="causes" class="level4">
 <h4 class="anchored" data-anchor-id="causes">Causes</h4>
 <p>When Delta is late, the causes are mostly self-inflicted.</p>
@@ -270,7 +261,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="severity" class="level4">
 <h4 class="anchored" data-anchor-id="severity">Severity</h4>
-<p>When delays do occur, most are relatively contained. About 68.6% of delays are under 30 minutes, and the median delay is only 16 minutes. However, the mean is 39 minutes — a significant gap driven by a tail of severe disruptions. 5.4% of delayed flights are over 2 hours. Most passengers experience short delays; a minority experience very long ones.</p>
+<p>When delays do occur, most are relatively contained. About 68.6% of delays are under 30 minutes, and the median delay is only 16 minutes. However, the mean is 39 minutes — a significant gap driven by a tail of severe disruptions. 5.4% of delayed flights are over 2 hours.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/delta-images/intensity_histo.png" class="img-fluid figure-img"></p>
@@ -280,15 +271,14 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="cascade-effect" class="level4">
 <h4 class="anchored" data-anchor-id="cascade-effect">Cascade Effect</h4>
-<p>One of the more interesting findings concerns how delays propagate through the day. By tracking individual aircraft through their daily schedules, I found that when a flight starts the day 30 to 60 minutes late, subsequent flights on the same aircraft still run an average of 18 minutes behind.</p>
+<p>Delays are not isolated events, but are systemic and propagate through the day. By tracking individual aircraft through their daily schedules, I found that when a flight starts the day 30 to 60 minutes late, subsequent flights on the same aircraft still run an average of 18 minutes behind.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/delta-images/cascade_delay.png" class="img-fluid figure-img" width="460"></p>
 <figcaption>Cascade Effect</figcaption>
 </figure>
 </div>
-<p>This is the cascade effect in numbers: 27% of Delta’s total delay minutes are attributed to late aircraft, meaning delays from earlier in the day carry over into later flights. Delays are not isolated events, they’re systemic, and a disruption at 7am can still be felt at 9pm across the network.</p>
-</section>
+<p>This is the cascade effect in numbers: 27% of Delta’s total delay minutes are attributed to late aircraft, meaning delays from earlier in the day carry over into later flights.</p>
 </section>
 <section id="schedule-adherence" class="level3">
 <h3 class="anchored" data-anchor-id="schedule-adherence">2 — Schedule Adherence</h3>
@@ -297,7 +287,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/delta-images/sar.png" class="img-fluid figure-img" width="500"></p>
-<figcaption>GRAPH: Does Schedule Padding Buy On-Time Performance?</figcaption>
+<figcaption>Does Schedule Padding Buy On-Time Performance?</figcaption>
 </figure>
 </div>
 <p>The scatter plot makes the effect visible: padded routes tend to have higher on-time rates, and there’s a negative correlation (r = −0.21) between SAR and punctuality. Delta uses schedule inflation as a buffer, and it works. That doesn’t mean it’s necessarily bad practice — padding is a common industry tool — but it does mean the headline on-time figure overstates pure operational quality to some degree.</p>
@@ -309,7 +299,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/delta-images/GTI_bar_chart copy.png" class="img-fluid figure-img" width="470"></p>
-<figcaption>GRAPH: Ground Time Index by Airport — Delta vs.&nbsp;Competitors 2022, bar chart</figcaption>
+<figcaption>Ground Time Index by Airport — Delta vs.&nbsp;Competitors 2022, bar chart</figcaption>
 </figure>
 </div>
 <p>There is, however, a notable exception. At airports dominated by Southwest — such as HOU, MDW, or SAN — Delta’s GTI exceeds 1.0, meaning it’s slower than competitors there. My interpretation is structural: Southwest’s entire business model is built around fast ground turns, often at the cost of higher delay rates. At airports where Southwest sets the operational tempo, Delta’s turnaround model doesn’t translate.</p>
@@ -357,12 +347,10 @@ ul.task-list li input[type="checkbox"] {
 <li>the role of cancellations and diversions (excluded from this analysis) as potential indicators of systemic issues;</li>
 <li>the evolution of Delta’s network from 2019 to 2022, capturing post-COVID recovery and route restructuring.</li>
 </ul>
-<section id="data-source" class="level3">
-<h3 class="anchored" data-anchor-id="data-source">Data source:</h3>
-<p><a href="https://www.transtats.bts.gov/Fields.asp?gnoyr_VQ=FGK">US Department of Transport, Bureau of Transport Statistics — “Marketing Carrier On-Time Performance” database, 2019–2022</a>. All statistics computed from the data.</p>
+<hr>
+<p><em><a href="https://www.transtats.bts.gov/Fields.asp?gnoyr_VQ=FGK">US Department of Transport, Bureau of Transport Statistics — “Marketing Carrier On-Time Performance” database, 2019–2022</a>. All statistics computed from the data.</em></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
