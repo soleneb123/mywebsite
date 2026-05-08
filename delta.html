@@ -146,6 +146,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#deltas-strategic-position" id="toc-deltas-strategic-position" class="nav-link" data-scroll-target="#deltas-strategic-position">Delta’s Strategic Position</a></li>
   <li><a href="#three-pillars-of-operational-efficiency" id="toc-three-pillars-of-operational-efficiency" class="nav-link" data-scroll-target="#three-pillars-of-operational-efficiency">Three Pillars of Operational Efficiency</a>
   <ul class="collapse">
+  <li><a href="#delays" id="toc-delays" class="nav-link" data-scroll-target="#delays">1 — Delays</a></li>
   <li><a href="#schedule-adherence" id="toc-schedule-adherence" class="nav-link" data-scroll-target="#schedule-adherence">2 — Schedule Adherence</a></li>
   <li><a href="#ground-time" id="toc-ground-time" class="nav-link" data-scroll-target="#ground-time">3 — Ground Time</a></li>
   </ul></li>
@@ -200,19 +201,19 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="the-data" class="level2">
 <h2 class="anchored" data-anchor-id="the-data">The Data</h2>
-<p>The dataset comes from the US Department of Transport’s Bureau of Transport Statistics — “Marketing Carrier On-Time Performance” database, covering 2019 to 2022. It contains 26 million commercial domestic flight records across 21 airlines and 375 airports. For this analysis, I worked with a curated subset of the database of 66 variables, covering the key operational variables: scheduled and actual departure and arrival times, delay causes broken down by category, taxi times, and cancellation flags.</p>
+<p>The dataset comes from the US Department of Transport’s Bureau of Transport Statistics, “Marketing Carrier On-Time Performance” database, covering 2019 to 2022. It contains 26 million commercial domestic flight records across 21 airlines and 375 airports. For this analysis, I worked with a curated subset of the database of 66 variables, covering the key operational variables: scheduled and actual departure and arrival times, delay causes broken down by category, taxi times, and cancellation flags.</p>
 <p>For the analysis, I restricted metrics to operated flights only — cancelled and diverted flights were excluded from delay and elapsed-time calculations. For route-level aggregations, I applied a minimum threshold of 100 flights per route to ensure statistical reliability.</p>
 </section>
 <section id="the-us-aviation-market" class="level2">
 <h2 class="anchored" data-anchor-id="the-us-aviation-market">The US Aviation Market</h2>
-<p>The US domestic market is dominated by a small number of carriers. Southwest is the largest single airline at 17.8% of all flights, but it operates a point-to-point model with no hubs — which makes it structurally different from legacy carriers when comparing operational metrics. The Big 3 legacy carriers — American, Delta, and United — together account for 35% of domestic flights. It’s also worth noting that regional carriers like SkyWest and Endeavour operate largely under Delta’s network, meaning Delta’s real operational footprint is larger than its headline share suggests.</p>
+<p>The US domestic market is dominated by a small number of carriers. Southwest is the largest single airline at 17.8% of all flights, but it operates a point-to-point model with no hubs which makes it structurally different from legacy carriers when comparing operational metrics. The Big 3 legacy carriers - American, Delta, and United - together account for 35% of domestic flights. It’s also worth noting that regional carriers like SkyWest and Endeavour operate largely under Delta’s network, meaning Delta’s real operational footprint is larger than its headline share suggests.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/delta-images/market_structure.png" class="img-fluid figure-img"></p>
 <figcaption>US Domestic Flight Volume by Airline (2019-2022)</figcaption>
 </figure>
 </div>
-<p>Geographically, the picture is clear: Delta dominates the Southeast and the Northern corridor, while Southwest controls the West and many secondary cities. These patterns matter: an airline’s operational efficiency is shaped by the airports it dominates and the competitors it faces.</p>
+<p>Geographically, we see that Delta dominates the Southeast and the Northern corridor, while Southwest controls the West and many secondary cities. These patterns matter, as an airline’s operational efficiency is also shaped by the airports it dominates and the competitors it faces.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/delta-images/bubble_map_airline.png" class="img-fluid figure-img"></p>
@@ -222,7 +223,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="deltas-strategic-position" class="level2">
 <h2 class="anchored" data-anchor-id="deltas-strategic-position">Delta’s Strategic Position</h2>
-<p>Delta operates close to 500 routes. Looking at its top 100 by flight volume, 20 of them are near-monopoly routes where Delta holds more than 85% of departures — concentrated heavily around its hub network.</p>
+<p>Delta operates close to 500 routes. Looking at its top 100 by flight volume, 20 of them are near-monopoly routes where Delta holds more than 85% of departures concentrated heavily around its hub network.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/delta-images/top100_routes.png" class="img-fluid figure-img"></p>
@@ -239,7 +240,11 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="three-pillars-of-operational-efficiency" class="level2">
 <h2 class="anchored" data-anchor-id="three-pillars-of-operational-efficiency">Three Pillars of Operational Efficiency</h2>
-<p>I structured the audit around three dimensions: <strong>delays, schedule adherence, and ground time</strong>. ### 1 — Delays #### Frequency</p>
+<p>I structured the audit around three dimensions: <strong>delays, schedule adherence, and ground time</strong>.</p>
+<section id="delays" class="level3">
+<h3 class="anchored" data-anchor-id="delays">1 — Delays</h3>
+<section id="frequency" class="level4">
+<h4 class="anchored" data-anchor-id="frequency">Frequency</h4>
 <p>In 2022, 15.4% of Delta flights were delayed by more than 15 minutes, making it the best performer among the Big 3 legacy carriers, and below the industry average of 20.3%. Delta also leads in early arrivals — which is a good result on paper, but raises an immediate question: is this genuine operational excellence, or is Delta simply scheduling more time than routes require? I’ll address that in the schedule adherence section.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -247,6 +252,7 @@ ul.task-list li input[type="checkbox"] {
 <figcaption>Flight Reliability by Airline</figcaption>
 </figure>
 </div>
+</section>
 <section id="causes" class="level4">
 <h4 class="anchored" data-anchor-id="causes">Causes</h4>
 <p>When Delta is late, the causes are mostly self-inflicted.</p>
@@ -280,6 +286,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>This is the cascade effect in numbers: 27% of Delta’s total delay minutes are attributed to late aircraft, meaning delays from earlier in the day carry over into later flights.</p>
 </section>
+</section>
 <section id="schedule-adherence" class="level3">
 <h3 class="anchored" data-anchor-id="schedule-adherence">2 — Schedule Adherence</h3>
 <p>The question of whether Delta’s on-time performance is earned or bought comes down to schedule adherence. I measured this using a Schedule Adherence Ratio (SAR) — the ratio of actual block time to scheduled block time. A SAR of 1.0 means the schedule is honest; below 0.93 suggests padding.</p>
@@ -309,6 +316,10 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="toward-a-composite-efficiency-score">Toward a Composite Efficiency Score</h2>
 <p>The next step is to consolidate these metrics into a single comparable score. I designed a composite Efficiency Score combining four components:</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 66%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Component</th>
@@ -348,7 +359,7 @@ ul.task-list li input[type="checkbox"] {
 <li>the evolution of Delta’s network from 2019 to 2022, capturing post-COVID recovery and route restructuring.</li>
 </ul>
 <hr>
-<p><em><a href="https://www.transtats.bts.gov/Fields.asp?gnoyr_VQ=FGK">US Department of Transport, Bureau of Transport Statistics — “Marketing Carrier On-Time Performance” database, 2019–2022</a>. All statistics computed from the data.</em></p>
+<p><a href="https://www.transtats.bts.gov/Fields.asp?gnoyr_VQ=FGK"><em>US Department of Transport, Bureau of Transport Statistics — “Marketing Carrier On-Time Performance” database, 2019–2022</em></a><em>. All statistics computed from the data.</em></p>
 
 
 </section>
